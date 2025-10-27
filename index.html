@@ -91,6 +91,26 @@
       font-size: .7rem;
       margin-top: 3rem;
     }
+        .thumb {
+      background: #0f0f10;
+      border: 1px solid #2a2a33;
+      border-radius: .5rem;
+      overflow: hidden;
+      width: 100%;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: .75rem;
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
   </style>
 </head>
 <body>
@@ -110,19 +130,25 @@
 
       <!-- CARD EXAMPLE 1 -->
       <div class="card">
-        <div class="title">Item Slicer</div>
-        <div class="meta">
-          Best for: 
-          <br/>Format: Portrait
-        </div>
-        <div class="actions">
-          <a class="play-btn" target="_blank"
-            href="https://play.preview.craftsmanplus.com/preview/?playable=cTaXPjLCHdr%2FVUvS9aILvH8%2F451293531&companyId=cTaXPjLCHdr&creativeId=VUvS9aILvH8&name=Item%20Slicer&portrait=true&ratio=2:1">
-            Play Now ↗
-          </a>
-        </div>
-      </div>
+  <div class="title">Item Slicer</div>
+  <div class="meta">
+    Best for: commerce, casino, UA performance.<br/>
+    Format: Portrait
+  </div>
 
+  <!-- NEW: thumbnail area -->
+  <div class="thumb">
+    <img src="item-slicer.png" alt="Item Slicer preview" />
+  </div>
+
+  <div class="actions">
+    <a class="play-btn" target="_blank"
+      href="https://play.preview.craftsmanplus.com/preview/?playable=cTaXPjLCHdr%2FVUvS9aILvH8%2F451293531&companyId=cTaXPjLCHdr&creativeId=VUvS9aILvH8&name=Item%20Slicer&portrait=true&ratio=2:1">
+      Play Now ↗
+    </a>
+  </div>
+</div>
+      
       <!-- CARD EXAMPLE 2 -->
       <div class="card">
         <div class="title">Item Catcher</div>
