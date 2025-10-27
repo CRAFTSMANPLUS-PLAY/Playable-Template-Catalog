@@ -4,10 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>CRAFTSMAN+ • Playable Template Catalog</title>
+
+  <!-- Google Font: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
   <style>
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Inter", Roboto, sans-serif;
-      background-color: #0f0f10;
+      font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Inter", Roboto, sans-serif;
+      background-color: #0B0E32;
       color: #fff;
       margin: 0;
       padding: 2rem;
@@ -20,11 +24,20 @@
     }
 
     header {
-      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .brand-logo {
+      height: 50px;
+      width: auto;
+      filter: brightness(0) invert(1);
     }
 
     h1 {
-      font-size: 1rem;
+      font-size: 1.2rem;
       font-weight: 600;
       color: #fff;
       margin: 0 0 .5rem;
@@ -37,8 +50,8 @@
     .pill {
       font-size: .7rem;
       font-weight: 500;
-      color: #9ca3af;
-      background: #1c1c21;
+      color: #e0e0e0;
+      background: #4A4A4A;
       border: 1px solid #2a2a33;
       border-radius: 999px;
       padding: .25rem .6rem;
@@ -53,7 +66,7 @@
 
     .grid {
       display: grid;
-      gap: 1rem;
+      gap: 1.5rem;
       grid-template-columns: repeat(auto-fit, minmax(min(320px,100%),1fr));
     }
 
@@ -61,62 +74,71 @@
       background: #1a1a1f;
       border: 1px solid #2a2a33;
       border-radius: .75rem;
-      padding: .75rem 1rem 1rem;
+      padding: 1rem;
       display: flex;
       flex-direction: column;
-      min-height: 320px; /* bumped up because we added thumbnail */
+      min-height: 480px;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: #4A4A4A;
     }
 
     .title {
-      font-size: .9rem;
+      font-size: 1rem;
       font-weight: 600;
       color: #fff;
       margin-bottom: .25rem;
     }
 
     .meta {
-      font-size: .7rem;
+      font-size: .75rem;
       color: #9ca3af;
       line-height: 1.4;
       margin-bottom: .75rem;
     }
 
-    /* thumbnail box */
     .thumb {
-  background: #0f0f10;
-  border: 1px solid #2a2a33;
-  border-radius: .5rem;
-  overflow: hidden;
-  width: 300px; /* sets width */
-  height: 411px; /* set the height you want for all previews */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: .75rem;
-}
+      background: #0B0E32;
+      border: 1px solid #2a2a33;
+      border-radius: .5rem;
+      overflow: hidden;
+      width: 100%;
+      height: 420px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: .75rem;
+    }
 
-.thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain; /* ensures full image is visible without cropping */
-  display: block;
-}
-
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
 
     .actions {
       margin-top: auto;
     }
 
     .play-btn {
-      font-size: .8rem;
+      font-size: .85rem;
       font-weight: 500;
       text-decoration: none;
       background: #2d2d35;
-      border: 1px solid #3a3a46;
+      border: 1px solid #4A4A4A;
       border-radius: .5rem;
-      padding: .5rem .75rem;
+      padding: .5rem .85rem;
       color: #fff;
       display: inline-block;
+      transition: background 0.2s ease;
+    }
+
+    .play-btn:hover {
+      background: #4A4A4A;
     }
 
     footer {
@@ -125,56 +147,32 @@
       font-size: .7rem;
       margin-top: 3rem;
     }
-        footer {
-      color: #4b5563;
-      text-align: center;
-      font-size: .7rem;
-      margin-top: 3rem;
-    }
-
-    /* --- Add hover effects here --- */
-    .card {
-      transition: transform 0.15s ease, border-color 0.15s ease;
-    }
-    .card:hover {
-      transform: translateY(-4px);
-      border-color: #3a3a46;
-    }
-    .play-btn:hover {
-      background: #3a3a46;
-    }
-
   </style>
 </head>
 
 <body>
   <div class="wrap">
     <header>
-      <h1>
-        <span>CRAFTSMAN+ PLAY</span>
-        <span class="pill">Template Catalog</span>
-        <span class="pill">For Partners</span>
-      </h1>
-      <div class="tagline">
-        Browse core interactive ad formats. Click "Play Now" to open and try live.
+      <img src="CraftsmanPlay-Light.png" alt="CRAFTSMAN+ Logo" class="brand-logo" />
+      <div>
+        <h1>
+          <span>CRAFTSMAN+ PLAY</span>
+          <span class="pill">Template Catalog</span>
+          <span class="pill">For Partners</span>
+        </h1>
+        <div class="tagline">
+          Browse core interactive ad formats. Click "Play Now" to open and try live.
+        </div>
       </div>
     </header>
 
     <main class="grid">
 
-      <!-- CARD 1: Item Slicer -->
+      <!-- CARD 1 -->
       <div class="card">
         <div class="title">Item Slicer</div>
-        <div class="meta">
-          Best for: <br/>
-          Format: Portrait
-        </div>
-
-        <div class="thumb">
-          <!-- make sure item-slicer.png exists in the same repo (same folder as index.html) -->
-          <img src="item-slicer.png" alt="Item Slicer preview" />
-        </div>
-
+        <div class="meta">Best for: commerce, casino, UA performance.<br/>Format: Portrait</div>
+        <div class="thumb"><img src="item-slicer.png" alt="Item Slicer preview" /></div>
         <div class="actions">
           <a class="play-btn" target="_blank"
             href="https://play.preview.craftsmanplus.com/preview/?playable=cTaXPjLCHdr%2FVUvS9aILvH8%2F451293531&companyId=cTaXPjLCHdr&creativeId=VUvS9aILvH8&name=Item%20Slicer&portrait=true&ratio=2:1">
@@ -183,40 +181,24 @@
         </div>
       </div>
 
-      <!-- CARD 2: Item Catcher -->
+      <!-- CARD 2 -->
       <div class="card">
         <div class="title">Item Catcher</div>
-        <div class="meta">
-          Best for: catcher/collection mechanic, personalization hooks.<br/>
-          Format: Portrait
-        </div>
-
-        <div class="thumb">
-          <!-- update this filename to whatever you uploaded -->
-          <img src="item-catcher.png" alt="Item Catcher preview" />
-        </div>
-
+        <div class="meta">Best for: catcher/collection mechanic, personalization hooks.<br/>Format: Portrait</div>
+        <div class="thumb"><img src="item-catcher.png" alt="Item Catcher preview" /></div>
         <div class="actions">
           <a class="play-btn" target="_blank"
-            href="https://play.preview.craftsmanplus.com/preview/?playable=cTaXPjLCHdr%2F4aD1q2eOJjC%2F966104155&companyId=cTaXPjLCHdr&creativeId=4aD1q2eOJjC&name=Item%20Catcher&portrait=true&ratio=2:1">
+            href="https://play.preview.craftsmanplus.com/preview/?playable=cTaXPjLCHdr%2F4aD1q2eOJjC%2F1175104584&companyId=cTaXPjLCHdr&creativeId=4aD1q2eOJjC&name=Item%20Catcher&portrait=true&ratio=2:1">
             Play Now ↗
           </a>
         </div>
       </div>
 
-      <!-- CARD 3: Memory Game -->
+      <!-- CARD 3 -->
       <div class="card">
         <div class="title">Memory Game</div>
-        <div class="meta">
-          Best for: recall/engagement mini-game, brand memory boost.<br/>
-          Format: Portrait
-        </div>
-
-        <div class="thumb">
-          <!-- update this filename to whatever you uploaded -->
-          <img src="memory-game.png" alt="Memory Game preview" />
-        </div>
-
+        <div class="meta">Best for: recall/engagement mini-game, brand memory boost.<br/>Format: Portrait</div>
+        <div class="thumb"><img src="memory.png" alt="Memory Game preview" /></div>
         <div class="actions">
           <a class="play-btn" target="_blank"
             href="https://play.preview.craftsmanplus.com/preview/?playable=cTaXPjLCHdr%2F28fUVyaJZdF%2F886093706&companyId=cTaXPjLCHdr&creativeId=28fUVyaJZdF&name=Memory%20Game&portrait=true&ratio=2:1">
@@ -225,7 +207,57 @@
         </div>
       </div>
 
-      <!-- duplicate more .card blocks here as needed -->
+      <!-- CARD 4 -->
+      <div class="card">
+        <div class="title">Product Carousel</div>
+        <div class="meta">Best for: showcasing multiple products, retail & ecommerce.<br/>Format: Portrait</div>
+        <div class="thumb"><img src="product-carousel.png" alt="Product Carousel preview" /></div>
+        <div class="actions">
+          <a class="play-btn" target="_blank"
+            href="https://play.preview.craftsmanplus.com/preview/?playable=cTaXPjLCHdr%2FFk3lq9uGiHG%2F1152461109&companyId=cTaXPjLCHdr&creativeId=Fk3lq9uGiHG&name=Product%20Carousel%20-%20Simple&portrait=true&ratio=2:1">
+            Play Now ↗
+          </a>
+        </div>
+      </div>
+
+      <!-- CARD 5 -->
+      <div class="card">
+        <div class="title">Scratcher</div>
+        <div class="meta">Best for: reveal-based gamification, engagement boost.<br/>Format: Portrait</div>
+        <div class="thumb"><img src="scratcher.png" alt="Scratcher preview" /></div>
+        <div class="actions">
+          <a class="play-btn" target="_blank"
+            href="https://play.preview.craftsmanplus.com/preview/?playable=cTaXPjLCHdr%2FQXR5mJDAO8T%2F2112649701&companyId=cTaXPjLCHdr&creativeId=QXR5mJDAO8T&name=Scratchers%20-%20Simple&portrait=true&ratio=2:1">
+            Play Now ↗
+          </a>
+        </div>
+      </div>
+
+      <!-- CARD 6 -->
+      <div class="card">
+        <div class="title">Match 3</div>
+        <div class="meta">Best for: interactive puzzle mechanics, retention loops.<br/>Format: Portrait</div>
+        <div class="thumb"><img src="match-3.png" alt="Match 3 preview" /></div>
+        <div class="actions">
+          <a class="play-btn" target="_blank"
+            href="https://play.preview.craftsmanplus.com/preview/?playable=cTaXPjLCHdr%2FDdYeUsJs9Se%2F1757634996&companyId=cTaXPjLCHdr&creativeId=DdYeUsJs9Se&name=Swap%20Match%203&portrait=true&ratio=2:1">
+            Play Now ↗
+          </a>
+        </div>
+      </div>
+
+      <!-- CARD 7 -->
+      <div class="card">
+        <div class="title">Car Colors</div>
+        <div class="meta">Best for: automotive, customization, color change experiences.<br/>Format: Portrait</div>
+        <div class="thumb"><img src="car-colors.png" alt="Car Colors preview" /></div>
+        <div class="actions">
+          <a class="play-btn" target="_blank"
+            href="https://play.preview.craftsmanplus.com/preview/?playable=cTaXPjLCHdr%2FsEDi1SZRHvM%2F1334455630&companyId=cTaXPjLCHdr&creativeId=sEDi1SZRHvM&name=Car%20Colors%20-%20Automatic&portrait=true&ratio=2:1">
+            Play Now ↗
+          </a>
+        </div>
+      </div>
 
     </main>
 
