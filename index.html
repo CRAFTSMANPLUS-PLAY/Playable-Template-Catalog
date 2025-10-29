@@ -190,7 +190,6 @@
     color: var(--text-faint);
   }
 
-  /* 4-wide grid on desktop, wrap on smaller */
   .card-grid {
     display: grid;
     gap: 16px;
@@ -212,7 +211,6 @@
     }
   }
 
-  /* Card */
   .catalog-card {
     display: flex;
     flex-direction: column;
@@ -373,18 +371,6 @@
 </footer>
 
 <script>
-/*
-  Data model for each item:
-  {
-    title: "Item Slicer",
-    genre: "Gaming",
-    endpointUrl: "https://....index.html",
-    previewUrl: "https://....",
-    hasAdvanced: true/false,
-    isBanner: true/false
-  }
-*/
-
 const RAW_ITEMS = [
   {"title":"Item Slicer","genre":"Gaming","endpointUrl":"https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/NeRCpLeVKNh/1991726563/index.html","previewUrl":"https://play.preview.craftsmanplus.com/preview/?playable=ATtIV70kACD%2FNeRCpLeVKNh%2F1991726563&companyId=ATtIV70kACD&creativeId=NeRCpLeVKNh&name=Item%20Slicer&portrait=true&ratio=2:1","hasAdvanced":false,"isBanner":false},
   {"title":"Memory","genre":"Other","endpointUrl":"https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/9UZQ9NQXhLv/996774169/index.html","previewUrl":"https://play.preview.craftsmanplus.com/preview/?playable=ATtIV70kACD%2F9UZQ9NQXhLv%2F996774169&companyId=ATtIV70kACD&creativeId=9UZQ9NQXhLv&name=Memory&portrait=true&ratio=2:1","hasAdvanced":false,"isBanner":false},
@@ -486,7 +472,7 @@ const RAW_ITEMS = [
   {"title":"Hidden Video","genre":"Other","endpointUrl":"https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/VUOOy3wq7rL/524435921/index.html","previewUrl":"https://play.preview.craftsmanplus.com/preview/?playable=ATtIV70kACD%2FVUOOy3wq7rL%2F524435921&companyId=ATtIV70kACD&creativeId=VUOOy3wq7rL&name=Hidden%20Video&portrait=true&ratio=2:1","hasAdvanced":false,"isBanner":false}
 ];
 
-// -------- util: group by genre --------
+// group items by genre
 function groupByGenre(items) {
   const map = {};
   items.forEach(it => {
@@ -497,12 +483,11 @@ function groupByGenre(items) {
   return map;
 }
 
-// -------- build one card DOM --------
+// build a single card
 function createCard(item, indexId) {
   const card = document.createElement("div");
   card.className = "catalog-card";
 
-  // header/top
   const top = document.createElement("div");
   top.className = "card-top";
 
@@ -523,7 +508,6 @@ function createCard(item, indexId) {
   titles.appendChild(titleEl);
   titles.appendChild(genreEl);
 
-  // advanced badge
   if (item.hasAdvanced) {
     const adv = document.createElement("div");
     adv.className = "adv-badge";
@@ -537,11 +521,9 @@ function createCard(item, indexId) {
     titles.appendChild(adv);
   }
 
-  // actions
   const actions = document.createElement("div");
   actions.className = "card-actions";
 
-  // ↗ raw unit
   const btnRaw = document.createElement("button");
   btnRaw.className = "icon-btn";
   btnRaw.title = "Open raw unit";
@@ -550,7 +532,6 @@ function createCard(item, indexId) {
     window.open(item.endpointUrl, "_blank");
   });
 
-  // 🔄 reset
   const btnReset = document.createElement("button");
   btnReset.className = "icon-btn";
   btnReset.title = "Restart playable";
@@ -562,7 +543,6 @@ function createCard(item, indexId) {
     }
   });
 
-  // ⛶ preview
   const btnPreview = document.createElement("button");
   btnPreview.className = "icon-btn";
   btnPreview.title = "Open PLAY preview";
@@ -582,7 +562,6 @@ function createCard(item, indexId) {
   top.appendChild(headrow);
   card.appendChild(top);
 
-  // iframe preview
   const iframeWrap = document.createElement("div");
   iframeWrap.className = "iframe-wrap";
 
@@ -594,11 +573,11 @@ function createCard(item, indexId) {
     "allow",
     "accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture;"
   );
+  // NOTE: removed iframeEl.setAttribute("loading", "lazy");
 
   iframeWrap.appendChild(iframeEl);
   card.appendChild(iframeWrap);
 
-  // footer/bottom
   const bottom = document.createElement("div");
   bottom.className = "card-bottom";
   bottom.textContent = item.endpointUrl;
@@ -608,17 +587,15 @@ function createCard(item, indexId) {
   return card;
 }
 
-// -------- build section DOM (Playables or Banners) --------
+// build a section (PLAYABLES or ANIMATED BANNERS)
 function createSectionDom(sectionLabel, items) {
   if (!items.length) return null;
 
-  // group by genre
   const byGenre = groupByGenre(items);
 
   const section = document.createElement("section");
   section.className = "catalog-section";
 
-  // section header
   const header = document.createElement("div");
   header.className = "section-header";
 
@@ -637,7 +614,6 @@ function createSectionDom(sectionLabel, items) {
   header.appendChild(badge);
   section.appendChild(header);
 
-  // genre blocks
   Object.entries(byGenre).forEach(([genre, list]) => {
     const genreBlock = document.createElement("div");
     genreBlock.className = "genre-block";
@@ -672,7 +648,7 @@ function createSectionDom(sectionLabel, items) {
   return section;
 }
 
-// -------- render everything --------
+// render page
 (function renderPage(){
   const root = document.getElementById("app-root");
 
