@@ -1,87 +1,848 @@
 // CRAFTSMAN+ PLAY Catalogue Viewer (Public Snapshot)
 // -------------------------------------------------
-// This is the read-only / shareable catalogue.
-// - Dark page background
-// - White cards
-// - 4-wide grid
-// - Sections: PLAYABLES then ANIMATED BANNERS
-// - Within each section: group by Genre ("Gaming", "Automotive", etc.)
-// - Each card embeds the *Endpoint URL* in an <iframe>
-// - If Complex / Advanced Option is true, we show a badge:
-//     "Advanced Options / Variants Available"
-// - We hide "Best for" for now (will enable once that data exists)
-// - We'll brand as CRAFTSMAN+ PLAY by default, but we’ll keep the top branding
-//   configurable so you can clone this file for Remerge later.
+// - Dark background page
+// - White cards, 4-wide grid
+// - Sections: PLAYABLES, ANIMATED BANNERS
+// - Grouped by Genre under each section
+// - Uses Endpoint URL for iframe
+// - Shows "Advanced Options / Variants Available" if hasAdvanced == true
+// - Hides "Best for" for now
+// - Includes 🔄 Reset (reload iframe) both in card and fullscreen modal
 //
-// HOW TO USE THIS FILE
-// 1. Convert your Google Sheet -> JSON rows shaped like:
-//    {
-//      title: string,
-//      genre: string,
-//      endpointUrl: string,  // <-- this is what goes in the iframe src
-//      isBanner: boolean,    // true if Column F == "Banner"
-//      hasAdvanced: boolean, // true if Column E is TRUE / checked
-//    }
-// 2. Paste that array into RAW_ITEMS below.
-// 3. Deploy this component.
-// 4. Send link.
+// HOW TO UPDATE DATA:
+// 1. Paste the transformed objects into RAW_ITEMS below.
+// 2. Deploy this component as a page.
+// 3. Send link.
 //
-// NOTE: "Best for" is intentionally omitted from render for now.
-// -------------------------------------------------
+// Attribution note:
+// You can later clone this file, swap branding for Remerge, but KEEP the
+// "Powered by CRAFTSMAN+ PLAY" line to satisfy co-branding.
 
-// BRANDING CONFIG ---------------------------------
-const BRAND_LOGO_TEXT = "CRAFTSMAN+"; // for now just text. For Remerge version, swap to their logo img.
+import React, { useRef, useState } from "react";
+
+// ===== BRANDING CONFIG =====
+const BRAND_LOGO_TEXT = "CRAFTSMAN+";
 const BRAND_TITLE = "CRAFTSMAN+ PLAY Catalogue";
 const BRAND_SUBTITLE = "Interactive Ad Concepts & Variants";
-const BRAND_TAGLINE = "Powered by CRAFTSMAN+ PLAY"; // keep this always visible to make attribution clear.
+const BRAND_TAGLINE = "Powered by CRAFTSMAN+ PLAY";
 
-// DATA SNAPSHOT -----------------------------------
-// TODO: Replace RAW_ITEMS with data you generate from the sheet.
-// Example stub (this is placeholder so you can see structure):
+// ====== YOUR DATA (from sheet) ======
+// This is built from your JSON rows. I mapped:
+// - Genre -> genre (or "Other" if null)
+// - Title -> title
+// - "Endpoint URL" -> endpointUrl
+// - "Complex / Advanced Option" -> hasAdvanced
+// - "Unnamed: 5" -> isBanner (true if === "Banner")
+//
+// You can keep adding objects below following the same shape.
 const RAW_ITEMS = [
   {
-    title: "Swipe-to-Throw",
+    title: "Item Slicer",
     genre: "Gaming",
     endpointUrl:
-      "https://endpoints.prod.craftsmanplus.com/previews/demo1/index.html",
-    isBanner: false,
-    hasAdvanced: true,
-  },
-  {
-    title: "Dress-Up Avatar",
-    genre: "Gaming",
-    endpointUrl:
-      "https://endpoints.prod.craftsmanplus.com/previews/demo2/index.html",
-    isBanner: false,
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/NeRCpLeVKNh/1991726563/index.html",
     hasAdvanced: false,
+    isBanner: false,
   },
   {
-    title: "Holiday Offer CTA",
+    title: "Memory",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/9UZQ9NQXhLv/996774169/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Item Catcher",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/naPv3wpsepn/155967409/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Solitaire",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/izJC8QhCHOx/639277993/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Block Puzzle",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/e4pXg3tA6xy/1186855262/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Character Builder",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/jHW1gGUq1YN/69255045/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Slots",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/88cYjifeqm6/1372890448/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Spot the Difference",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/Q8fbHxxnroi/1575461308/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Slide Puzzle",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/hlNrfoUeDYJ/358694196/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Spin the Wheel",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/BwcdKcPDevO/1762579282/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Character Selector",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/iZWF7h08wY9/698195563/index.html",
+    hasAdvanced: true,
+    isBanner: false,
+  },
+  {
+    title: "Stop the Light",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/Cof5ozImqNB/221803366/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Glass Break",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/0WAhExlZcaL/1262155542/index.html",
+    hasAdvanced: true,
+    isBanner: false,
+  },
+  {
+    title: "Character Customizer",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/7YEJHm34YUa/1720218351/index.html",
+    hasAdvanced: true,
+    isBanner: false,
+  },
+  {
+    title: "Drag and Drop",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/8HvEwQoXMYB/1844420119/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Endless Runner",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/5TN2rui1HiB/314442967/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Hidden Objects",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/7oraGRIylMW/426270317/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Spot the Thing",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/LedUuVmiUpb/1260320720/index.html",
+    hasAdvanced: true,
+    isBanner: false,
+  },
+  {
+    title: "Choose Your Adventure",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/996i7yw9e2y/1131399941/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Anagram Word Game",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/znD7OEmOugQ/884145961/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Choices",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/3lJJ4MvS3Ko/1075215466/index.html",
+    hasAdvanced: true,
+    isBanner: false,
+  },
+  {
+    title: "Alien Escape",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/CQMl2Rgxlph/36832154/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Thre Cup Shuffle",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/9Vx6xgfE1HP/1565826677/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Three Card Monte",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/D7pe07nnHCo/1033046756/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Character Upgrade",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/cAcvogz2Bxl/1920100428/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Swap Match 3",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/m0tppAiw5Qu/1820284044/index.html",
+    hasAdvanced: true,
+    isBanner: false,
+  },
+  {
+    title: "Home Decor",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/HM0GWBjuKx9/159730565/index.html",
+    hasAdvanced: true,
+    isBanner: false,
+  },
+  {
+    title: "Plinko",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/U8Mnfwwgs4k/157845651/index.html",
+    hasAdvanced: true,
+    isBanner: false,
+  },
+  {
+    title: "Card Camge Carousel",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/y9MuaCtEEFa/1308318799/index.html",
+    hasAdvanced: true,
+    isBanner: false,
+  },
+  {
+    title: "Wipe Away",
+    genre: "Other",
+    endpointUrl:
+      "https://play.preview.craftsmanplus.com/preview/?playable=ATtIV70kACD%2FrbfpGl2Bak6%2F1068303471&companyId=ATtIV70kACD&creativeId=rbfpGl2Bak6&name=Wipe%20Away%20-%20Simple&portrait=true&ratio=2:1",
+    hasAdvanced: true,
+    isBanner: false,
+  },
+  {
+    title: "Coloring Book",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/YxYp7G3e3nc/513869662/index.html",
+    hasAdvanced: true,
+    isBanner: false,
+  },
+  {
+    title: "Treasure Hunter",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/MhIMYiJm27j/849507683/index.html",
+    hasAdvanced: true,
+    isBanner: false,
+  },
+  {
+    title: "Scratchers",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/GTMk2IRrTun/208684412/index.html",
+    hasAdvanced: true,
+    isBanner: false,
+  },
+  {
+    title: "Recipe Builder",
+    genre: "Quizzes",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/cOpaNcsaQXy/336518091/index.html",
+    hasAdvanced: true,
+    isBanner: false,
+  },
+  {
+    title: "Find the Outlier",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/TIli8br5WjE/753068104/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Text Survey",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/LeXBdW3wNLj/823548770/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Image Survey",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/palTB1ogDJx/174233208/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Text Quiz",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/aCfKQYO3CO5/837507613/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Image Quiz",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/imCm02BWTAJ/1845251147/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Product Carousel",
+    genre: "E-Comm",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/G76Gvjec34L/922133332/index.html",
+    hasAdvanced: true,
+    isBanner: false,
+  },
+  {
+    title: "Carousel",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/7thDtzcvgY4/495725338/index.html",
+    hasAdvanced: true,
+    isBanner: false,
+  },
+  {
+    title: "Slide to Reveal",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/89AN01RGYUM/1753995605/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Product Cleaner",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/iXElS7t3AwF/972765460/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Shopping Cart",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/bGcCmR2rmeb/588399045/index.html",
+    hasAdvanced: true,
+    isBanner: false,
+  },
+  {
+    title: "Product Comparison",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/fEHnvOwPlJj/1411088092/index.html",
+    hasAdvanced: true,
+    isBanner: false,
+  },
+  {
+    title: "Builld Your Bowl",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/j0hvIXeG9JR/638595061/index.html",
+    hasAdvanced: true,
+    isBanner: false,
+  },
+  {
+    title: "Photo Tune",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/g7eWmR4dvK8/1746584998/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Beauty Colors",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/uMGLQPwmOfA/135053546/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Sale Countdown",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/qG9QjcSo5sa/1529201954/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Cleanup",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/Wq4lJ2EKtZ6/1201955757/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Makeup",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/NQU6KM9nwPY/40205955/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Scrollable",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/qSkTFWwhaRx/1663481113/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Time of Day",
+    genre: "Dynamic",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/bHvhKx6LbKC/693760224/index.html",
+    hasAdvanced: true,
+    isBanner: false,
+  },
+  {
+    title: "Day of Week",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/ALexOrJk21I/97955120/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Months",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/N3wRt4mfQyA/1525802865/index.html",
+    hasAdvanced: true,
+    isBanner: false,
+  },
+  {
+    title: "Seasons",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/DZp7vlz3PQK/1483889765/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "System",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/EwfXuwCPbI7/401673749/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "System & Platform",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/bWDD3H2P5x5/357287186/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "iFrame - Spotify",
+    genre: "iFrame",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/lmJ303WjhEQ/646444982/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "iFrame - E-commerce",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/5Vw6X4Nb7zI/868914121/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "iFrame - Movie Trailer",
+    genre: "Other",
+    endpointUrl:
+      "https://play.preview.craftsmanplus.com/preview/?playable=ATtIV70kACD%2FL12LUFWcpaQ%2F1664086474&companyId=ATtIV70kACD&creativeId=L12LUFWcpaQ&name=iFrame%20-%20Movie%20Trailer&portrait=true&ratio=2:1",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Finance Slicer",
+    genre: "FinTech",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/n0agWktczby/1913107885/index.html",
+    hasAdvanced: true,
+    isBanner: false,
+  },
+  {
+    title: "Finance Literacy",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/VmaQt75APuH/915985850/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Budget Balancer",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/2VFUCVIBiwy/1216368997/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Card Benefits",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/2VFUCVIBiwy/1216368997/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Drag to Play Video",
+    genre: "Travel & Entertainment",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/OIM2OyrpiaD/1391206053/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Home Entertainment",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/JFUmTjfRm5E/288153109/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Choose Your Trailer",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/cwdOnwPUnkZ/1923257294/index.html",
+    hasAdvanced: true,
+    isBanner: false,
+  },
+  {
+    title: "Destination Reveal",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/HmDj2MZbA9Q/39159268/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Map Selector",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/xcIlELeeHCh/200701714/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Travel Carousel",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/pyqjORkv9ea/136309481/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "View From My Seat",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/TJweQBQ3CV8/1871383910/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "News Reader",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/PsPBtHBWN13/70600467/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Dating",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/IdbNJtQysld/663598802/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Choose you Team",
+    genre: "Sports",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/sMAo9pRJSGo/1504490046/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Pool",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/Wbu5QhcbboM/1437968614/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Field Goal",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/87xGtpPBawN/309850024/index.html",
+    hasAdvanced: true,
+    isBanner: false,
+  },
+  {
+    title: "Fishing Game",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/v8AoYITsHNb/2089904723/index.html",
+    hasAdvanced: true,
+    isBanner: false,
+  },
+  {
+    title: "Dual Destinations",
+    genre: "IECs",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/kpY3SGmW1jL/1077723229/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Tap Video",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/ti1TfdeBYvN/1786717399/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Travel Screensaver",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/doyUYGTTLhs/398038825/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Video Thumbnail",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/7RGHovEcWEa/1404503929/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Automatic Carousel",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/BcstZ8TGusE/728032074/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Characters",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/oyK6XSDiIWD/1759163752/index.html",
+    hasAdvanced: true,
+    isBanner: false,
+  },
+  {
+    title: "Character Carousel",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/Rdx2OCzJEXZ/1299028405/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Video Countdown",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/Siu4HYnLSyQ/586073651/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Press Your Luck",
     genre: "Holiday",
     endpointUrl:
-      "https://endpoints.prod.craftsmanplus.com/previews/bannerA/index.html",
-    isBanner: true,
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/lkq4Wh0O3qU/653077710/index.html",
     hasAdvanced: true,
+    isBanner: false,
   },
+  {
+    title: "Elevator Escape",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/9T5rLB3WheV/1492763545/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "New Year Countdown",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/op2yEggJHbW/1002949548/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Costume Select",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/4tr7EXfkuuA/1256749257/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Test Drive",
+    genre: "Automotive",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/sBVgAXFQc4R/1934519601/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Windshield Wiper",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/TAwk0N3rGGc/1383410443/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Car Colors",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/sNLlbMmAgXR/694822893/index.html",
+    hasAdvanced: true,
+    isBanner: false,
+  },
+  {
+    title: "Tap to Repair",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/ifqqhqXjhX2/993095138/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Back-to-back Bideos",
+    genre: "Video",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/O0uCCdDUjwd/84368394/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Video vs. Video",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/opXfVI3ajif/155331355/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Engaging Video",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/E1uGbdbzI9a/1404682528/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+  {
+    title: "Hidden Video",
+    genre: "Other",
+    endpointUrl:
+      "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/VUOOy3wq7rL/524435921/index.html",
+    hasAdvanced: false,
+    isBanner: false,
+  },
+
+  // TODO: continue adding the remaining rows from your JSON
 ];
 
-// -------------------------------------------------
-// Helpers to group and split content
+// ===== helpers =====
 function groupByGenre(items) {
   const map = {};
   for (const it of items) {
-    const genre = it.genre && it.genre.trim() ? it.genre.trim() : "Other";
-    if (!map[genre]) map[genre] = [];
-    map[genre].push(it);
+    const g = it.genre && it.genre.trim() ? it.genre.trim() : "Other";
+    if (!map[g]) map[g] = [];
+    map[g].push(it);
   }
-  return map; // { "Gaming": [..], "Holiday": [..] }
+  return map;
 }
 
+// ===== UI bits =====
 function SectionHeader({ label }) {
   return (
     <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-6">
       <div className="flex-1">
-        <div className="text-sm font-semibold text-white leading-tight">{label}</div>
+        <div className="text-sm font-semibold text-white leading-tight">
+          {label}
+        </div>
       </div>
       <div className="text-[10px] text-white/40">CRAFTSMAN+ PLAY</div>
     </div>
@@ -97,11 +858,21 @@ function GenreHeader({ genre, count }) {
   );
 }
 
-// Single Card ---------------------------------------------------------------
+// ===== Card component with Reset =====
 function CatalogueCard({ item, onExpand }) {
+  const iframeRef = useRef(null);
+
+  // reload iframe src to reset playable/banner
+  const handleReset = () => {
+    if (iframeRef.current) {
+      const src = iframeRef.current.src;
+      iframeRef.current.src = src;
+    }
+  };
+
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-black/10 overflow-hidden flex flex-col">
-      {/* Card header info */}
+      {/* Card header */}
       <div className="px-3 py-3 border-b border-black/10 flex flex-col gap-2">
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0">
@@ -122,24 +893,30 @@ function CatalogueCard({ item, onExpand }) {
                 <span>Advanced Options / Variants Available</span>
               </div>
             ) : null}
-
-            {/* Best for: (hidden for now unless we add data later) */}
-            {/* We'll add conditional render later when we have item.bestFor */}
           </div>
 
-          {/* Action buttons */}
+          {/* Actions */}
           <div className="flex items-center gap-2 text-[11px] text-black/50">
             <button
               onClick={() => window.open(item.endpointUrl, "_blank")}
               className="p-1.5 rounded-lg hover:bg-black/10 active:scale-95 transition"
-              title="Open full experience in new tab"
+              title="Open in new tab"
             >
               ↗️
             </button>
+
+            <button
+              onClick={handleReset}
+              className="p-1.5 rounded-lg hover:bg-black/10 active:scale-95 transition"
+              title="Restart playable"
+            >
+              🔄
+            </button>
+
             <button
               onClick={onExpand}
               className="p-1.5 rounded-lg hover:bg-black/10 active:scale-95 transition"
-              title="Expand preview"
+              title="Expand"
             >
               ⛶
             </button>
@@ -147,9 +924,10 @@ function CatalogueCard({ item, onExpand }) {
         </div>
       </div>
 
-      {/* Iframe preview */}
+      {/* Preview */}
       <div className="w-full" style={{ height: 260 }}>
         <iframe
+          ref={iframeRef}
           title={item.title || "Preview"}
           src={item.endpointUrl}
           className="w-full h-full"
@@ -158,7 +936,7 @@ function CatalogueCard({ item, onExpand }) {
         />
       </div>
 
-      {/* Footer row */}
+      {/* Footer / URL */}
       <div className="px-3 py-2 border-t border-black/10 text-[10px] text-black/50 truncate">
         {item.endpointUrl}
       </div>
@@ -166,8 +944,17 @@ function CatalogueCard({ item, onExpand }) {
   );
 }
 
-// Fullscreen modal ---------------------------------------------------------
+// ===== Fullscreen modal with Reset =====
 function Modal({ open, onClose, url, title }) {
+  const iframeRef = useRef(null);
+
+  const handleReset = () => {
+    if (iframeRef.current) {
+      const src = iframeRef.current.src;
+      iframeRef.current.src = src;
+    }
+  };
+
   if (!open) return null;
   return (
     <div className="fixed inset-0 z-50">
@@ -176,18 +963,30 @@ function Modal({ open, onClose, url, title }) {
         onClick={onClose}
       />
       <div className="absolute inset-4 md:inset-10 rounded-2xl bg-white shadow-2xl overflow-hidden flex flex-col">
-        <div className="flex items-center justify-between p-3 border-b border-black/10">
-          <div className="text-sm font-medium text-black/70 truncate pr-4">{title || "Preview"}</div>
-          <button
-            onClick={onClose}
-            className="px-3 py-2 rounded-xl shadow-sm border border-black/10 bg-white hover:bg-black/5 active:scale-[.99] transition text-sm"
-          >
-            Close
-          </button>
+        <div className="flex items-center justify-between gap-2 p-3 border-b border-black/10 flex-wrap">
+          <div className="text-sm font-medium text-black/70 truncate pr-4 min-w-0 flex-1">
+            {title || "Preview"}
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleReset}
+              className="px-3 py-2 rounded-xl shadow-sm border border-black/10 bg-white hover:bg-black/5 active:scale-[.99] transition text-sm"
+              title="Restart playable"
+            >
+              🔄 Reset
+            </button>
+            <button
+              onClick={onClose}
+              className="px-3 py-2 rounded-xl shadow-sm border border-black/10 bg-white hover:bg-black/5 active:scale-[.99] transition text-sm"
+            >
+              Close
+            </button>
+          </div>
         </div>
         <div className="flex-1 overflow-hidden bg-black/5">
           <iframe
-            title={title}
+            ref={iframeRef}
+            title={title || "Preview"}
             src={url}
             className="w-full h-full"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture;"
@@ -198,24 +997,31 @@ function Modal({ open, onClose, url, title }) {
   );
 }
 
-// Main Viewer --------------------------------------------------------------
+// ===== Main Viewer =====
 export default function PlayCatalogueViewer() {
-  // Split raw items into Playables vs Banners
+  // split
   const playables = RAW_ITEMS.filter((it) => !it.isBanner);
   const banners = RAW_ITEMS.filter((it) => it.isBanner);
 
-  // Then group each side by genre
+  // group by genre
   const playableByGenre = groupByGenre(playables);
   const bannerByGenre = groupByGenre(banners);
 
-  // Modal state
-  const [modal, setModal] = React.useState({ open: false, url: "", title: "" });
-  const openModal = (url, title) => setModal({ open: true, url, title });
-  const closeModal = () => setModal({ open: false, url: "", title: "" });
+  // modal state
+  const [modal, setModal] = useState({
+    open: false,
+    url: "",
+    title: "",
+  });
+
+  const openModal = (url, title) =>
+    setModal({ open: true, url, title });
+  const closeModal = () =>
+    setModal({ open: false, url: "", title: "" });
 
   return (
     <div className="min-h-screen bg-[#0f0f10] text-white">
-      {/* HEADER / BRANDING ------------------------------------------------ */}
+      {/* HEADER */}
       <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-[#0f0f10]/60 bg-[#0f0f10]/80 border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
           <div className="flex items-start gap-3">
@@ -223,20 +1029,28 @@ export default function PlayCatalogueViewer() {
               {BRAND_LOGO_TEXT}
             </div>
             <div className="min-w-0">
-              <div className="text-sm font-semibold text-white leading-tight">{BRAND_TITLE}</div>
-              <div className="text-[11px] text-white/60 leading-tight">{BRAND_SUBTITLE}</div>
-              <div className="text-[10px] text-white/40 leading-tight">{BRAND_TAGLINE}</div>
+              <div className="text-sm font-semibold text-white leading-tight">
+                {BRAND_TITLE}
+              </div>
+              <div className="text-[11px] text-white/60 leading-tight">
+                {BRAND_SUBTITLE}
+              </div>
+              <div className="text-[10px] text-white/40 leading-tight">
+                {BRAND_TAGLINE}
+              </div>
             </div>
           </div>
           <div className="text-[10px] text-white/40 leading-tight sm:text-right">
-            Read-only snapshot<br />No login required
+            Read-only snapshot
+            <br />
+            No login required
           </div>
         </div>
       </header>
 
-      {/* BODY -------------------------------------------------------------- */}
+      {/* BODY */}
       <main className="max-w-7xl mx-auto px-4 py-8">
-        {/* PLAYABLES SECTION */}
+        {/* PLAYABLES */}
         {playables.length > 0 && (
           <section className="mb-14">
             <SectionHeader label="PLAYABLES" />
@@ -247,13 +1061,17 @@ export default function PlayCatalogueViewer() {
 
                 <div
                   className="grid gap-4"
-                  style={{ gridTemplateColumns: `repeat(4, minmax(0, 1fr))` }}
+                  style={{
+                    gridTemplateColumns: `repeat(4, minmax(0, 1fr))`,
+                  }}
                 >
                   {list.map((item, i) => (
                     <CatalogueCard
                       key={genre + "-p-" + i}
                       item={item}
-                      onExpand={() => openModal(item.endpointUrl, item.title)}
+                      onExpand={() =>
+                        openModal(item.endpointUrl, item.title)
+                      }
                     />
                   ))}
                 </div>
@@ -262,7 +1080,7 @@ export default function PlayCatalogueViewer() {
           </section>
         )}
 
-        {/* ANIMATED BANNERS SECTION */}
+        {/* ANIMATED BANNERS */}
         {banners.length > 0 && (
           <section className="mb-14">
             <SectionHeader label="ANIMATED BANNERS" />
@@ -273,13 +1091,17 @@ export default function PlayCatalogueViewer() {
 
                 <div
                   className="grid gap-4"
-                  style={{ gridTemplateColumns: `repeat(4, minmax(0, 1fr))` }}
+                  style={{
+                    gridTemplateColumns: `repeat(4, minmax(0, 1fr))`,
+                  }}
                 >
                   {list.map((item, i) => (
                     <CatalogueCard
                       key={genre + "-b-" + i}
                       item={item}
-                      onExpand={() => openModal(item.endpointUrl, item.title)}
+                      onExpand={() =>
+                        openModal(item.endpointUrl, item.title)
+                      }
                     />
                   ))}
                 </div>
@@ -289,7 +1111,7 @@ export default function PlayCatalogueViewer() {
         )}
       </main>
 
-      {/* MODAL ------------------------------------------------------------ */}
+      {/* MODAL */}
       <Modal
         open={modal.open}
         onClose={closeModal}
@@ -297,9 +1119,10 @@ export default function PlayCatalogueViewer() {
         title={modal.title}
       />
 
-      {/* FOOTER ----------------------------------------------------------- */}
+      {/* FOOTER */}
       <footer className="max-w-7xl mx-auto px-4 pb-12 text-center text-[10px] text-white/40">
-        CRAFTSMAN+ PLAY snapshot. Embeds shown here must allow iframe embedding. Some internal or restricted URLs may not render.
+        CRAFTSMAN+ PLAY snapshot. Embeds shown here must allow iframe
+        embedding. Some internal or restricted URLs may not render.
       </footer>
     </div>
   );
