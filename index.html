@@ -8,18 +8,13 @@
     :root {
       --bg: #0f1013;
       --surface: #1b1d22;
-      --surface2: #15161b;
       --text: #fff;
       --muted: rgba(255,255,255,.6);
-      --accent: #007bff;
-      --card-w: 315px;     /* your width */
-      --card-h: 630px;     /* portrait-ish panel */
+      --card-w: 315px;
       --thumb-h: 210px;
       --radius-lg: 18px;
     }
-
     * { box-sizing: border-box; }
-
     body {
       margin: 0;
       background: var(--bg);
@@ -27,14 +22,12 @@
       font-family: -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
       padding: 1.5rem 2rem 5rem;
     }
-
     header {
       display: flex;
-      align-items: center;
       gap: 1rem;
+      align-items: center;
       margin-bottom: 1.5rem;
     }
-
     .logo-circle {
       width: 42px;
       height: 42px;
@@ -45,19 +38,15 @@
       font-weight: 700;
       color: #000;
       font-size: .6rem;
-      letter-spacing: -.01em;
     }
-
     .header-text h1 {
       font-size: 1.1rem;
       margin: 0;
     }
-
     .header-text .sub {
       font-size: .7rem;
       color: var(--muted);
     }
-
     .section-title {
       margin: 1.75rem 0 .75rem;
       font-size: .72rem;
@@ -65,13 +54,11 @@
       letter-spacing: .08em;
       color: rgba(255,255,255,.5);
     }
-
     .grid {
       display: flex;
       flex-wrap: wrap;
       gap: 1.5rem;
     }
-
     .card {
       width: var(--card-w);
       background: radial-gradient(circle at top, #2a2d34 0%, #141519 70%);
@@ -80,10 +67,8 @@
       border: 1px solid rgba(255,255,255,.03);
       display: flex;
       flex-direction: column;
-      position: relative;
       min-height: 440px;
     }
-
     .thumb {
       height: var(--thumb-h);
       background: #000;
@@ -91,7 +76,6 @@
       position: relative;
       overflow: hidden;
     }
-
     .thumb img, .thumb iframe {
       width: 100%;
       height: 100%;
@@ -99,7 +83,6 @@
       border: none;
       display: block;
     }
-
     .top-actions {
       position: absolute;
       top: .6rem;
@@ -108,7 +91,6 @@
       gap: .35rem;
       z-index: 5;
     }
-
     .icon-btn {
       width: 30px;
       height: 30px;
@@ -122,151 +104,134 @@
       font-size: .7rem;
       cursor: pointer;
     }
-
     .card-body {
       padding: 1rem 1rem 0;
     }
-
     .card-title {
       font-weight: 600;
       font-size: .82rem;
     }
-
     .card-sub {
       font-size: .63rem;
       color: rgba(255,255,255,.5);
       margin-top: .3rem;
     }
-
     .card-footer {
       margin-top: auto;
       padding: 1rem;
-      display: flex;
-      gap: .5rem;
-      align-items: center;
     }
-
     .btn {
       background: #007bff;
       border: none;
-      outline: none;
       border-radius: 999px;
       padding: .5rem 1.2rem;
       font-size: .64rem;
       font-weight: 600;
       color: #fff;
       cursor: pointer;
-      white-space: nowrap;
     }
-
-    .url-preview {
-      display: none; /* hide long urls for now */
-    }
-
-    @media (max-width: 820px) {
-      body { padding: 1rem .9rem 5rem; }
-      .card { width: calc(50% - .75rem); }
-    }
-
-    @media (max-width: 540px) {
-      .card { width: 100%; }
+    #error-box {
+      background: rgba(255,0,0,.1);
+      border: 1px solid rgba(255,60,60,.4);
+      color: #fff;
+      padding: .75rem 1rem;
+      border-radius: .75rem;
+      margin-bottom: 1rem;
+      display: none;
+      font-size: .75rem;
+      white-space: pre-line;
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="logo-circle">
-      C+
-    </div>
+    <div class="logo-circle">C+</div>
     <div class="header-text">
       <h1>CRAFTSMAN+ • PLAY Catalogue</h1>
-      <div class="sub">Interactive ad concepts &amp; variants • Read-only snapshot</div>
+      <div class="sub">Interactive ad concepts & variants • Read-only snapshot</div>
     </div>
   </header>
 
+  <div id="error-box"></div>
   <div id="catalog"></div>
 
   <script>
-    // JSON is in the same repo:
-    const JSON_URL = "./Playable_Endpoint_URLs.json";
-    const IMAGE_BASE = "./"; // all PNGs in root
+    const CANDIDATE_JSON = [
+      "./Playable_Endpoint_URLs.json",
+      "./Playable_Endpoint_URLs_readonly.json"
+    ];
+    const IMAGE_BASE = "./";
 
-    // "Item Slicer" -> "item slicer.png"
+    function showError(msg) {
+      const box = document.getElementById("error-box");
+      box.style.display = "block";
+      box.textContent = msg;
+    }
+
     function titleToImage(title) {
       return (title || "placeholder").toLowerCase().trim() + ".png";
     }
 
     function createCard(demo) {
       const title = demo["Title"] || "Untitled";
-      const category = demo["Genre"] || "Other";
-      const endpointUrl = demo["Endpoint URL"] || "";   // this should be the one we iFrame
-      const previewUrl = demo["URL"] || "";             // this is the one we open in new tab
+      const genre = demo["Genre"] || "Other";
+      const endpointUrl = demo["Endpoint URL"] || ""; // iframe
+      const previewUrl = demo["URL"] || ""; // external
 
       const card = document.createElement("div");
       card.className = "card";
 
-      // thumbnail
       const thumb = document.createElement("div");
       thumb.className = "thumb";
-      thumb.dataset.state = "image";
 
       const img = document.createElement("img");
       img.src = IMAGE_BASE + titleToImage(title);
       img.alt = title;
       img.onerror = () => {
         img.style.display = "none";
-        thumb.style.background = "linear-gradient(140deg, #444 0%, #111 100%)";
+        thumb.style.background = "linear-gradient(140deg,#444,#111)";
       };
-
       thumb.appendChild(img);
 
-      // top buttons
-      const topActions = document.createElement("div");
-      topActions.className = "top-actions";
+      const top = document.createElement("div");
+      top.className = "top-actions";
 
-      // refresh
       const refreshBtn = document.createElement("button");
       refreshBtn.className = "icon-btn";
-      refreshBtn.innerText = "↻";
-      refreshBtn.title = "Reset preview";
+      refreshBtn.textContent = "↻";
       refreshBtn.addEventListener("click", (e) => {
         e.stopPropagation();
         const ifr = thumb.querySelector("iframe");
         if (ifr) ifr.remove();
         img.style.display = "block";
-        thumb.dataset.state = "image";
       });
 
-      // external
       const externalBtn = document.createElement("button");
       externalBtn.className = "icon-btn";
-      externalBtn.innerText = "↗";
-      externalBtn.title = "Open preview";
+      externalBtn.textContent = "↗";
       externalBtn.addEventListener("click", (e) => {
         e.stopPropagation();
         if (previewUrl) window.open(previewUrl, "_blank");
       });
 
-      topActions.appendChild(refreshBtn);
-      topActions.appendChild(externalBtn);
-      thumb.appendChild(topActions);
+      top.appendChild(refreshBtn);
+      top.appendChild(externalBtn);
+      thumb.appendChild(top);
 
-      // body
       const body = document.createElement("div");
       body.className = "card-body";
 
-      const t = document.createElement("div");
-      t.className = "card-title";
-      t.textContent = title;
+      const titleEl = document.createElement("div");
+      titleEl.className = "card-title";
+      titleEl.textContent = title;
 
-      const s = document.createElement("div");
-      s.className = "card-sub";
-      s.textContent = category;
+      const subEl = document.createElement("div");
+      subEl.className = "card-sub";
+      subEl.textContent = genre;
 
-      body.appendChild(t);
-      body.appendChild(s);
+      body.appendChild(titleEl);
+      body.appendChild(subEl);
 
-      // footer
       const footer = document.createElement("div");
       footer.className = "card-footer";
 
@@ -275,86 +240,87 @@
       playBtn.textContent = "PLAY NOW ▶";
       playBtn.addEventListener("click", () => {
         if (!endpointUrl) return;
-        // swap to iframe
         img.style.display = "none";
         const ifr = document.createElement("iframe");
         ifr.src = endpointUrl;
         thumb.appendChild(ifr);
-        thumb.dataset.state = "iframe";
       });
 
       footer.appendChild(playBtn);
-
-      const urlPrev = document.createElement("div");
-      urlPrev.className = "url-preview";
-      urlPrev.textContent = endpointUrl || previewUrl || "";
-      footer.appendChild(urlPrev);
 
       card.appendChild(thumb);
       card.appendChild(body);
       card.appendChild(footer);
 
-      return { card, category };
+      return { card, genre };
     }
 
-    function renderGroups(demos) {
+    function render(demos) {
       const root = document.getElementById("catalog");
       root.innerHTML = "";
 
-      // group by Genre
-      const byCat = {};
+      const byGenre = {};
       demos.forEach(d => {
-        const cat = d["Genre"] || "Other";
-        if (!byCat[cat]) byCat[cat] = [];
-        byCat[cat].push(d);
+        const g = d["Genre"] || "Other";
+        if (!byGenre[g]) byGenre[g] = [];
+        byGenre[g].push(d);
       });
 
-      Object.keys(byCat).sort().forEach(cat => {
-        const label = document.createElement("div");
-        label.className = "section-title";
-        label.textContent = cat.toUpperCase();
-        root.appendChild(label);
+      Object.keys(byGenre).sort().forEach(g => {
+        const sec = document.createElement("div");
+        sec.className = "section-title";
+        sec.textContent = g.toUpperCase();
+        root.appendChild(sec);
 
-        const row = document.createElement("div");
-        row.className = "grid";
+        const grid = document.createElement("div");
+        grid.className = "grid";
 
-        byCat[cat].forEach(demo => {
-          const { card } = createCard(demo);
-          row.appendChild(card);
+        byGenre[g].forEach(d => {
+          const { card } = createCard(d);
+          grid.appendChild(card);
         });
 
-        root.appendChild(row);
+        root.appendChild(grid);
       });
 
-      // count badge
-      const badgeId = "demo-count-badge";
-      let badge = document.getElementById(badgeId);
-      if (!badge) {
-        badge = document.createElement("div");
-        badge.id = badgeId;
-        badge.style.position = "fixed";
-        badge.style.top = "1.25rem";
-        badge.style.right = "1.6rem";
-        badge.style.fontSize = ".6rem";
-        badge.style.color = "rgba(255,255,255,.45)";
-        document.body.appendChild(badge);
-      }
-      badge.textContent = demos.length + " demos";
+      // little counter
+      const count = document.createElement("div");
+      count.style.position = "fixed";
+      count.style.top = "1.25rem";
+      count.style.right = "1.6rem";
+      count.style.fontSize = ".6rem";
+      count.style.color = "rgba(255,255,255,.45)";
+      count.textContent = demos.length + " demos";
+      document.body.appendChild(count);
     }
 
-    async function init() {
-      try {
-        const res = await fetch(JSON_URL + "?t=" + Date.now());
-        const json = await res.json();
-        renderGroups(json);
-      } catch (err) {
-        console.error("JSON load error", err);
-        document.getElementById("catalog").innerHTML =
-          "<p>Could not load catalogue.</p>";
+    async function tryLoad() {
+      let lastError = "";
+      for (const url of CANDIDATE_JSON) {
+        try {
+          console.log("[CATALOG] trying", url);
+          const res = await fetch(url + "?t=" + Date.now());
+          if (!res.ok) {
+            lastError = `fetch failed ${url}: ${res.status}`;
+            continue;
+          }
+          const data = await res.json();
+          console.log("[CATALOG] loaded json", url, data.slice ? data.slice(0,3) : data);
+          if (!Array.isArray(data)) {
+            lastError = `JSON at ${url} is not an array`;
+            continue;
+          }
+          render(data);
+          return;
+        } catch (e) {
+          console.error(e);
+          lastError = e.message;
+        }
       }
+      showError("Could not load JSON from any known path.\n" + lastError + "\nCheck filename in GitHub Pages root.");
     }
 
-    init();
+    tryLoad();
   </script>
 </body>
 </html>
