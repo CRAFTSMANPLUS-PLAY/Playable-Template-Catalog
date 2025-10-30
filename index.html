@@ -189,108 +189,115 @@
     </div>
 
     <script>
-      const JSON_URL = "./Playable_Endpoint_URLs.json";
-      const errorBar = document.getElementById("error");
-      const sectionsRoot = document.getElementById("sections");
+  const JSON_URL = "./Playable_Endpoint_URLs.json";
+  const errorBar = document.getElementById("error");
+  const sectionsRoot = document.getElementById("sections");
 
-      function createCard(item) {
-        const card = document.createElement("div");
-        card.className = "card";
+  function createCard(item) {
+    const card = document.createElement("div");
+    card.className = "card";
 
-        const thumb = document.createElement("div");
-        thumb.className = "thumb";
+    const thumb = document.createElement("div");
+    thumb.className = "thumb";
 
-        const img = document.createElement("img");
-        img.src = item.poster ? "./" + item.poster : "https://dummyimage.com/260x480/1a1c21/ffffff&text=No+Preview";
-        img.alt = item.name || "Playable Preview";
+    const img = document.createElement("img");
 
-        const playBtn = document.createElement("button");
-        playBtn.className = "play-btn";
-        playBtn.textContent = "PLAY NOW ▶";
+    // ✅ FIX: encode file names that have spaces or special characters
+    if (item.poster) {
+      const encoded = encodeURIComponent(item.poster);
+      img.src = "./" + encoded;
+    } else {
+      img.src = "https://dummyimage.com/260x480/1a1c21/ffffff&text=No+Preview";
+    }
 
-        playBtn.addEventListener("click", () => {
-          if (item.url) window.open(item.url, "_blank", "noopener");
-        });
+    img.alt = item.name || "Playable Preview";
 
-        thumb.appendChild(img);
-        thumb.appendChild(playBtn);
+    const playBtn = document.createElement("button");
+    playBtn.className = "play-btn";
+    playBtn.textContent = "PLAY NOW ▶";
+    playBtn.addEventListener("click", () => {
+      if (item.url) window.open(item.url, "_blank", "noopener");
+    });
 
-        const footer = document.createElement("div");
-        footer.className = "card-footer";
+    thumb.appendChild(img);
+    thumb.appendChild(playBtn);
+
+    const footer = document.createElement("div");
+    footer.className = "card-footer";
+
+    const title = document.createElement("div");
+    title.className = "card-title";
+    title.textContent = item.name || "Untitled";
+
+    const cat = document.createElement("div");
+    cat.className = "card-cat";
+    cat.textContent = item.category || "Other";
+
+    footer.appendChild(title);
+    footer.appendChild(cat);
+
+    card.appendChild(thumb);
+    card.appendChild(footer);
+
+    return card;
+  }
+
+  async function init() {
+    try {
+      const res = await fetch(JSON_URL + "?t=" + Date.now());
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      const data = await res.json();
+
+      const items = Array.isArray(data)
+        ? data
+        : Array.isArray(data.playables)
+        ? data.playables
+        : [];
+
+      const buckets = {};
+      items.forEach((it) => {
+        const cat = (it.category || "Other").trim();
+        if (!buckets[cat]) buckets[cat] = [];
+        buckets[cat].push(it);
+      });
+
+      const orderedCats = Object.keys(buckets).sort((a, b) =>
+        a.localeCompare(b)
+      );
+
+      orderedCats.forEach((cat) => {
+        const section = document.createElement("div");
+        section.className = "section";
 
         const title = document.createElement("div");
-        title.className = "card-title";
-        title.textContent = item.name || "Untitled";
+        title.className = "section-title";
+        title.textContent = cat.toUpperCase();
 
-        const cat = document.createElement("div");
-        cat.className = "card-cat";
-        cat.textContent = item.category || "Other";
+        const count = document.createElement("small");
+        count.textContent = "• " + buckets[cat].length + " demos";
+        title.appendChild(count);
 
-        footer.appendChild(title);
-        footer.appendChild(cat);
+        const grid = document.createElement("div");
+        grid.className = "grid";
 
-        card.appendChild(thumb);
-        card.appendChild(footer);
+        buckets[cat].forEach((item) => {
+          grid.appendChild(createCard(item));
+        });
 
-        return card;
-      }
+        section.appendChild(title);
+        section.appendChild(grid);
 
-      async function init() {
-        try {
-          const res = await fetch(JSON_URL + "?t=" + Date.now());
-          if (!res.ok) throw new Error("HTTP " + res.status);
-          const data = await res.json();
+        sectionsRoot.appendChild(section);
+      });
+    } catch (err) {
+      console.error(err);
+      errorBar.style.display = "block";
+      errorBar.textContent =
+        "Could not load JSON file. Check filename & path. " + err.message;
+    }
+  }
 
-          const items = Array.isArray(data)
-            ? data
-            : Array.isArray(data.playables)
-            ? data.playables
-            : [];
-
-          const buckets = {};
-          items.forEach((it) => {
-            const cat = (it.category || "Other").trim();
-            if (!buckets[cat]) buckets[cat] = [];
-            buckets[cat].push(it);
-          });
-
-          const orderedCats = Object.keys(buckets).sort((a, b) =>
-            a.localeCompare(b)
-          );
-
-          orderedCats.forEach((cat) => {
-            const section = document.createElement("div");
-            section.className = "section";
-
-            const title = document.createElement("div");
-            title.className = "section-title";
-            title.textContent = cat.toUpperCase();
-
-            const count = document.createElement("small");
-            count.textContent = "• " + buckets[cat].length + " demos";
-            title.appendChild(count);
-
-            const grid = document.createElement("div");
-            grid.className = "grid";
-
-            buckets[cat].forEach((item) => {
-              grid.appendChild(createCard(item));
-            });
-
-            section.appendChild(title);
-            section.appendChild(grid);
-
-            sectionsRoot.appendChild(section);
-          });
-        } catch (err) {
-          console.error(err);
-          errorBar.style.display = "block";
-          errorBar.textContent =
-            "Could not load JSON file. Check filename & path. " + err.message;
-        }
-      }
-
-      init();
+  init();
     </script>
   </body>
 </html>
