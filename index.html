@@ -1,347 +1,126 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>CRAFTSMAN+ • Template Catalog</title>
-  <style>
-    :root {
-      --bg: #0d1a3a;
-      --panel: #121f41;
-      --card: rgba(11, 18, 37, 0.9);
-      --text: #fff;
-      --muted: rgba(255,255,255,0.45);
-      --accent: #0ea5e9;
-      --radius-lg: 1.5rem;
-      --radius-md: 1rem;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Inter", Roboto, sans-serif;
-      background: #0b1530;
-      color: var(--text);
-    }
-    .wrap {
-      display: flex;
-      gap: 1.5rem;
-      padding: 2.5rem 2rem 2rem;
-      min-height: 100vh;
-    }
-    header {
-      grid-column: 1/-1;
-      margin-bottom: 1.5rem;
-    }
-    .left {
-      flex: 1 1 auto;
-      min-width: 0;
-    }
-    .right {
-      width: 360px;
-      background: #651b21;
-      border-radius: 1.5rem;
-      overflow: hidden;
-      position: sticky;
-      top: 1.5rem;
-      height: calc(100vh - 3rem);
-      display: flex;
-      flex-direction: column;
-    }
-    .right-header {
-      padding: 1rem 1.25rem 0.25rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: .5rem;
-    }
-    .right-title {
-      font-weight: 600;
-      font-size: .9rem;
-    }
-    .close-btn {
-      background: rgba(0,0,0,.3);
-      border: none;
-      color: #fff;
-      width: 26px;
-      height: 26px;
-      border-radius: 999px;
-      cursor: pointer;
-      font-size: 1.1rem;
-      line-height: 1;
-    }
-    .preview-frame-wrap {
-      flex: 1 1 auto;
-      background: #000;
-      margin: 1rem;
-      border-radius: 1rem;
-      overflow: hidden;
-      display: flex;
-    }
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      background: #000;
-    }
-    h1 {
-      font-size: 1.35rem;
-      font-weight: 650;
-      margin: 0;
-    }
-    .subtitle {
-      color: var(--muted);
-      margin-top: .4rem;
-      font-size: .9rem;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-      gap: 1.2rem;
-    }
-    .card {
-      background: rgba(7,13,27,.4);
-      border: 1px solid rgba(255,255,255,.04);
-      border-radius: 1.25rem;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      min-height: 270px;
-    }
-    .thumb {
-      background: radial-gradient(circle at top, rgba(255,255,255,.05), rgba(0,0,0,.15));
-      height: 150px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      border-bottom: 1px solid rgba(255,255,255,.02);
-    }
-    .thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .thumb .no-preview {
-      font-size: .75rem;
-      color: rgba(255,255,255,.2);
-    }
-    .thumb .ext-btn {
-      position: absolute;
-      top: .6rem;
-      right: .6rem;
-      background: rgba(0,0,0,.45);
-      border: 1px solid rgba(255,255,255,.16);
-      width: 30px;
-      height: 30px;
-      border-radius: 999px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-size: .8rem;
-    }
-    .card-body {
-      padding: .9rem .9rem 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: .5rem;
-      flex: 1 1 auto;
-    }
-    .card-title {
-      font-weight: 600;
-      font-size: .9rem;
-      line-height: 1.2;
-    }
-    .card-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: .7rem;
-      color: rgba(255,255,255,.35);
-    }
-    .badge {
-      padding: .2rem .55rem;
-      border-radius: 999px;
-      background: rgba(255,255,255,.03);
-      border: 1px solid rgba(255,255,255,.03);
-    }
-    .play-btn {
-      background: #fff;
-      color: #151c34;
-      border: none;
-      border-radius: 999px;
-      padding: .45rem .9rem;
-      font-weight: 600;
-      font-size: .75rem;
-      display: inline-flex;
-      gap: .3rem;
-      align-items: center;
-      cursor: pointer;
-      width: fit-content;
-    }
-    .count {
-      font-size: .7rem;
-      color: rgba(255,255,255,.3);
-      margin-top: .8rem;
-      margin-bottom: .8rem;
-    }
-    @media (max-width: 1024px) {
-      .wrap {
-        flex-direction: column;
-      }
-      .right {
-        position: static;
-        width: 100%;
-        height: 540px;
-        max-width: 420px;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="wrap">
-    <div class="left">
-      <header>
-        <h1>Template Catalog <span style="font-size:.65rem; background:rgba(255,255,255,.06); padding:.25rem .5rem; border-radius:999px; margin-left:.4rem;">for partners</span></h1>
-        <p class="subtitle">Browse core interactive ad formats. Click “Play now” to open live preview. External icon opens the created preview URL.</p>
-        <p class="count" id="countText">Loaded 0 templates.</p>
-      </header>
-      <div class="grid" id="cards"></div>
-    </div>
+<script>
+  // path to your JSON in the root
+  const DATA_URL = 'Playable_Endpoint_URLs.json';
+  const THUMB_BASE = 'thumbnails/'; // where you put all the thumbs
 
-    <div class="right" id="previewPanel">
-      <div class="right-header">
-        <div>
-          <div style="font-size:.6rem; letter-spacing:.15em; text-transform:uppercase; color:rgba(255,255,255,.4);">Preview</div>
-          <div class="right-title" id="previewTitle">Select a template</div>
-        </div>
-        <button class="close-btn" onclick="clearPreview()">×</button>
-      </div>
-      <div class="preview-frame-wrap" id="previewFrameWrap">
-        <iframe id="previewFrame" src=""></iframe>
-      </div>
-    </div>
-  </div>
+  fetch(DATA_URL)
+    .then(r => r.json())
+    .then(list => {
+      const container = document.getElementById('cards');
+      const countText = document.getElementById('countText');
+      countText.textContent = `Loaded ${list.length} templates.`;
 
-  <script>
-    // path to your JSON in the root
-    const DATA_URL = 'Playable_Endpoint_URLs.json';
-    const THUMB_BASE = 'thumbnails/'; // where you put all the png/jpg
+      list.forEach(item => {
+        // map your fields
+        const title = item["Title"] || "Untitled template";
+        const genre = item["Genre"] || "Other";
+        const previewUrl = item["URL"];             // real preview (open in new tab)
+        const endpointUrl = item["Endpoint URL"];   // goes into iframe
+        // your JSON has "item-slicer-png" so we add ".png"
+        let thumbName = item["thumbnail"];
+        if (thumbName) {
+          // avoid double .png
+          if (!thumbName.endsWith(".png") && !thumbName.endsWith(".jpg") && !thumbName.endsWith(".jpeg") && !thumbName.endsWith(".webp")) {
+            thumbName = thumbName + ".png";
+          }
+        }
 
-    // Build cards
-    fetch(DATA_URL)
-      .then(r => r.json())
-      .then(list => {
-        const container = document.getElementById('cards');
-        const countText = document.getElementById('countText');
-        countText.textContent = `Loaded ${list.length} templates.`;
+        const card = document.createElement('div');
+        card.className = 'card';
 
-        list.forEach(item => {
-          // expected fields in JSON:
-          // title, category, thumbnail (filename), endpoint_url, preview_url
-          const card = document.createElement('div');
-          card.className = 'card';
+        const thumb = document.createElement('div');
+        thumb.className = 'thumb';
 
-          const thumb = document.createElement('div');
-          thumb.className = 'thumb';
-
+        if (thumbName) {
           const img = document.createElement('img');
-          if (item.thumbnail) {
-            img.src = THUMB_BASE + item.thumbnail;
-            img.alt = item.title || 'Template thumbnail';
-
-            // fallback if missing
-            img.onerror = () => {
-              img.remove();
-              const np = document.createElement('div');
-              np.className = 'no-preview';
-              np.textContent = 'No preview';
-              thumb.appendChild(np);
-            };
-            thumb.appendChild(img);
-          } else {
+          img.src = THUMB_BASE + thumbName;
+          img.alt = title;
+          img.onerror = () => {
+            img.remove();
             const np = document.createElement('div');
             np.className = 'no-preview';
             np.textContent = 'No preview';
             thumb.appendChild(np);
-          }
-
-          // external btn -> REGULAR preview_url
-          if (item.preview_url) {
-            const ext = document.createElement('button');
-            ext.className = 'ext-btn';
-            ext.title = 'Open preview URL';
-            ext.innerHTML = '↗';
-            ext.onclick = (e) => {
-              e.stopPropagation();
-              window.open(item.preview_url, '_blank');
-            };
-            thumb.appendChild(ext);
-          }
-
-          card.appendChild(thumb);
-
-          const body = document.createElement('div');
-          body.className = 'card-body';
-
-          const title = document.createElement('div');
-          title.className = 'card-title';
-          title.textContent = item.title || 'Untitled template';
-
-          const meta = document.createElement('div');
-          meta.className = 'card-meta';
-          const cat = document.createElement('span');
-          cat.className = 'badge';
-          cat.textContent = item.category || 'Other';
-          meta.appendChild(cat);
-
-          const play = document.createElement('button');
-          play.className = 'play-btn';
-          play.innerHTML = '▶︎ Play now';
-          play.onclick = (e) => {
-            e.stopPropagation();
-            // use ENDPOINT url for iframe only
-            loadPreview(item);
           };
+          thumb.appendChild(img);
+        } else {
+          const np = document.createElement('div');
+          np.className = 'no-preview';
+          np.textContent = 'No preview';
+          thumb.appendChild(np);
+        }
 
-          body.appendChild(title);
-          body.appendChild(meta);
-          body.appendChild(play);
+        // external button → use URL
+        if (previewUrl) {
+          const ext = document.createElement('button');
+          ext.className = 'ext-btn';
+          ext.title = 'Open preview URL';
+          ext.innerHTML = '↗';
+          ext.onclick = (e) => {
+            e.stopPropagation();
+            window.open(previewUrl, '_blank');
+          };
+          thumb.appendChild(ext);
+        }
 
-          card.appendChild(body);
+        card.appendChild(thumb);
 
-          // click whole card to preview too
-          card.onclick = () => loadPreview(item);
+        const body = document.createElement('div');
+        body.className = 'card-body';
 
-          container.appendChild(card);
-        });
-      })
-      .catch(err => {
-        console.error('Error loading JSON', err);
+        const titleEl = document.createElement('div');
+        titleEl.className = 'card-title';
+        titleEl.textContent = title;
+
+        const meta = document.createElement('div');
+        meta.className = 'card-meta';
+
+        const cat = document.createElement('span');
+        cat.className = 'badge';
+        cat.textContent = genre;
+        meta.appendChild(cat);
+
+        const play = document.createElement('button');
+        play.className = 'play-btn';
+        play.innerHTML = '▶︎ Play now';
+        play.onclick = (e) => {
+          e.stopPropagation();
+          loadPreview({ title, endpointUrl, previewUrl });
+        };
+
+        body.appendChild(titleEl);
+        body.appendChild(meta);
+        body.appendChild(play);
+
+        card.appendChild(body);
+
+        // clicking the card also loads preview
+        card.onclick = () => loadPreview({ title, endpointUrl, previewUrl });
+
+        container.appendChild(card);
       });
+    })
+    .catch(err => {
+      console.error('Error loading JSON', err);
+    });
 
-    function loadPreview(item) {
-      const frame = document.getElementById('previewFrame');
-      const title = document.getElementById('previewTitle');
+  function loadPreview(item) {
+    const frame = document.getElementById('previewFrame');
+    const title = document.getElementById('previewTitle');
 
-      // use endpoint_url for iframe
-      if (item.endpoint_url) {
-        frame.src = item.endpoint_url;
-      } else if (item.preview_url) {
-        // fallback
-        frame.src = item.preview_url;
-      } else {
-        frame.src = '';
-      }
-      title.textContent = item.title || 'Untitled template';
+    // prefer endpoint for iframe
+    if (item.endpointUrl) {
+      frame.src = item.endpointUrl;
+    } else if (item.previewUrl) {
+      frame.src = item.previewUrl;
+    } else {
+      frame.src = '';
     }
+    title.textContent = item.title || 'Untitled template';
+  }
 
-    function clearPreview() {
-      document.getElementById('previewFrame').src = '';
-      document.getElementById('previewTitle').textContent = 'Select a template';
-    }
-  </script>
-</body>
-</html>
+  function clearPreview() {
+    document.getElementById('previewFrame').src = '';
+    document.getElementById('previewTitle').textContent = 'Select a template';
+  }
+</script>
