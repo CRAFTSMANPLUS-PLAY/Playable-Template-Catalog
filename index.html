@@ -2,365 +2,377 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>CRAFTSMAN+ PLAY Catalogue</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+  <title>CRAFTSMAN+ • PLAY Catalogue</title>
   <style>
     :root {
-      --bg: #0f0f10;
-      --card: #1a1b1f;
-      --card-border: rgba(255,255,255,.04);
-      --text: #fff;
-      --muted: rgba(255,255,255,.45);
-      --accent: #0b78ff;
+      --bg: #0f1012;
+      --surface: #1a1b1f;
+      --surface-border: #24262b;
+      --text: #ffffff;
+      --muted: #9da3b3;
+      --primary: #007bff;
       --radius-lg: 1.25rem;
-      --thumb-w: 315px;   /* width of each playable */
-      --thumb-h: 560px;   /* portrait-ish */
     }
-    * { box-sizing: border-box; }
+
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
       margin: 0;
-      padding: 1.5rem 1.5rem 4rem;
+      padding: 1.5rem 1.5rem 3rem;
+      min-height: 100vh;
     }
+
     header {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 1rem;
       margin-bottom: 1.5rem;
     }
-    .title-block h1 {
+
+    .app-title {
+      font-weight: 700;
       font-size: 1.1rem;
-      letter-spacing: .04em;
-      margin: 0;
+      letter-spacing: -0.01em;
     }
-    .section-title {
-      font-weight: 600;
-      margin: 1.8rem 0 .75rem;
+
+    .app-subtitle {
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
     }
-    .grid {
+
+    #inline-player {
+      background: #000;
+      border: 1px solid #222;
+      border-radius: 1rem;
+      margin-bottom: 1.5rem;
+      display: none; /* shown when user clicks play */
+      overflow: hidden;
+    }
+
+    #inline-player iframe {
+      width: 100%;
+      height: 400px;
+      border: none;
+      display: block;
+      background: #000;
+    }
+
+    #inline-url {
+      font-size: 0.7rem;
+      padding: 0.5rem 1rem 1rem;
+      color: #aaa;
+      word-break: break-all;
+    }
+
+    .category-group {
+      margin-bottom: 2.5rem;
+    }
+
+    .category-group h2 {
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #d0d4dd;
+      margin-bottom: 0.85rem;
+    }
+
+    .card-grid {
       display: flex;
       flex-wrap: wrap;
       gap: 1.25rem;
     }
-    .card {
-      background: radial-gradient(circle at top, rgba(255,255,255,.04), rgba(0,0,0,0));
-      border: 1px solid var(--card-border);
+
+    .playable-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
       border-radius: var(--radius-lg);
-      width: var(--thumb-w);
+      width: 315px;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 420px;
+    }
+
+    /* portrait-ish preview box */
+    .preview-box {
       position: relative;
-    }
-    .card-head {
-      padding: .9rem 1rem .25rem;
-      display: flex;
-      align-items: flex-start;
-      gap: .75rem;
-      justify-content: space-between;
-    }
-    .card-title {
-      font-size: .9rem;
-      font-weight: 600;
-    }
-    .card-sub {
-      font-size: .65rem;
-      color: var(--muted);
-      margin-top: .2rem;
-    }
-    .card-actions {
-      display: flex;
-      gap: .45rem;
-    }
-    .icon-btn {
-      width: 30px;
-      height: 30px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(10,10,10,.3);
-      display: grid;
-      place-items: center;
-      cursor: pointer;
-      transition: .15s ease;
-    }
-    .icon-btn:hover {
-      background: rgba(255,255,255,.05);
-    }
-    .thumb-wrap {
       width: 100%;
-      height: var(--thumb-h);
-      background: radial-gradient(circle at 10% 20%, rgba(255,255,255,.02), rgba(0,0,0,0));
-      position: relative;
+      height: 350px; /* tweak this if you want taller/shorter */
+      background: radial-gradient(circle at top, #333, #111);
       overflow: hidden;
-      border-radius: .75rem;
-      margin: .25rem 1rem 1rem;
     }
-    .thumb-wrap img,
-    .thumb-wrap iframe {
+
+    .preview-box img {
       width: 100%;
       height: 100%;
-      border: none;
-      display: block;
       object-fit: cover;
-      border-radius: .75rem;
+      display: block;
     }
-    .play-btn-overlay {
+
+    .preview-fallback {
+      background: #222;
+    }
+
+    .play-button {
       position: absolute;
-      bottom: 1.4rem;
+      bottom: 1.25rem;
       left: 50%;
       transform: translateX(-50%);
-      background: #0b78ff;
+      background: var(--primary);
+      border: none;
+      border-radius: 999px;
+      padding: 0.5rem 1.75rem;
       color: #fff;
       font-weight: 600;
-      font-size: .7rem;
-      padding: .45rem .95rem;
-      border-radius: 999px;
-      display: inline-flex;
-      gap: .25rem;
-      align-items: center;
+      font-size: 0.75rem;
       cursor: pointer;
-      border: none;
-      box-shadow: 0 10px 30px rgba(11,120,255,.35);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      box-shadow: 0 8px 24px rgba(0, 123, 255, 0.35);
+      transition: transform 0.12s ease-out;
     }
-    .thumb-url {
-      font-size: .55rem;
-      color: rgba(255,255,255,.2);
+
+    .play-button:hover {
+      transform: translateX(-50%) translateY(-1px);
+    }
+
+    .card-meta {
+      padding: 0.75rem 1rem 0.25rem;
+    }
+
+    .card-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .card-cat {
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 0.4rem;
       padding: 0 1rem 1rem;
-      word-break: break-all;
     }
-    @media (max-width: 700px) {
-      .grid { flex-direction: column; }
-      .card { width: 100%; }
-      :root {
-        --thumb-h: 460px;
+
+    .card-actions a,
+    .card-actions button {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 999px;
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 0.7rem;
+      cursor: pointer;
+      transition: background 0.1s ease-out;
+    }
+
+    .card-actions a:hover,
+    .card-actions button:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    @media (max-width: 720px) {
+      .card-grid {
+        flex-direction: column;
+      }
+      .playable-card {
+        width: 100%;
+      }
+      #inline-player iframe {
+        height: 320px;
       }
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="title-block">
-      <h1>PLAYABLES</h1>
+    <div>
+      <div class="app-title">CRAFTSMAN+ • PLAY Catalogue</div>
+      <div class="app-subtitle">Interactive ad concepts & variants • Read-only snapshot</div>
     </div>
-    <div id="demoCount" style="font-size:.65rem;color:rgba(255,255,255,.4)"></div>
+    <div id="demo-count" class="app-subtitle"></div>
   </header>
 
-  <div id="catalog"></div>
+  <!-- inline viewer -->
+  <section id="inline-player">
+    <iframe id="inline-frame" src="about:blank"></iframe>
+    <div id="inline-url"></div>
+  </section>
+
+  <!-- main container -->
+  <main id="playables"></main>
 
   <script>
-    // 1) this is the important part for you 👇
-    // if the title in the JSON does NOT match the actual filename,
-    // add it here: "JSON Title": "actual-file-name.png"
-    const IMAGE_OVERRIDES = {
-      "Block Puzzle": "block puzzle.png",
-      "Character Builder": "character builder.png"
-      // add more here as you see 404s
-      // "Spot the Difference": "spot the difference.png",
-      // "Slide Puzzle": "slide puzzle.png"
-    };
+    // 👇 if you renamed the file, change this
+    const JSON_URL = './Playable_Endpoint_URLs_with_thumbs.json';
 
-    // fallback image (optional) – if you uploaded placeholder.png
-    const FALLBACK_THUMB = "placeholder.png";
-
-    // your JSON file in the repo
-    const JSON_URL = "endpoint-urls.json";
-
-    // this is the "open in new tab" URL base – you said you want the
-    // nice preview URL, not the endpoint – change this to whatever
-    const PREVIEW_BASE = "https://play.preview.craftsmanplus.com/preview?playable=";
-
-    async function loadData() {
+    async function loadPlayables() {
       let data = [];
       try {
-        const res = await fetch(JSON_URL + "?v=" + Date.now());
+        const res = await fetch(JSON_URL);
+        if (!res.ok) throw new Error('JSON not found: ' + JSON_URL);
         data = await res.json();
       } catch (e) {
-        console.error("Failed to load JSON, using empty list.", e);
+        console.error('Failed to load JSON, using empty list.', e);
         data = [];
       }
-      return data;
-    }
 
-    function slugify(name) {
-      return name
-        .toLowerCase()
-        .replace(/&/g, "and")
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-+|-+$/g, "");
-    }
+      // update count
+      const countEl = document.getElementById('demo-count');
+      if (countEl) {
+        countEl.textContent = data.length ? `${data.length} demos` : '';
+      }
 
-    function groupByCategory(items) {
-      const groups = {};
-      items.forEach(item => {
-        const cat = item.category || "Other";
-        if (!groups[cat]) groups[cat] = [];
-        groups[cat].push(item);
-      });
-      return groups;
-    }
+      // group by category
+      const byCategory = data.reduce((acc, item) => {
+        const cat = item.Category && item.Category.trim()
+          ? item.Category.trim()
+          : 'Other';
+        if (!acc[cat]) acc[cat] = [];
+        acc[cat].push(item);
+        return acc;
+      }, {});
 
-    function render(items) {
-      const root = document.getElementById("catalog");
-      root.innerHTML = "";
-      const groups = groupByCategory(items);
+      const container = document.getElementById('playables');
+      container.innerHTML = '';
 
-      // count
-      const demoCount = document.getElementById("demoCount");
-      demoCount.textContent = items.length + " demos";
+      Object.keys(byCategory).forEach(cat => {
+        const group = document.createElement('section');
+        group.className = 'category-group';
 
-      Object.keys(groups).sort().forEach(cat => {
-        const h = document.createElement("div");
-        h.className = "section-title";
-        h.textContent = cat;
-        root.appendChild(h);
+        const title = document.createElement('h2');
+        title.textContent = cat;
+        group.appendChild(title);
 
-        const wrap = document.createElement("div");
-        wrap.className = "grid";
+        const grid = document.createElement('div');
+        grid.className = 'card-grid';
 
-        groups[cat].forEach((item, index) => {
-          const card = document.createElement("div");
-          card.className = "card";
+        byCategory[cat].forEach(item => {
+          const card = document.createElement('article');
+          card.className = 'playable-card';
 
-          const head = document.createElement("div");
-          head.className = "card-head";
-
-          const left = document.createElement("div");
-          const title = document.createElement("div");
-          title.className = "card-title";
-          title.textContent = item.title || "Untitled";
-          const sub = document.createElement("div");
-          sub.className = "card-sub";
-          sub.textContent = item.category || "Other";
-          left.appendChild(title);
-          left.appendChild(sub);
-
-          const actions = document.createElement("div");
-          actions.className = "card-actions";
-
-          // refresh button
-          const refreshBtn = document.createElement("button");
-          refreshBtn.className = "icon-btn";
-          refreshBtn.innerHTML = "↻";
-          actions.appendChild(refreshBtn);
-
-          // external button
-          const extBtn = document.createElement("button");
-          extBtn.className = "icon-btn";
-          extBtn.innerHTML = "↗";
-          actions.appendChild(extBtn);
-
-          head.appendChild(left);
-          head.appendChild(actions);
-          card.appendChild(head);
-
-          // thumb
-          const thumb = document.createElement("div");
-          thumb.className = "thumb-wrap";
+          // preview
+          const preview = document.createElement('div');
+          preview.className = 'preview-box';
 
           // figure out image name
-          const t = item.title || "untitled";
-          const slug = slugify(t);
-          const imgName = IMAGE_OVERRIDES[t] || (slug + ".png");
+          // prefer explicit item.thumbnail from JSON
+          // fallback: title -> lowercase -> .png
+          let thumbName = '';
+          if (item.thumbnail && item.thumbnail.trim()) {
+            thumbName = item.thumbnail.trim();
+          } else if (item.Title) {
+            thumbName = item.Title.toLowerCase().trim() + '.png';
+          }
 
-          const img = document.createElement("img");
-          img.src = imgName;
-          img.alt = t;
-          img.loading = "lazy";
-
-          img.addEventListener("error", () => {
-            if (FALLBACK_THUMB) {
-              img.src = FALLBACK_THUMB;
-            } else {
-              img.style.display = "none";
-            }
-          });
-
-          thumb.appendChild(img);
-
-          // play overlay
-          const playBtn = document.createElement("button");
-          playBtn.className = "play-btn-overlay";
-          playBtn.textContent = "PLAY NOW ▶";
-          thumb.appendChild(playBtn);
-
-          card.appendChild(thumb);
-
-          // url display (can hide if you want)
-          const urlText = document.createElement("div");
-          urlText.className = "thumb-url";
-          urlText.textContent = item.endpoint || "";
-          card.appendChild(urlText);
-
-          // attach behavior
-          const loadIframe = () => {
-            // remove existing (image) and replace with iframe
-            thumb.innerHTML = "";
-            const iframe = document.createElement("iframe");
-            iframe.src = item.endpoint;
-            iframe.allow = "autoplay;fullscreen";
-            iframe.style.borderRadius = ".75rem";
-            thumb.appendChild(iframe);
-
-            // add refresh back
-            // (we still have top refresh button for full reset)
+          const img = document.createElement('img');
+          img.src = './' + thumbName;
+          img.alt = item.Title || 'Playable preview';
+          img.loading = 'lazy';
+          img.onerror = () => {
+            img.style.display = 'none';
+            preview.classList.add('preview-fallback');
           };
+          preview.appendChild(img);
 
-          playBtn.addEventListener("click", () => loadIframe());
-
-          // top refresh → go back to image
-          refreshBtn.addEventListener("click", () => {
-            thumb.innerHTML = "";
-            const freshImg = document.createElement("img");
-            freshImg.src = imgName;
-            freshImg.alt = t;
-            freshImg.loading = "lazy";
-            freshImg.addEventListener("error", () => {
-              if (FALLBACK_THUMB) {
-                freshImg.src = FALLBACK_THUMB;
-              } else {
-                freshImg.style.display = "none";
-              }
-            });
-            thumb.appendChild(freshImg);
-
-            const freshPlay = document.createElement("button");
-            freshPlay.className = "play-btn-overlay";
-            freshPlay.textContent = "PLAY NOW ▶";
-            freshPlay.addEventListener("click", () => loadIframe());
-            thumb.appendChild(freshPlay);
+          // play button
+          const playBtn = document.createElement('button');
+          playBtn.className = 'play-button';
+          playBtn.textContent = 'PLAY NOW ▶';
+          playBtn.addEventListener('click', () => {
+            openInlinePlayer(item);
           });
+          preview.appendChild(playBtn);
 
-          // external → open nice URL
-          extBtn.addEventListener("click", () => {
-            if (item.playableId) {
-              window.open(PREVIEW_BASE + encodeURIComponent(item.playableId), "_blank");
-            } else if (item.endpoint) {
-              window.open(item.endpoint, "_blank");
-            }
+          card.appendChild(preview);
+
+          // meta
+          const meta = document.createElement('div');
+          meta.className = 'card-meta';
+
+          const t = document.createElement('div');
+          t.className = 'card-title';
+          t.textContent = item.Title || 'Untitled';
+
+          const c = document.createElement('div');
+          c.className = 'card-cat';
+          c.textContent = item.Category || 'Other';
+
+          meta.appendChild(t);
+          meta.appendChild(c);
+          card.appendChild(meta);
+
+          // actions
+          const actions = document.createElement('div');
+          actions.className = 'card-actions';
+
+          // external link: use your preview URL
+          if (item.url) {
+            const ext = document.createElement('a');
+            ext.href = item.url;
+            ext.target = '_blank';
+            ext.rel = 'noreferrer';
+            ext.title = 'Open in new tab';
+            ext.textContent = '↗';
+            actions.appendChild(ext);
+          }
+
+          // refresh button = clears inline player (doesn't reload card image)
+          const refresh = document.createElement('button');
+          refresh.type = 'button';
+          refresh.title = 'Reset inline player';
+          refresh.textContent = '⟳';
+          refresh.addEventListener('click', () => {
+            resetInlinePlayer();
           });
+          actions.appendChild(refresh);
 
-          wrap.appendChild(card);
+          card.appendChild(actions);
+
+          grid.appendChild(card);
         });
 
-        root.appendChild(wrap);
+        group.appendChild(grid);
+        container.appendChild(group);
       });
     }
 
-    (async () => {
-      const raw = await loadData();
+    // inline player functions
+    function openInlinePlayer(item) {
+      const viewer = document.getElementById('inline-player');
+      const frame = document.getElementById('inline-frame');
+      const urlBar = document.getElementById('inline-url');
 
-      // normalizing — if your JSON is already in the right shape, this is fine
-      const items = raw.map((row, i) => {
-        return {
-          title: row.title || row.name || `Demo ${i+1}`,
-          category: row.category || "Other",
-          endpoint: row.endpoint || row.url || "",
-          playableId: row.playableId || row.playable || ""
-        };
-      });
+      if (item.url) {
+        viewer.style.display = 'block';
+        frame.src = item.url;
+        urlBar.textContent = item.url;
+      }
+    }
 
-      render(items);
-    })();
+    function resetInlinePlayer() {
+      const frame = document.getElementById('inline-frame');
+      if (frame) {
+        frame.src = 'about:blank';
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', loadPlayables);
   </script>
 </body>
 </html>
