@@ -1,294 +1,573 @@
-<script>
-  const DATA_URL = "Playable_Endpoint_URLs.json";
-  const FALLBACK_THUMB = "placeholder.png"; // <-- optional, create/upload this; otherwise we just hide
-
-  async function loadCatalogue() {
-    try {
-      const res = await fetch(DATA_URL, { cache: "no-store" });
-      const raw = await res.json();
-
-      const items = (Array.isArray(raw) ? raw : []).map((row) => {
-        const title = row["Title"] || "Untitled";
-        const genre =
-          row["Genre"] && String(row["Genre"]).trim()
-            ? String(row["Genre"]).trim()
-            : "Other";
-
-        // this is the one that should open in a new tab
-        const previewUrl = row["URL"] || row["Preview URL"] || "";
-
-        // this is the one that actually RUNS the playable in the card
-        const endpointUrl = row["Endpoint URL"] || previewUrl || "";
-
-        const hasAdvanced = !!row["Complex / Advanced Option"];
-        const isBanner = row["Unnamed: 5"]
-          ? String(row["Unnamed: 5"]).toLowerCase().includes("banner")
-          : false;
-
-        const slug = title
-          .toLowerCase()
-          .replace(/[^a-z0-9]+/g, "-")
-          .replace(/^-|-$/g, "");
-
-        return {
-          title,
-          genre,
-          endpointUrl,
-          previewUrl,
-          hasAdvanced,
-          isBanner,
-          thumbnail: slug + ".png",
-        };
-      });
-
-      renderCatalogue(items);
-    } catch (err) {
-      console.error("Failed to load JSON, using empty list.", err);
-      renderCatalogue([]);
-    }
-  }
-
-  function groupByGenre(list) {
-    const out = {};
-    list.forEach((item) => {
-      const g = item.genre || "Other";
-      if (!out[g]) out[g] = [];
-      out[g].push(item);
-    });
-    return out;
-  }
-
-  function renderCatalogue(allItems) {
-    const app = document.getElementById("app");
-    app.innerHTML = "";
-
-    const playables = allItems.filter((x) => !x.isBanner);
-    const banners = allItems.filter((x) => x.isBanner);
-
-    // PLAYABLES
-    const playableSection = document.createElement("section");
-    const playableHeader = document.createElement("div");
-    playableHeader.className = "section-title";
-    playableHeader.textContent = "PLAYABLES";
-    playableSection.appendChild(playableHeader);
-
-    if (playables.length === 0) {
-      const empty = document.createElement("div");
-      empty.className = "empty-state";
-      empty.textContent = "No playables found in JSON.";
-      playableSection.appendChild(empty);
-    } else {
-      const playableByGenre = groupByGenre(playables);
-      Object.entries(playableByGenre).forEach(([genre, list]) => {
-        const gBlock = document.createElement("div");
-        gBlock.className = "genre-block";
-
-        const gHeader = document.createElement("div");
-        gHeader.className = "genre-header";
-        const gName = document.createElement("div");
-        gName.className = "genre-name";
-        gName.textContent = genre;
-        const gCount = document.createElement("div");
-        gCount.className = "genre-count";
-        gCount.textContent = list.length + " demos";
-        gHeader.appendChild(gName);
-        gHeader.appendChild(gCount);
-        gBlock.appendChild(gHeader);
-
-        const grid = document.createElement("div");
-        grid.className = "grid";
-
-        list.forEach((item) => {
-          grid.appendChild(createCard(item));
-        });
-
-        gBlock.appendChild(grid);
-        playableSection.appendChild(gBlock);
-      });
-    }
-
-    app.appendChild(playableSection);
-
-    // BANNERS (if any)
-    if (banners.length > 0) {
-      const bannerSection = document.createElement("section");
-      const bannerHeader = document.createElement("div");
-      bannerHeader.className = "section-title";
-      bannerHeader.textContent = "ANIMATED BANNERS";
-      bannerSection.appendChild(bannerHeader);
-
-      const bannerByGenre = groupByGenre(banners);
-      Object.entries(bannerByGenre).forEach(([genre, list]) => {
-        const gBlock = document.createElement("div");
-        gBlock.className = "genre-block";
-
-        const gHeader = document.createElement("div");
-        gHeader.className = "genre-header";
-        const gName = document.createElement("div");
-        gName.className = "genre-name";
-        gName.textContent = genre;
-        const gCount = document.createElement("div");
-        gCount.className = "genre-count";
-        gCount.textContent = list.length + " banners";
-        gHeader.appendChild(gName);
-        gHeader.appendChild(gCount);
-        gBlock.appendChild(gHeader);
-
-        const grid = document.createElement("div");
-        grid.className = "grid";
-
-        list.forEach((item) => {
-          grid.appendChild(createCard(item));
-        });
-
-        gBlock.appendChild(grid);
-        bannerSection.appendChild(gBlock);
-      });
-
-      app.appendChild(bannerSection);
-    }
-  }
-
-  function createCard(item) {
-    const card = document.createElement("article");
-    card.className = "card";
-
-    const top = document.createElement("div");
-    top.className = "card-top";
-
-    const metaWrap = document.createElement("div");
-    const titleEl = document.createElement("div");
-    titleEl.className = "card-title";
-    titleEl.textContent = item.title || "Untitled";
-
-    const genreEl = document.createElement("div");
-    genreEl.className = "card-genre";
-    genreEl.textContent = item.genre || "Other";
-
-    metaWrap.appendChild(titleEl);
-    metaWrap.appendChild(genreEl);
-
-    if (item.hasAdvanced) {
-      const adv = document.createElement("div");
-      adv.className = "badge-advanced";
-      adv.innerHTML = "<span>✔</span><span>Advanced Options / Variants</span>";
-      metaWrap.appendChild(adv);
-    }
-
-    const actions = document.createElement("div");
-    actions.className = "card-actions";
-
-    // ↗ open PLAY URL (preferred) or endpoint as fallback
-    const btnExternal = document.createElement("button");
-    btnExternal.className = "icon-btn";
-    btnExternal.title = "Open PLAY preview in new tab";
-    btnExternal.textContent = "↗";
-    btnExternal.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const targetUrl = item.previewUrl || item.endpointUrl;
-      if (targetUrl) window.open(targetUrl, "_blank");
-    });
-    actions.appendChild(btnExternal);
-
-    // 🔄 reset
-    const btnReset = document.createElement("button");
-    btnReset.className = "icon-btn";
-    btnReset.title = "Reset playable";
-    btnReset.textContent = "🔄";
-    // we'll attach handler later once iframe/thumbnail exist
-    actions.appendChild(btnReset);
-
-    top.appendChild(metaWrap);
-    top.appendChild(actions);
-    card.appendChild(top);
-
-    // THUMB / IFRAME
-    const thumbWrap = document.createElement("div");
-    thumbWrap.className = "thumb-wrap";
-
-    const thumbImg = document.createElement("img");
-    thumbImg.src = item.thumbnail || "";
-    thumbImg.alt = item.title || "Playable thumbnail";
-
-    // fallback if image 404s
-    thumbImg.addEventListener("error", () => {
-      if (FALLBACK_THUMB) {
-        thumbImg.src = FALLBACK_THUMB;
-      } else {
-        thumbImg.style.display = "none";
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CRAFTSMAN+ • PLAY Catalogue</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      :root {
+        --bg: #0f0f10;
+        --panel: #151517;
+        --card: #1c1d21;
+        --card-border: rgba(255, 255, 255, 0.04);
+        --text: #fff;
+        --muted: rgba(255, 255, 255, 0.6);
+        --accent: #00bcd4;
+        --radius-lg: 1.25rem;
+        --radius-md: 1rem;
       }
-    });
 
-    thumbWrap.appendChild(thumbImg);
+      * {
+        box-sizing: border-box;
+      }
 
-    const overlay = document.createElement("div");
-    overlay.className = "play-overlay";
-    const playBtn = document.createElement("button");
-    playBtn.className = "play-now-btn";
-    playBtn.type = "button";
-    playBtn.textContent = "PLAY NOW ▶";
-    overlay.appendChild(playBtn);
-    thumbWrap.appendChild(overlay);
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+      }
 
-    const iframe = document.createElement("iframe");
-    iframe.className = "iframe-holder";
-    iframe.allow =
-      "accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture;";
-    iframe.loading = "lazy";
-    iframe.title = item.title || "Playable";
-    iframe.style.display = "none";
+      .wrap {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1.5rem 1.5rem 3.5rem;
+      }
 
-    // load function with loading state
-    const loadIframe = () => {
-      if (!item.endpointUrl) return;
-      // set loading state
-      playBtn.textContent = "Loading…";
-      playBtn.disabled = true;
+      header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.8rem;
+      }
 
-      iframe.src = item.endpointUrl;
-      iframe.style.display = "block";
-      thumbWrap.style.display = "none";
-    };
+      header .logo {
+        width: 38px;
+        height: 38px;
+        border-radius: 999px;
+        background: #fff;
+        display: grid;
+        place-items: center;
+        font-weight: 700;
+        color: #000;
+      }
 
-    // when iframe finishes -> restore button
-    iframe.addEventListener("load", () => {
-      playBtn.textContent = "PLAY NOW ▶";
-      playBtn.disabled = false;
-    });
+      header .meta h1 {
+        font-size: 1rem;
+        margin: 0;
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+      }
 
-    thumbWrap.addEventListener("click", (e) => {
-      e.stopPropagation();
-      loadIframe();
-    });
+      header .meta small {
+        display: block;
+        font-size: 0.68rem;
+        color: var(--muted);
+      }
 
-    playBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      loadIframe();
-    });
+      .badge-ghost {
+        background: rgba(0, 188, 212, 0.1);
+        color: #e0fdff;
+        border: 1px solid rgba(0, 188, 212, 0.2);
+        padding: 0.15rem 0.5rem;
+        border-radius: 999px;
+        font-size: 0.6rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
 
-    card.appendChild(thumbWrap);
-    card.appendChild(iframe);
+      .section-title {
+        margin: 1.8rem 0 0.8rem;
+        font-weight: 600;
+        font-size: 0.85rem;
+        color: #fff;
+      }
 
-    // now wire up reset (needs access to iframe + thumb)
-    btnReset.addEventListener("click", (e) => {
-      e.stopPropagation();
-      iframe.src = "";
-      iframe.style.display = "none";
-      thumbWrap.style.display = "flex";
-      // restore button UI
-      playBtn.textContent = "PLAY NOW ▶";
-      playBtn.disabled = false;
-    });
+      .genre-block {
+        margin-bottom: 1.5rem;
+      }
 
-    // FOOTER
-    const footer = document.createElement("div");
-    footer.className = "card-footer";
-    footer.textContent =
-      item.previewUrl || item.endpointUrl || "(no URL provided)";
-    card.appendChild(footer);
+      .genre-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.25rem;
+      }
 
-    return card;
-  }
+      .genre-name {
+        font-weight: 500;
+        font-size: 0.78rem;
+      }
 
-  loadCatalogue();
-</script>
+      .genre-count {
+        font-size: 0.6rem;
+        color: var(--muted);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+        gap: 1rem;
+      }
+
+      .card {
+        background: radial-gradient(
+            circle at top,
+            rgba(255, 255, 255, 0.04),
+            rgba(0, 0, 0, 0)
+          ),
+          var(--card);
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-lg);
+        display: flex;
+        flex-direction: column;
+        min-height: 240px;
+        overflow: hidden;
+      }
+
+      .card-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 0.75rem;
+        padding: 0.75rem 0.75rem 0.25rem;
+      }
+
+      .card-title {
+        font-size: 0.78rem;
+        font-weight: 600;
+      }
+
+      .card-genre {
+        font-size: 0.58rem;
+        color: var(--muted);
+        margin-top: 0.25rem;
+      }
+
+      .badge-advanced {
+        margin-top: 0.4rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        background: rgba(0, 188, 212, 0.12);
+        border: 1px solid rgba(0, 188, 212, 0.3);
+        padding: 0.1rem 0.5rem 0.1rem 0.35rem;
+        border-radius: 999px;
+        font-size: 0.55rem;
+      }
+
+      .badge-advanced span:first-child {
+        font-size: 0.6rem;
+      }
+
+      .card-actions {
+        display: flex;
+        gap: 0.35rem;
+      }
+
+      .icon-btn {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        width: 26px;
+        height: 26px;
+        border-radius: 999px;
+        color: #fff;
+        font-size: 0.7rem;
+        cursor: pointer;
+      }
+
+      .icon-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      /* 2:1 preview area */
+      .thumb-wrap {
+        position: relative;
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 0.9rem;
+        margin: 0.5rem 0.75rem 0.5rem;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        aspect-ratio: 2 / 1;
+        min-height: 140px;
+      }
+
+      .thumb-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .play-overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(
+          140deg,
+          rgba(0, 0, 0, 0.5),
+          rgba(0, 0, 0, 0)
+        );
+      }
+
+      .play-now-btn {
+        background: #0070f3;
+        border: none;
+        color: #fff;
+        font-weight: 600;
+        padding: 0.55rem 1.3rem;
+        border-radius: 999px;
+        font-size: 0.68rem;
+        cursor: pointer;
+      }
+
+      .play-now-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      .iframe-holder {
+        width: calc(100% - 1.5rem);
+        margin: 0 0.75rem;
+        height: 180px;
+        border: none;
+        border-radius: 0.9rem;
+      }
+
+      .card-footer {
+        background: rgba(0, 0, 0, 0.14);
+        border-top: 1px solid rgba(255, 255, 255, 0.03);
+        padding: 0.4rem 0.75rem 0.6rem;
+        font-size: 0.55rem;
+        color: rgba(255, 255, 255, 0.5);
+        word-break: break-all;
+        border-bottom-left-radius: var(--radius-lg);
+        border-bottom-right-radius: var(--radius-lg);
+      }
+
+      .empty-state {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px dashed rgba(255, 255, 255, 0.08);
+        border-radius: 0.9rem;
+        padding: 2rem 1rem;
+        text-align: center;
+        font-size: 0.7rem;
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      @media (max-width: 700px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .iframe-holder {
+          height: 180px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="logo">C+</div>
+        <div class="meta">
+          <h1>
+            CRAFTSMAN+ PLAY Catalogue
+            <span class="badge-ghost">Read-only snapshot</span>
+          </h1>
+          <small>Interactive ad concepts &amp; variants • powered by PLAY</small>
+        </div>
+      </header>
+      <main id="app">Loading…</main>
+    </div>
+
+    <script>
+      // IMPORTANT: make sure this filename exists at the root of your repo
+      const DATA_URL = "Playable_Endpoint_URLs.json";
+      const FALLBACK_THUMB = "placeholder.png"; // optional
+
+      async function loadCatalogue() {
+        try {
+          const res = await fetch(DATA_URL, { cache: "no-store" });
+          const raw = await res.json();
+          const items = (Array.isArray(raw) ? raw : []).map((row) => {
+            const title = row["Title"] || "Untitled";
+            const genre =
+              row["Genre"] && String(row["Genre"]).trim()
+                ? String(row["Genre"]).trim()
+                : "Other";
+
+            // this is what you want to open in a new tab
+            const previewUrl = row["URL"] || row["Preview URL"] || "";
+
+            // this is what actually runs INSIDE the card
+            const endpointUrl = row["Endpoint URL"] || previewUrl || "";
+
+            const hasAdvanced = !!row["Complex / Advanced Option"];
+            const isBanner = row["Unnamed: 5"]
+              ? String(row["Unnamed: 5"]).toLowerCase().includes("banner")
+              : false;
+
+            const slug = title
+              .toLowerCase()
+              .replace(/[^a-z0-9]+/g, "-")
+              .replace(/^-|-$/g, "");
+
+            return {
+              title,
+              genre,
+              previewUrl,
+              endpointUrl,
+              hasAdvanced,
+              isBanner,
+              thumbnail: slug + ".png",
+            };
+          });
+          renderCatalogue(items);
+        } catch (err) {
+          console.error("Failed to load JSON", err);
+          renderCatalogue([]);
+        }
+      }
+
+      function groupBy(list, key = "genre") {
+        const out = {};
+        list.forEach((item) => {
+          const k = item[key] || "Other";
+          if (!out[k]) out[k] = [];
+          out[k].push(item);
+        });
+        return out;
+      }
+
+      function renderCatalogue(items) {
+        const app = document.getElementById("app");
+        app.innerHTML = "";
+
+        const playables = items.filter((x) => !x.isBanner);
+        const banners = items.filter((x) => x.isBanner);
+
+        // PLAYABLES
+        const playableSection = document.createElement("section");
+        const playableTitle = document.createElement("div");
+        playableTitle.className = "section-title";
+        playableTitle.textContent = "PLAYABLES";
+        playableSection.appendChild(playableTitle);
+
+        if (!playables.length) {
+          const empty = document.createElement("div");
+          empty.className = "empty-state";
+          empty.textContent =
+            "No playables found. Check that your JSON is valid and at the root.";
+          playableSection.appendChild(empty);
+        } else {
+          const byGenre = groupBy(playables);
+          Object.entries(byGenre).forEach(([genre, list]) => {
+            const block = document.createElement("div");
+            block.className = "genre-block";
+
+            const header = document.createElement("div");
+            header.className = "genre-header";
+            const name = document.createElement("div");
+            name.className = "genre-name";
+            name.textContent = genre;
+            const count = document.createElement("div");
+            count.className = "genre-count";
+            count.textContent = list.length + " demos";
+            header.appendChild(name);
+            header.appendChild(count);
+            block.appendChild(header);
+
+            const grid = document.createElement("div");
+            grid.className = "grid";
+
+            list.forEach((item) => grid.appendChild(createCard(item)));
+
+            block.appendChild(grid);
+            playableSection.appendChild(block);
+          });
+        }
+
+        app.appendChild(playableSection);
+
+        // BANNERS
+        if (banners.length) {
+          const bannerSection = document.createElement("section");
+          const bannerTitle = document.createElement("div");
+          bannerTitle.className = "section-title";
+          bannerTitle.textContent = "ANIMATED BANNERS";
+          bannerSection.appendChild(bannerTitle);
+
+          const byGenreB = groupBy(banners);
+          Object.entries(byGenreB).forEach(([genre, list]) => {
+            const block = document.createElement("div");
+            block.className = "genre-block";
+
+            const header = document.createElement("div");
+            header.className = "genre-header";
+            const name = document.createElement("div");
+            name.className = "genre-name";
+            name.textContent = genre;
+            const count = document.createElement("div");
+            count.className = "genre-count";
+            count.textContent = list.length + " banners";
+            header.appendChild(name);
+            header.appendChild(count);
+            block.appendChild(header);
+
+            const grid = document.createElement("div");
+            grid.className = "grid";
+
+            list.forEach((item) => grid.appendChild(createCard(item)));
+
+            block.appendChild(grid);
+            bannerSection.appendChild(block);
+          });
+
+          app.appendChild(bannerSection);
+        }
+      }
+
+      function createCard(item) {
+        const card = document.createElement("article");
+        card.className = "card";
+
+        const top = document.createElement("div");
+        top.className = "card-top";
+
+        const meta = document.createElement("div");
+        const titleEl = document.createElement("div");
+        titleEl.className = "card-title";
+        titleEl.textContent = item.title;
+        const genreEl = document.createElement("div");
+        genreEl.className = "card-genre";
+        genreEl.textContent = item.genre;
+        meta.appendChild(titleEl);
+        meta.appendChild(genreEl);
+
+        if (item.hasAdvanced) {
+          const adv = document.createElement("div");
+          adv.className = "badge-advanced";
+          adv.innerHTML = "<span>✔</span><span>Advanced options / variants</span>";
+          meta.appendChild(adv);
+        }
+
+        const actions = document.createElement("div");
+        actions.className = "card-actions";
+
+        const btnExternal = document.createElement("button");
+        btnExternal.className = "icon-btn";
+        btnExternal.title = "Open in new tab";
+        btnExternal.textContent = "↗";
+        btnExternal.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const target = item.previewUrl || item.endpointUrl;
+          if (target) window.open(target, "_blank");
+        });
+
+        const btnReset = document.createElement("button");
+        btnReset.className = "icon-btn";
+        btnReset.title = "Reset playable";
+        btnReset.textContent = "🔄";
+
+        actions.appendChild(btnExternal);
+        actions.appendChild(btnReset);
+
+        top.appendChild(meta);
+        top.appendChild(actions);
+        card.appendChild(top);
+
+        // preview thumb
+        const thumbWrap = document.createElement("div");
+        thumbWrap.className = "thumb-wrap";
+
+        const thumb = document.createElement("img");
+        thumb.src = item.thumbnail;
+        thumb.alt = item.title;
+        thumb.addEventListener("error", () => {
+          if (FALLBACK_THUMB) {
+            thumb.src = FALLBACK_THUMB;
+          } else {
+            thumb.style.display = "none";
+          }
+        });
+        thumbWrap.appendChild(thumb);
+
+        const overlay = document.createElement("div");
+        overlay.className = "play-overlay";
+
+        const playBtn = document.createElement("button");
+        playBtn.type = "button";
+        playBtn.className = "play-now-btn";
+        playBtn.textContent = "PLAY NOW ▶";
+
+        overlay.appendChild(playBtn);
+        thumbWrap.appendChild(overlay);
+
+        card.appendChild(thumbWrap);
+
+        // iframe (hidden by default)
+        const iframe = document.createElement("iframe");
+        iframe.className = "iframe-holder";
+        iframe.style.display = "none";
+        iframe.allow =
+          "accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture;";
+        iframe.loading = "lazy";
+        iframe.title = item.title;
+        card.appendChild(iframe);
+
+        // load function
+        const loadPlayable = () => {
+          if (!item.endpointUrl) return;
+          playBtn.textContent = "Loading…";
+          playBtn.disabled = true;
+
+          iframe.src = item.endpointUrl;
+          iframe.style.display = "block";
+          thumbWrap.style.display = "flex";
+          thumbWrap.style.display = "none";
+        };
+
+        // restore when loaded
+        iframe.addEventListener("load", () => {
+          playBtn.textContent = "PLAY NOW ▶";
+          playBtn.disabled = false;
+        });
+
+        // click areas
+        thumbWrap.addEventListener("click", (e) => {
+          e.stopPropagation();
+          loadPlayable();
+        });
+        playBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          loadPlayable();
+        });
+
+        // reset button
+        btnReset.addEventListener("click", (e) => {
+          e.stopPropagation();
+          iframe.src = "";
+          iframe.style.display = "none";
+          thumbWrap.style.display = "flex";
+          playBtn.textContent = "PLAY NOW ▶";
+          playBtn.disabled = false;
+        });
+
+        // footer
+        const footer = document.createElement("div");
+        footer.className = "card-footer";
+        footer.textContent =
+          item.previewUrl || item.endpointUrl || "(no URL provided)";
+        card.appendChild(footer);
+
+        return card;
+      }
+
+      loadCatalogue();
+    </script>
+  </body>
+</html>
