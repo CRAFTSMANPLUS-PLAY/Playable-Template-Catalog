@@ -528,7 +528,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/lmJ303WjhEQ/646444982/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "iframe---spotify.png"
+    "thumbnail": "iframe-spotify.png"
   },
   {
     "Genre": null,
@@ -537,7 +537,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/5Vw6X4Nb7zI/868914121/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "iframe---e-commerce.png"
+    "thumbnail": "iframe-e-commerce.png"
   },
   {
     "Genre": null,
@@ -546,7 +546,7 @@
     "Endpoint URL": "https://play.preview.craftsmanplus.com/preview/?playable=ATtIV70kACD%2FL12LUFWcpaQ%2F1664086474&companyId=ATtIV70kACD&creativeId=L12LUFWcpaQ&name=iFrame%20-%20Movie%20Trailer&portrait=true&ratio=2:1",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "iframe---movie-trailer.png"
+    "thumbnail": "iframe-movie-trailer.png"
   },
   {
     "Genre": "FinTech",
