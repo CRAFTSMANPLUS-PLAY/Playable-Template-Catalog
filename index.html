@@ -156,6 +156,29 @@
         border-right: 1px solid rgba(255,255,255,.03);
       }
     }
+    /* === FIXED PREVIEW CONTAINER === */
+.preview-body {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+}
+
+.preview-frame-wrap {
+  width: 300px;             /* your desired width */
+  aspect-ratio: 2 / 1;      /* keeps 2:1 ratio */
+  background: #000;
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.preview-frame-wrap iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
   </style>
 </head>
 <body>
@@ -170,15 +193,20 @@
   </div>
 
   <div class="right">
-    <div class="preview-head">
-      <div class="preview-title" id="previewTitle">Select a template</div>
-      <div class="actions">
-        <button id="openExternal" class="btn">Open external</button>
-        <button id="copyEndpoint" class="btn primary">Copy endpoint</button>
-      </div>
+  <div class="preview-head">
+    <div class="preview-title" id="previewTitle">Select a template</div>
+    <div class="actions">
+      <button id="openExternal" class="btn">Open external</button>
+      <button id="copyEndpoint" class="btn primary">Copy endpoint</button>
     </div>
-    <iframe id="previewFrame" src=""></iframe>
   </div>
+  <div class="preview-body">
+    <div class="preview-frame-wrap">
+      <iframe id="previewFrame" src=""></iframe>
+    </div>
+  </div>
+</div>
+
 
   <script>
     const LIST_EL = document.getElementById('list');
