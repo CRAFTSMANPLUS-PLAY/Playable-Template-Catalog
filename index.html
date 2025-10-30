@@ -277,83 +277,139 @@
   <iframe id="preview-frame" src="about:blank" title="Playable preview"></iframe>
 
   <script>
-    async function loadTemplates() {
-      try {
-        const res = await fetch('Playable_Endpoint_URLs.json');
-        const data = await res.json();
+    <script>
+  async function loadTemplates() {
+    try {
+      const res = await fetch('Playable_Endpoint_URLs.json');
+      const data = await res.json();
 
-        const container = document.getElementById('cards');
-        const countLabel = document.getElementById('count-label');
-        countLabel.textContent = `Loaded ${data.length} templates.`;
+      const container = document.getElementById('cards');
+      const countLabel = document.getElementById('count-label');
+      countLabel.textContent = `Loaded ${data.length} templates.`;
 
-        data.forEach((item, idx) => {
-          const title = item.Title && item.Title.trim() !== '' ? item.Title : 'Untitled';
-          const genre = item.Genre && item.Genre.trim() !== '' ? item.Genre : 'Other';
-          const endpoint = item["Endpoint URL"] || item["Endpoint"] || '';
-          const extUrl = item.URL || '#';
-          const thumbName = item.thumbnail ? item.thumbnail.trim() : '';
-          const thumbSrc = thumbName ? `./thumbnails/${thumbName}` : '';
+      data.forEach((item, idx) => {
+        const title = item.Title && item.Title.trim() !== '' ? item.Title : 'Untitled';
+        const genre = item.Genre && item.Genre.trim() !== '' ? item.Genre : 'Other';
+        const endpoint = item["Endpoint URL"] || item["Endpoint"] || '';
+        const extUrl = item.URL || '#';
 
-          const card = document.createElement('article');
-          card.className = 'card';
+        // 1) raw name from JSON
+        const rawThumb = (item.thumbnail || '').trim();
 
-          card.innerHTML = `
-            <div class="card-head">
-              <div class="title-block">
-                <h2 title="${title}">${title}</h2>
-                <span>${genre}</span>
-              </div>
-              <div class="icons">
-                <button class="icon-btn" data-action="open-ext" title="Open standard preview">
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none">
-                    <path d="M14 3h7v7" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M10 14L21 3" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </button>
-              </div>
-            </div>
-            <div class="thumb">
-              ${thumbSrc ? `<img src="${thumbSrc}" alt="${title}" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';" />` : ''}
-              <div class="no-preview" style="${thumbSrc ? 'display:none' : 'display:grid'}">No preview</div>
-            </div>
-            <div class="card-foot">
-              <button class="play-btn" data-action="play">▶ Play now</button>
-              <span class="pill">${genre}</span>
-            </div>
-          `;
+        // 2) build a few possible paths
+        const thumbCandidates = [];
 
-          // play button → iframe (Endpoint URL)
-          card.querySelector('[data-action="play"]').addEventListener('click', () => {
-            if (endpoint) {
-              document.getElementById('preview-frame').src = endpoint;
-            } else if (extUrl) {
-              // fallback if endpoint missing
-              document.getElementById('preview-frame').src = extUrl;
-            }
-          });
+        if (rawThumb) {
+          // as-is
+          thumbCandidates.push(`./thumbnails/${rawThumb}`);
 
-          // external button → standard URL (NOT endpoint)
-          card.querySelector('[data-action="open-ext"]').addEventListener('click', () => {
-            if (extUrl && extUrl !== '#') {
-              window.open(extUrl, '_blank', 'noopener');
-            }
-          });
-
-          // auto-load first one
-          if (idx === 0) {
-            document.getElementById('preview-frame').src = endpoint || extUrl || 'about:blank';
+          // fix weird --- to -
+          const normalized = rawThumb.replace(/---+/g, '-').replace(/--+/g, '-');
+          if (normalized !== rawThumb) {
+            thumbCandidates.push(`./thumbnails/${normalized}`);
           }
 
-          container.appendChild(card);
+          // if no extension, try .png and .jpg
+          if (!/\.(png|jpg|jpeg|webp|gif)$/i.test(rawThumb)) {
+            thumbCandidates.push(`./thumbnails/${normalized}.png`);
+            thumbCandidates.push(`./thumbnails/${normalized}.jpg`);
+          }
+        }
+
+        const card = document.createElement('article');
+        card.className = 'card';
+
+        card.innerHTML = `
+          <div class="card-head">
+            <div class="title-block">
+              <h2 title="${title}">${title}</h2>
+              <span>${genre}</span>
+            </div>
+            <div class="icons">
+              <button class="icon-btn" data-action="open-ext" title="Open standard preview">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none">
+                  <path d="M14 3h7v7" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M10 14L21 3" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="thumb">
+            <div class="no-preview">No preview</div>
+          </div>
+          <div class="card-foot">
+            <button class="play-btn" data-action="play">▶ Play now</button>
+            <span class="pill">${genre}</span>
+          </div>
+        `;
+
+        const thumbEl = card.querySelector('.thumb');
+        const noPrev = thumbEl.querySelector('.no-preview');
+
+        // if we have candidates, try to load them in order
+        if (thumbCandidates.length) {
+          const img = document.createElement('img');
+          img.alt = title;
+
+          let current = 0;
+
+          const tryNext = () => {
+            if (current >= thumbCandidates.length) {
+              // give up
+              noPrev.style.display = 'grid';
+              if (img.parentNode) img.remove();
+              return;
+            }
+            img.src = thumbCandidates[current];
+            current++;
+          };
+
+          img.onload = () => {
+            // success
+            noPrev.style.display = 'none';
+          };
+
+          img.onerror = () => {
+            // try the next candidate
+            tryNext();
+          };
+
+          thumbEl.insertBefore(img, noPrev);
+          tryNext();
+        }
+
+        // play button → iframe (Endpoint URL)
+        card.querySelector('[data-action="play"]').addEventListener('click', () => {
+          const frame = document.getElementById('preview-frame');
+          if (endpoint) {
+            frame.src = endpoint;
+          } else if (extUrl) {
+            frame.src = extUrl;
+          }
         });
 
-      } catch (err) {
-        console.error('Error loading templates:', err);
-      }
-    }
+        // external button → REGULAR url
+        card.querySelector('[data-action="open-ext"]').addEventListener('click', () => {
+          if (extUrl && extUrl !== '#') {
+            window.open(extUrl, '_blank', 'noopener');
+          }
+        });
 
-    loadTemplates();
+        // auto-load first one
+        if (idx === 0) {
+          document.getElementById('preview-frame').src = endpoint || extUrl || 'about:blank';
+        }
+
+        container.appendChild(card);
+      });
+
+    } catch (err) {
+      console.error('Error loading templates:', err);
+    }
+  }
+
+  loadTemplates();
   </script>
 </body>
 </html>
