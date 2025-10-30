@@ -6,7 +6,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/NeRCpLeVKNh/1991726563/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "item-slicer-png"
+    "thumbnail": "item-slicer.png"
   },
   {
     "Genre": null,
@@ -15,7 +15,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/9UZQ9NQXhLv/996774169/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "memory-png"
+    "thumbnail": "memory.png"
   },
   {
     "Genre": null,
@@ -24,7 +24,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/naPv3wpsepn/155967409/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "item-catcher-png"
+    "thumbnail": "item-catcher.png"
   },
   {
     "Genre": null,
@@ -33,7 +33,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/izJC8QhCHOx/639277993/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "solitaire-png"
+    "thumbnail": "solitaire.png"
   },
   {
     "Genre": null,
@@ -42,7 +42,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/e4pXg3tA6xy/1186855262/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "block-puzzle-png"
+    "thumbnail": "block-puzzle.png"
   },
   {
     "Genre": null,
@@ -51,7 +51,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/jHW1gGUq1YN/69255045/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "character-builder-png"
+    "thumbnail": "character-builder.png"
   },
   {
     "Genre": null,
@@ -60,7 +60,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/88cYjifeqm6/1372890448/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "slots-png"
+    "thumbnail": "slots.png"
   },
   {
     "Genre": null,
@@ -69,7 +69,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/Q8fbHxxnroi/1575461308/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "spot-the-difference-png"
+    "thumbnail": "spot-the-difference.png"
   },
   {
     "Genre": null,
@@ -78,7 +78,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/hlNrfoUeDYJ/358694196/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "slide-puzzle-png"
+    "thumbnail": "slide-puzzle.png"
   },
   {
     "Genre": null,
@@ -87,7 +87,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/BwcdKcPDevO/1762579282/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "spin-the-wheel-png"
+    "thumbnail": "spin-the-wheel.png"
   },
   {
     "Genre": null,
@@ -96,7 +96,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/iZWF7h08wY9/698195563/index.html",
     "Complex / Advanced Option": true,
     "Unnamed: 5": null,
-    "thumbnail": "character-selector-png"
+    "thumbnail": "character-selector.png"
   },
   {
     "Genre": null,
@@ -105,7 +105,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/Cof5ozImqNB/221803366/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "stop-the-light-png"
+    "thumbnail": "stop-the-light.png"
   },
   {
     "Genre": null,
@@ -114,7 +114,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/0WAhExlZcaL/1262155542/index.html",
     "Complex / Advanced Option": true,
     "Unnamed: 5": null,
-    "thumbnail": "glass-break-png"
+    "thumbnail": "glass-break.png"
   },
   {
     "Genre": null,
@@ -123,7 +123,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/7YEJHm34YUa/1720218351/index.html",
     "Complex / Advanced Option": true,
     "Unnamed: 5": null,
-    "thumbnail": "character-customizer-png"
+    "thumbnail": "character-customizer.png"
   },
   {
     "Genre": null,
@@ -132,7 +132,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/8HvEwQoXMYB/1844420119/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "drag-and-drop-png"
+    "thumbnail": "drag-and-drop.png"
   },
   {
     "Genre": null,
@@ -141,7 +141,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/5TN2rui1HiB/314442967/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "endless-runner-png"
+    "thumbnail": "endless-runner.png"
   },
   {
     "Genre": null,
@@ -150,7 +150,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/7oraGRIylMW/426270317/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "hidden-objects-png"
+    "thumbnail": "hidden-objects.png"
   },
   {
     "Genre": null,
@@ -159,7 +159,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/LedUuVmiUpb/1260320720/index.html",
     "Complex / Advanced Option": true,
     "Unnamed: 5": null,
-    "thumbnail": "spot-the-thing-png"
+    "thumbnail": "spot-the-thing.png"
   },
   {
     "Genre": null,
@@ -168,7 +168,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/996i7yw9e2y/1131399941/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "choose-your-adventure-png"
+    "thumbnail": "choose-your-adventure.png"
   },
   {
     "Genre": null,
@@ -177,7 +177,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/znD7OEmOugQ/884145961/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "anagram-word-game-png"
+    "thumbnail": "anagram-word-game.png"
   },
   {
     "Genre": null,
@@ -186,7 +186,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/3lJJ4MvS3Ko/1075215466/index.html",
     "Complex / Advanced Option": true,
     "Unnamed: 5": null,
-    "thumbnail": "choices-png"
+    "thumbnail": "choices.png"
   },
   {
     "Genre": null,
@@ -195,7 +195,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/CQMl2Rgxlph/36832154/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "alien-escape-png"
+    "thumbnail": "alien-escape.png"
   },
   {
     "Genre": null,
@@ -204,7 +204,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/9Vx6xgfE1HP/1565826677/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "thre-cup-shuffle-png"
+    "thumbnail": "thre-cup-shuffle.png"
   },
   {
     "Genre": null,
@@ -213,7 +213,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/D7pe07nnHCo/1033046756/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "three-card-monte-png"
+    "thumbnail": "three-card-monte.png"
   },
   {
     "Genre": null,
@@ -222,7 +222,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/cAcvogz2Bxl/1920100428/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "character-upgrade-png"
+    "thumbnail": "character-upgrade.png"
   },
   {
     "Genre": null,
@@ -231,7 +231,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/m0tppAiw5Qu/1820284044/index.html",
     "Complex / Advanced Option": true,
     "Unnamed: 5": null,
-    "thumbnail": "swap-match-3-png"
+    "thumbnail": "swap-match-3.png"
   },
   {
     "Genre": null,
@@ -240,7 +240,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/HM0GWBjuKx9/159730565/index.html",
     "Complex / Advanced Option": true,
     "Unnamed: 5": null,
-    "thumbnail": "home-decor-png"
+    "thumbnail": "home-decor.png"
   },
   {
     "Genre": null,
@@ -249,7 +249,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/U8Mnfwwgs4k/157845651/index.html",
     "Complex / Advanced Option": true,
     "Unnamed: 5": null,
-    "thumbnail": "plinko-png"
+    "thumbnail": "plinko.png"
   },
   {
     "Genre": null,
@@ -258,7 +258,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/y9MuaCtEEFa/1308318799/index.html",
     "Complex / Advanced Option": true,
     "Unnamed: 5": null,
-    "thumbnail": "card-camge-carousel-png"
+    "thumbnail": "card-camge-carousel.png"
   },
   {
     "Genre": null,
@@ -267,7 +267,7 @@
     "Endpoint URL": "https://play.preview.craftsmanplus.com/preview/?playable=ATtIV70kACD%2FrbfpGl2Bak6%2F1068303471&companyId=ATtIV70kACD&creativeId=rbfpGl2Bak6&name=Wipe%20Away%20-%20Simple&portrait=true&ratio=2:1",
     "Complex / Advanced Option": true,
     "Unnamed: 5": null,
-    "thumbnail": "wipe-away-png"
+    "thumbnail": "wipe-away.png"
   },
   {
     "Genre": null,
@@ -276,7 +276,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/YxYp7G3e3nc/513869662/index.html",
     "Complex / Advanced Option": true,
     "Unnamed: 5": null,
-    "thumbnail": "coloring-book-png"
+    "thumbnail": "coloring-book.png"
   },
   {
     "Genre": null,
@@ -285,7 +285,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/MhIMYiJm27j/849507683/index.html",
     "Complex / Advanced Option": true,
     "Unnamed: 5": null,
-    "thumbnail": "treasure-hunter-png"
+    "thumbnail": "treasure-hunter.png"
   },
   {
     "Genre": null,
@@ -294,7 +294,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/GTMk2IRrTun/208684412/index.html",
     "Complex / Advanced Option": true,
     "Unnamed: 5": null,
-    "thumbnail": "scratchers-png"
+    "thumbnail": "scratchers.png"
   },
   {
     "Genre": "Quizzes",
@@ -303,7 +303,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/cOpaNcsaQXy/336518091/index.html",
     "Complex / Advanced Option": true,
     "Unnamed: 5": null,
-    "thumbnail": "recipe-builder-png"
+    "thumbnail": "recipe-builder.png"
   },
   {
     "Genre": null,
@@ -312,7 +312,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/TIli8br5WjE/753068104/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "find-the-outlier-png"
+    "thumbnail": "find-the-outlier.png"
   },
   {
     "Genre": null,
@@ -321,7 +321,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/LeXBdW3wNLj/823548770/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "text-survey-png"
+    "thumbnail": "text-survey.png"
   },
   {
     "Genre": null,
@@ -330,7 +330,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/palTB1ogDJx/174233208/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "image-survey-png"
+    "thumbnail": "image-survey.png"
   },
   {
     "Genre": null,
@@ -339,7 +339,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/aCfKQYO3CO5/837507613/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "text-quiz-png"
+    "thumbnail": "text-quiz.png"
   },
   {
     "Genre": null,
@@ -348,7 +348,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/imCm02BWTAJ/1845251147/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "image-quiz-png"
+    "thumbnail": "image-quiz.png"
   },
   {
     "Genre": "E-Comm",
@@ -357,7 +357,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/G76Gvjec34L/922133332/index.html",
     "Complex / Advanced Option": true,
     "Unnamed: 5": null,
-    "thumbnail": "product-carousel-png"
+    "thumbnail": "product-carousel.png"
   },
   {
     "Genre": null,
@@ -366,7 +366,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/7thDtzcvgY4/495725338/index.html",
     "Complex / Advanced Option": true,
     "Unnamed: 5": null,
-    "thumbnail": "carousel-png"
+    "thumbnail": "carousel.png"
   },
   {
     "Genre": null,
@@ -375,7 +375,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/89AN01RGYUM/1753995605/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "slide-to-reveal-png"
+    "thumbnail": "slide-to-reveal.png"
   },
   {
     "Genre": null,
@@ -384,7 +384,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/iXElS7t3AwF/972765460/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "product-cleaner-png"
+    "thumbnail": "product-cleaner.png"
   },
   {
     "Genre": null,
@@ -393,7 +393,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/bGcCmR2rmeb/588399045/index.html",
     "Complex / Advanced Option": true,
     "Unnamed: 5": null,
-    "thumbnail": "shopping-cart-png"
+    "thumbnail": "shopping-cart.png"
   },
   {
     "Genre": null,
@@ -402,7 +402,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/fEHnvOwPlJj/1411088092/index.html",
     "Complex / Advanced Option": true,
     "Unnamed: 5": null,
-    "thumbnail": "product-comparison-png"
+    "thumbnail": "product-comparison.png"
   },
   {
     "Genre": null,
@@ -411,7 +411,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/j0hvIXeG9JR/638595061/index.html",
     "Complex / Advanced Option": true,
     "Unnamed: 5": null,
-    "thumbnail": "builld-your-bowl-png"
+    "thumbnail": "builld-your-bowl.png"
   },
   {
     "Genre": null,
@@ -420,7 +420,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/g7eWmR4dvK8/1746584998/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "photo-tune-png"
+    "thumbnail": "photo-tune.png"
   },
   {
     "Genre": null,
@@ -429,7 +429,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/uMGLQPwmOfA/135053546/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "beauty-colors-png"
+    "thumbnail": "beauty-colors.png"
   },
   {
     "Genre": null,
@@ -438,7 +438,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/qG9QjcSo5sa/1529201954/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "sale-countdown-png"
+    "thumbnail": "sale-countdown.png"
   },
   {
     "Genre": null,
@@ -447,7 +447,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/Wq4lJ2EKtZ6/1201955757/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "cleanup-png"
+    "thumbnail": "cleanup.png"
   },
   {
     "Genre": null,
@@ -456,7 +456,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/NQU6KM9nwPY/40205955/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "makeup-png"
+    "thumbnail": "makeup.png"
   },
   {
     "Genre": null,
@@ -465,7 +465,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/qSkTFWwhaRx/1663481113/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "scrollable-png"
+    "thumbnail": "scrollable.png"
   },
   {
     "Genre": "Dynamic",
@@ -474,7 +474,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/bHvhKx6LbKC/693760224/index.html",
     "Complex / Advanced Option": true,
     "Unnamed: 5": null,
-    "thumbnail": "time-of-day-png"
+    "thumbnail": "time-of-day.png"
   },
   {
     "Genre": null,
@@ -483,7 +483,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/ALexOrJk21I/97955120/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "day-of-week-png"
+    "thumbnail": "day-of-week.png"
   },
   {
     "Genre": null,
@@ -492,7 +492,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/N3wRt4mfQyA/1525802865/index.html",
     "Complex / Advanced Option": true,
     "Unnamed: 5": null,
-    "thumbnail": "months-png"
+    "thumbnail": "months.png"
   },
   {
     "Genre": null,
@@ -501,7 +501,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/DZp7vlz3PQK/1483889765/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "seasons-png"
+    "thumbnail": "seasons.png"
   },
   {
     "Genre": null,
@@ -510,7 +510,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/EwfXuwCPbI7/401673749/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "system-png"
+    "thumbnail": "system.png"
   },
   {
     "Genre": null,
@@ -519,7 +519,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/bWDD3H2P5x5/357287186/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "system-&-platform-png"
+    "thumbnail": "system-&-platform.png"
   },
   {
     "Genre": "iFrame",
@@ -528,7 +528,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/lmJ303WjhEQ/646444982/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "iframe---spotify-png"
+    "thumbnail": "iframe---spotify.png"
   },
   {
     "Genre": null,
@@ -537,7 +537,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/5Vw6X4Nb7zI/868914121/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "iframe---e-commerce-png"
+    "thumbnail": "iframe---e-commerce.png"
   },
   {
     "Genre": null,
@@ -546,7 +546,7 @@
     "Endpoint URL": "https://play.preview.craftsmanplus.com/preview/?playable=ATtIV70kACD%2FL12LUFWcpaQ%2F1664086474&companyId=ATtIV70kACD&creativeId=L12LUFWcpaQ&name=iFrame%20-%20Movie%20Trailer&portrait=true&ratio=2:1",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "iframe---movie-trailer-png"
+    "thumbnail": "iframe---movie-trailer.png"
   },
   {
     "Genre": "FinTech",
@@ -555,7 +555,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/n0agWktczby/1913107885/index.html",
     "Complex / Advanced Option": true,
     "Unnamed: 5": null,
-    "thumbnail": "finance-slicer-png"
+    "thumbnail": "finance-slicer.png"
   },
   {
     "Genre": null,
@@ -564,7 +564,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/VmaQt75APuH/915985850/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "finance-literacy-png"
+    "thumbnail": "finance-literacy.png"
   },
   {
     "Genre": null,
@@ -573,7 +573,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/2VFUCVIBiwy/1216368997/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "budget-balancer-png"
+    "thumbnail": "budget-balancer.png"
   },
   {
     "Genre": null,
@@ -582,7 +582,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/2VFUCVIBiwy/1216368997/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "card-benefits-png"
+    "thumbnail": "card-benefits.png"
   },
   {
     "Genre": "Travel & Entertainment",
@@ -591,7 +591,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/OIM2OyrpiaD/1391206053/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "drag-to-play-video-png"
+    "thumbnail": "drag-to-play-video.png"
   },
   {
     "Genre": null,
@@ -600,7 +600,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/JFUmTjfRm5E/288153109/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "home-entertainment-png"
+    "thumbnail": "home-entertainment.png"
   },
   {
     "Genre": null,
@@ -609,7 +609,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/cwdOnwPUnkZ/1923257294/index.html",
     "Complex / Advanced Option": true,
     "Unnamed: 5": null,
-    "thumbnail": "choose-your-trailer-png"
+    "thumbnail": "choose-your-trailer.png"
   },
   {
     "Genre": null,
@@ -618,7 +618,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/HmDj2MZbA9Q/39159268/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "destination-reveal-png"
+    "thumbnail": "destination-reveal.png"
   },
   {
     "Genre": null,
@@ -627,7 +627,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/xcIlELeeHCh/200701714/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "map-selector-png"
+    "thumbnail": "map-selector.png"
   },
   {
     "Genre": null,
@@ -636,7 +636,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/pyqjORkv9ea/136309481/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "travel-carousel-png"
+    "thumbnail": "travel-carousel.png"
   },
   {
     "Genre": null,
@@ -645,7 +645,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/TJweQBQ3CV8/1871383910/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "view-from-my-seat-png"
+    "thumbnail": "view-from-my-seat.png"
   },
   {
     "Genre": null,
@@ -654,7 +654,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/PsPBtHBWN13/70600467/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "news-reader-png"
+    "thumbnail": "news-reader.png"
   },
   {
     "Genre": null,
@@ -663,7 +663,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/IdbNJtQysld/663598802/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "dating-png"
+    "thumbnail": "dating.png"
   },
   {
     "Genre": "Sports",
@@ -672,7 +672,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/sMAo9pRJSGo/1504490046/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "choose-you-team-png"
+    "thumbnail": "choose-you-team.png"
   },
   {
     "Genre": null,
@@ -681,7 +681,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/Wbu5QhcbboM/1437968614/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "pool-png"
+    "thumbnail": "pool.png"
   },
   {
     "Genre": null,
@@ -690,7 +690,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/87xGtpPBawN/309850024/index.html",
     "Complex / Advanced Option": true,
     "Unnamed: 5": null,
-    "thumbnail": "field-goal-png"
+    "thumbnail": "field-goal.png"
   },
   {
     "Genre": null,
@@ -699,7 +699,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/v8AoYITsHNb/2089904723/index.html",
     "Complex / Advanced Option": true,
     "Unnamed: 5": null,
-    "thumbnail": "fishing-game-png"
+    "thumbnail": "fishing-game.png"
   },
   {
     "Genre": "IECs",
@@ -708,7 +708,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/kpY3SGmW1jL/1077723229/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "dual-destinations-png"
+    "thumbnail": "dual-destinations.png"
   },
   {
     "Genre": null,
@@ -717,7 +717,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/ti1TfdeBYvN/1786717399/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "tap-video-png"
+    "thumbnail": "tap-video.png"
   },
   {
     "Genre": null,
@@ -726,7 +726,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/doyUYGTTLhs/398038825/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "travel-screensaver-png"
+    "thumbnail": "travel-screensaver.png"
   },
   {
     "Genre": null,
@@ -735,7 +735,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/7RGHovEcWEa/1404503929/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "video-thumbnail-png"
+    "thumbnail": "video-thumbnail.png"
   },
   {
     "Genre": null,
@@ -744,7 +744,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/BcstZ8TGusE/728032074/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "automatic-carousel-png"
+    "thumbnail": "automatic-carousel.png"
   },
   {
     "Genre": null,
@@ -753,7 +753,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/oyK6XSDiIWD/1759163752/index.html",
     "Complex / Advanced Option": true,
     "Unnamed: 5": null,
-    "thumbnail": "characters-png"
+    "thumbnail": "characters.png"
   },
   {
     "Genre": null,
@@ -762,7 +762,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/Rdx2OCzJEXZ/1299028405/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "character-carousel-png"
+    "thumbnail": "character-carousel.png"
   },
   {
     "Genre": null,
@@ -771,7 +771,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/Siu4HYnLSyQ/586073651/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "video-countdown-png"
+    "thumbnail": "video-countdown.png"
   },
   {
     "Genre": "Holiday",
@@ -780,7 +780,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/lkq4Wh0O3qU/653077710/index.html",
     "Complex / Advanced Option": true,
     "Unnamed: 5": null,
-    "thumbnail": "press-your-luck-png"
+    "thumbnail": "press-your-luck.png"
   },
   {
     "Genre": null,
@@ -789,7 +789,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/9T5rLB3WheV/1492763545/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "elevator-escape-png"
+    "thumbnail": "elevator-escape.png"
   },
   {
     "Genre": null,
@@ -798,7 +798,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/op2yEggJHbW/1002949548/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "new-year-countdown-png"
+    "thumbnail": "new-year-countdown.png"
   },
   {
     "Genre": null,
@@ -807,7 +807,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/4tr7EXfkuuA/1256749257/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "costume-select-png"
+    "thumbnail": "costume-select.png"
   },
   {
     "Genre": "Automotive",
@@ -816,7 +816,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/sBVgAXFQc4R/1934519601/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "test-drive-png"
+    "thumbnail": "test-drive.png"
   },
   {
     "Genre": null,
@@ -825,7 +825,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/TAwk0N3rGGc/1383410443/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "windshield-wiper-png"
+    "thumbnail": "windshield-wiper.png"
   },
   {
     "Genre": null,
@@ -834,7 +834,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/sNLlbMmAgXR/694822893/index.html",
     "Complex / Advanced Option": true,
     "Unnamed: 5": null,
-    "thumbnail": "car-colors-png"
+    "thumbnail": "car-colors.png"
   },
   {
     "Genre": null,
@@ -843,7 +843,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/ifqqhqXjhX2/993095138/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "tap-to-repair-png"
+    "thumbnail": "tap-to-repair.png"
   },
   {
     "Genre": "Video",
@@ -852,7 +852,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/O0uCCdDUjwd/84368394/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "back-to-back-bideos-png"
+    "thumbnail": "back-to-back-bideos.png"
   },
   {
     "Genre": null,
@@ -861,7 +861,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/opXfVI3ajif/155331355/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "video-vs-video-png"
+    "thumbnail": "video-vs-video.png"
   },
   {
     "Genre": null,
@@ -870,7 +870,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/E1uGbdbzI9a/1404682528/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": null,
-    "thumbnail": "engaging-video-png"
+    "thumbnail": "engaging-video.png"
   },
   {
     "Genre": null,
@@ -879,7 +879,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/VUOOy3wq7rL/524435921/index.html",
     "Complex / Advanced Option": true,
     "Unnamed: 5": null,
-    "thumbnail": "hidden-video-png"
+    "thumbnail": "hidden-video.png"
   },
   {
     "Genre": "Gaming - Casual",
@@ -888,7 +888,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/qNLPObgo3LP/1820353386/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": "Banner",
-    "thumbnail": "character---gaming-casual-png"
+    "thumbnail": "character---gaming-casual.png"
   },
   {
     "Genre": null,
@@ -897,7 +897,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/Pk8snyRl2v9/351368676/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": "Banner",
-    "thumbnail": "video---gaming-casual-png"
+    "thumbnail": "video---gaming-casual.png"
   },
   {
     "Genre": null,
@@ -906,7 +906,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/F2y1kog5Xq0/490347157/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": "Banner",
-    "thumbnail": "slideshow---gaming-casual-png"
+    "thumbnail": "slideshow---gaming-casual.png"
   },
   {
     "Genre": null,
@@ -915,7 +915,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/hWx9AXTlVGD/1111170831/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": "Banner",
-    "thumbnail": "device---gaming-casual-png"
+    "thumbnail": "device---gaming-casual.png"
   },
   {
     "Genre": null,
@@ -924,7 +924,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/4BPkgLF27Lx/1237875024/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": "Banner",
-    "thumbnail": "product---gaming-casual-png"
+    "thumbnail": "product---gaming-casual.png"
   },
   {
     "Genre": "Gaming - Midcore",
@@ -933,7 +933,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/XmTemWLVMgE/70640852/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": "Banner",
-    "thumbnail": "video---gaming-midcore-png"
+    "thumbnail": "video---gaming-midcore.png"
   },
   {
     "Genre": null,
@@ -942,7 +942,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/fR6V21JZ7ZL/1356176352/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": "Banner",
-    "thumbnail": "character---gaming-midcore-png"
+    "thumbnail": "character---gaming-midcore.png"
   },
   {
     "Genre": null,
@@ -951,7 +951,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/TRheWoq8dHa/952349328/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": "Banner",
-    "thumbnail": "slideshow---gaming-midcore-png"
+    "thumbnail": "slideshow---gaming-midcore.png"
   },
   {
     "Genre": null,
@@ -960,7 +960,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/prbV8Uhyfwl/574708222/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": "Banner",
-    "thumbnail": "device---gaming-midcore-png"
+    "thumbnail": "device---gaming-midcore.png"
   },
   {
     "Genre": null,
@@ -969,7 +969,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/7GVitejrVDQ/32723725/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": "Banner",
-    "thumbnail": "product---gaming-midcore-png"
+    "thumbnail": "product---gaming-midcore.png"
   },
   {
     "Genre": "E-Commerce",
@@ -978,7 +978,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/G31K59OTSrc/917983853/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": "Banner",
-    "thumbnail": "special-e-commerce-png"
+    "thumbnail": "special-e-commerce.png"
   },
   {
     "Genre": null,
@@ -987,7 +987,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/5A3FLizop5E/1747546130/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": "Banner",
-    "thumbnail": "slideshow---e-commerce-png"
+    "thumbnail": "slideshow---e-commerce.png"
   },
   {
     "Genre": null,
@@ -996,7 +996,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/9gHQYcbbOhm/583971600/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": "Banner",
-    "thumbnail": "product---e-commerce-png"
+    "thumbnail": "product---e-commerce.png"
   },
   {
     "Genre": "Finance",
@@ -1005,7 +1005,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/836LpWimh39/575888593/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": "Banner",
-    "thumbnail": "character---finance-png"
+    "thumbnail": "character---finance.png"
   },
   {
     "Genre": null,
@@ -1014,7 +1014,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/ixqZQX2aXwu/1599119721/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": "Banner",
-    "thumbnail": "device---finance-png"
+    "thumbnail": "device---finance.png"
   },
   {
     "Genre": "Travel",
@@ -1023,7 +1023,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/VsP7WgFUbAB/493323827/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": "Banner",
-    "thumbnail": "device---travel-png"
+    "thumbnail": "device---travel.png"
   },
   {
     "Genre": null,
@@ -1032,7 +1032,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/fjCQ3ig4lwf/1765781206/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": "Banner",
-    "thumbnail": "slideshow---travel-png"
+    "thumbnail": "slideshow---travel.png"
   },
   {
     "Genre": "RMG & Casinos",
@@ -1041,7 +1041,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/tqxZueaDvS5/233049598/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": "Banner",
-    "thumbnail": "device---rmg-&-casino-png"
+    "thumbnail": "device---rmg-&-casino.png"
   },
   {
     "Genre": null,
@@ -1050,7 +1050,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/5I7qoWWoLa2/826805629/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": "Banner",
-    "thumbnail": "character---rmg-&-casino-png"
+    "thumbnail": "character---rmg-&-casino.png"
   },
   {
     "Genre": null,
@@ -1059,7 +1059,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/VTyjGcksoaS/1339164733/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": "Banner",
-    "thumbnail": "video---rmg-&-casino-png"
+    "thumbnail": "video---rmg-&-casino.png"
   },
   {
     "Genre": "Sports",
@@ -1068,7 +1068,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/4VQgc4kz3NR/710045693/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": "Banner",
-    "thumbnail": "special---sports-png"
+    "thumbnail": "special---sports.png"
   },
   {
     "Genre": null,
@@ -1077,7 +1077,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/KzkfsXLE92a/1002688761/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": "Banner",
-    "thumbnail": "video---sports-png"
+    "thumbnail": "video---sports.png"
   },
   {
     "Genre": "Food",
@@ -1086,7 +1086,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/TF1AF9Um3fp/903648758/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": "Banner",
-    "thumbnail": "special---food-png"
+    "thumbnail": "special---food.png"
   },
   {
     "Genre": null,
@@ -1095,7 +1095,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/aa2TVX0gpRo/1877460264/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": "Banner",
-    "thumbnail": "product---food-png"
+    "thumbnail": "product---food.png"
   },
   {
     "Genre": null,
@@ -1104,7 +1104,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/rRW6DWklI5g/1438253348/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": "Banner",
-    "thumbnail": "device---food-png"
+    "thumbnail": "device---food.png"
   },
   {
     "Genre": null,
@@ -1113,7 +1113,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/a4A8EWmP5zj/1792769547/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": "Banner",
-    "thumbnail": "video---food-png"
+    "thumbnail": "video---food.png"
   },
   {
     "Genre": "Service Providers",
@@ -1122,7 +1122,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/gSqawruMHyR/690308506/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": "Banner",
-    "thumbnail": "special---service-providers-png"
+    "thumbnail": "special---service-providers.png"
   },
   {
     "Genre": "Wellness",
@@ -1131,7 +1131,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/NJsVNPzsCGO/1427863860/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": "Banner",
-    "thumbnail": "special---fitness-&-wellness-png"
+    "thumbnail": "special---fitness-&-wellness.png"
   },
   {
     "Genre": null,
@@ -1140,7 +1140,7 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/IqkugCWSQf1/354982933/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": "Banner",
-    "thumbnail": "character---wellness-png"
+    "thumbnail": "character---wellness.png"
   },
   {
     "Genre": null,
@@ -1149,6 +1149,6 @@
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/aboRz14cIp2/1001983840/index.html",
     "Complex / Advanced Option": false,
     "Unnamed: 5": "Banner",
-    "thumbnail": "product---wellness-png"
+    "thumbnail": "product---wellness.png"
   }
 ]
