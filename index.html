@@ -1,5 +1,6 @@
 <script>
   const DATA_URL = "Playable_Endpoint_URLs.json";
+  const FALLBACK_THUMB = "placeholder.png"; // <-- optional, create/upload this; otherwise we just hide
 
   async function loadCatalogue() {
     try {
@@ -13,8 +14,12 @@
             ? String(row["Genre"]).trim()
             : "Other";
 
-        const endpointUrl = row["Endpoint URL"] || "";
-        const previewUrl = row["URL"] || endpointUrl;
+        // this is the one that should open in a new tab
+        const previewUrl = row["URL"] || row["Preview URL"] || "";
+
+        // this is the one that actually RUNS the playable in the card
+        const endpointUrl = row["Endpoint URL"] || previewUrl || "";
+
         const hasAdvanced = !!row["Complex / Advanced Option"];
         const isBanner = row["Unnamed: 5"]
           ? String(row["Unnamed: 5"]).toLowerCase().includes("banner")
@@ -60,7 +65,7 @@
     const playables = allItems.filter((x) => !x.isBanner);
     const banners = allItems.filter((x) => x.isBanner);
 
-    // Playables section
+    // PLAYABLES
     const playableSection = document.createElement("section");
     const playableHeader = document.createElement("div");
     playableHeader.className = "section-title";
@@ -104,7 +109,7 @@
 
     app.appendChild(playableSection);
 
-    // Banners section
+    // BANNERS (if any)
     if (banners.length > 0) {
       const bannerSection = document.createElement("section");
       const bannerHeader = document.createElement("div");
@@ -131,7 +136,11 @@
 
         const grid = document.createElement("div");
         grid.className = "grid";
-        list.forEach((item) => grid.appendChild(createCard(item)));
+
+        list.forEach((item) => {
+          grid.appendChild(createCard(item));
+        });
+
         gBlock.appendChild(grid);
         bannerSection.appendChild(gBlock);
       });
@@ -169,48 +178,55 @@
     const actions = document.createElement("div");
     actions.className = "card-actions";
 
-    // ⛶ External link — open PLAY URL (not endpoint)
+    // ↗ open PLAY URL (preferred) or endpoint as fallback
     const btnExternal = document.createElement("button");
     btnExternal.className = "icon-btn";
     btnExternal.title = "Open PLAY preview in new tab";
     btnExternal.textContent = "↗";
     btnExternal.addEventListener("click", (e) => {
       e.stopPropagation();
-      if (item.previewUrl) window.open(item.previewUrl, "_blank");
+      const targetUrl = item.previewUrl || item.endpointUrl;
+      if (targetUrl) window.open(targetUrl, "_blank");
     });
     actions.appendChild(btnExternal);
 
-    // 🔄 Reset — restore still image
+    // 🔄 reset
     const btnReset = document.createElement("button");
     btnReset.className = "icon-btn";
     btnReset.title = "Reset playable";
     btnReset.textContent = "🔄";
-    btnReset.addEventListener("click", (e) => {
-      e.stopPropagation();
-      iframe.src = "";
-      iframe.style.display = "none";
-      thumbWrap.style.display = "flex";
-    });
+    // we'll attach handler later once iframe/thumbnail exist
     actions.appendChild(btnReset);
 
     top.appendChild(metaWrap);
     top.appendChild(actions);
     card.appendChild(top);
 
-    // --- Thumbnail and iframe ---
+    // THUMB / IFRAME
     const thumbWrap = document.createElement("div");
     thumbWrap.className = "thumb-wrap";
 
     const thumbImg = document.createElement("img");
     thumbImg.src = item.thumbnail || "";
     thumbImg.alt = item.title || "Playable thumbnail";
+
+    // fallback if image 404s
+    thumbImg.addEventListener("error", () => {
+      if (FALLBACK_THUMB) {
+        thumbImg.src = FALLBACK_THUMB;
+      } else {
+        thumbImg.style.display = "none";
+      }
+    });
+
     thumbWrap.appendChild(thumbImg);
 
     const overlay = document.createElement("div");
     overlay.className = "play-overlay";
-    const playBtn = document.createElement("div");
+    const playBtn = document.createElement("button");
     playBtn.className = "play-now-btn";
-    playBtn.innerHTML = "PLAY NOW ▶";
+    playBtn.type = "button";
+    playBtn.textContent = "PLAY NOW ▶";
     overlay.appendChild(playBtn);
     thumbWrap.appendChild(overlay);
 
@@ -220,15 +236,31 @@
       "accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture;";
     iframe.loading = "lazy";
     iframe.title = item.title || "Playable";
+    iframe.style.display = "none";
 
+    // load function with loading state
     const loadIframe = () => {
       if (!item.endpointUrl) return;
+      // set loading state
+      playBtn.textContent = "Loading…";
+      playBtn.disabled = true;
+
       iframe.src = item.endpointUrl;
       iframe.style.display = "block";
       thumbWrap.style.display = "none";
     };
 
-    thumbWrap.addEventListener("click", loadIframe);
+    // when iframe finishes -> restore button
+    iframe.addEventListener("load", () => {
+      playBtn.textContent = "PLAY NOW ▶";
+      playBtn.disabled = false;
+    });
+
+    thumbWrap.addEventListener("click", (e) => {
+      e.stopPropagation();
+      loadIframe();
+    });
+
     playBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       loadIframe();
@@ -237,10 +269,22 @@
     card.appendChild(thumbWrap);
     card.appendChild(iframe);
 
-    // --- Footer ---
+    // now wire up reset (needs access to iframe + thumb)
+    btnReset.addEventListener("click", (e) => {
+      e.stopPropagation();
+      iframe.src = "";
+      iframe.style.display = "none";
+      thumbWrap.style.display = "flex";
+      // restore button UI
+      playBtn.textContent = "PLAY NOW ▶";
+      playBtn.disabled = false;
+    });
+
+    // FOOTER
     const footer = document.createElement("div");
     footer.className = "card-footer";
-    footer.textContent = item.previewUrl || item.endpointUrl || "";
+    footer.textContent =
+      item.previewUrl || item.endpointUrl || "(no URL provided)";
     card.appendChild(footer);
 
     return card;
