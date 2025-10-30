@@ -6,73 +6,141 @@
   <title>CRAFTSMAN+ • Template Catalog</title>
   <style>
     :root {
-      --bg: #0f1530;
-      --surface: rgba(10, 13, 25, 0.2);
-      --card: rgba(9, 11, 25, 0.35);
-      --text: #ffffff;
-      --muted: rgba(255, 255, 255, 0.5);
-      --accent: #3d7fff;
-      --radius-lg: 1.4rem;
+      --bg: #0d1a3a;
+      --panel: #121f41;
+      --card: rgba(11, 18, 37, 0.9);
+      --text: #fff;
+      --muted: rgba(255,255,255,0.45);
+      --accent: #0ea5e9;
+      --radius-lg: 1.5rem;
+      --radius-md: 1rem;
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      background: radial-gradient(circle at top, #17234f 0, #0f1530 40%, #0a0d19 100%);
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", Roboto, sans-serif;
+      background: #0b1530;
       color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
-      min-height: 100vh;
-      display: flex;
-      gap: 1.5rem;
-      padding: 1.5rem;
     }
     .wrap {
-      flex: 1 1 auto;
-      max-width: 1200px;
+      display: flex;
+      gap: 1.5rem;
+      padding: 2.5rem 2rem 2rem;
+      min-height: 100vh;
     }
     header {
-      margin-bottom: 1.75rem;
+      grid-column: 1/-1;
+      margin-bottom: 1.5rem;
+    }
+    .left {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+    .right {
+      width: 360px;
+      background: #651b21;
+      border-radius: 1.5rem;
+      overflow: hidden;
+      position: sticky;
+      top: 1.5rem;
+      height: calc(100vh - 3rem);
+      display: flex;
+      flex-direction: column;
+    }
+    .right-header {
+      padding: 1rem 1.25rem 0.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: .5rem;
+    }
+    .right-title {
+      font-weight: 600;
+      font-size: .9rem;
+    }
+    .close-btn {
+      background: rgba(0,0,0,.3);
+      border: none;
+      color: #fff;
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      line-height: 1;
+    }
+    .preview-frame-wrap {
+      flex: 1 1 auto;
+      background: #000;
+      margin: 1rem;
+      border-radius: 1rem;
+      overflow: hidden;
+      display: flex;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #000;
     }
     h1 {
-      font-size: 1.3rem;
+      font-size: 1.35rem;
+      font-weight: 650;
       margin: 0;
-      letter-spacing: .04em;
     }
     .subtitle {
       color: var(--muted);
-      font-size: .75rem;
-      margin-top: .25rem;
+      margin-top: .4rem;
+      font-size: .9rem;
     }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 1.1rem;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 1.2rem;
     }
     .card {
-      background: radial-gradient(circle at top, rgba(13, 24, 43, 0.6), rgba(6, 8, 15, 0.35));
+      background: rgba(7,13,27,.4);
       border: 1px solid rgba(255,255,255,.04);
-      border-radius: 1.1rem;
+      border-radius: 1.25rem;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      min-height: 280px;
-      backdrop-filter: blur(8px);
-      position: relative;
+      min-height: 270px;
     }
     .thumb {
-      background: radial-gradient(circle, rgba(15,21,41,.5), rgba(5,6,10,.4));
+      background: radial-gradient(circle at top, rgba(255,255,255,.05), rgba(0,0,0,.15));
       height: 150px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: rgba(255,255,255,.3);
-      font-size: .7rem;
       position: relative;
+      border-bottom: 1px solid rgba(255,255,255,.02);
     }
     .thumb img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
+    }
+    .thumb .no-preview {
+      font-size: .75rem;
+      color: rgba(255,255,255,.2);
+    }
+    .thumb .ext-btn {
+      position: absolute;
+      top: .6rem;
+      right: .6rem;
+      background: rgba(0,0,0,.45);
+      border: 1px solid rgba(255,255,255,.16);
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: .8rem;
     }
     .card-body {
       padding: .9rem .9rem 1rem;
@@ -81,298 +149,199 @@
       gap: .5rem;
       flex: 1 1 auto;
     }
-    .title-row {
-      display: flex;
-      justify-content: space-between;
-      gap: .5rem;
-      align-items: flex-start;
-    }
     .card-title {
-      font-size: .85rem;
       font-weight: 600;
-      line-height: 1.3;
-    }
-    .external-btn {
-      width: 26px;
-      height: 26px;
-      border: 1px solid rgba(255,255,255,.18);
-      border-radius: .7rem;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(1,1,1,.15);
-      cursor: pointer;
-    }
-    .genre-pill {
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.04);
-      border-radius: 999px;
-      padding: .22rem .75rem;
-      font-size: .65rem;
-      color: rgba(255,255,255,.55);
-      width: fit-content;
-    }
-    .play-row {
-      margin-top: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: .5rem;
-    }
-    .play-btn {
-      border: none;
-      background: #ffffff;
-      color: #020617;
-      border-radius: 999px;
-      padding: .45rem .85rem;
-      font-size: .7rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: .4rem;
-      cursor: pointer;
-    }
-    .play-btn:disabled {
-      background: rgba(255,255,255,.15);
-      color: rgba(255,255,255,.5);
-      cursor: not-allowed;
-    }
-    .right-pane {
-      width: 350px;
-      background: radial-gradient(circle at 0 0, rgba(140, 42, 19, .6), rgba(2,4,9,1));
-      border: 1px solid rgba(255,255,255,.06);
-      border-radius: 1.5rem;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-    .preview-header {
-      padding: 1.1rem 1.15rem .3rem;
-      display: flex;
-      justify-content: space-between;
-      gap: .5rem;
-      align-items: center;
-    }
-    .preview-title {
-      font-weight: 600;
-      font-size: .85rem;
+      font-size: .9rem;
       line-height: 1.2;
     }
-    iframe {
-      border: none;
-      flex: 1 1 auto;
-      background: #000;
-      min-height: 380px;
-    }
-    .preview-meta {
-      padding: 0 1.15rem 1rem;
-      color: rgba(255,255,255,.5);
-      font-size: .68rem;
+    .card-meta {
       display: flex;
-      gap: .5rem;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
+      font-size: .7rem;
+      color: rgba(255,255,255,.35);
     }
-    .pill-small {
-      background: rgba(0,0,0,.4);
-      border: 1px solid rgba(255,255,255,.08);
+    .badge {
+      padding: .2rem .55rem;
       border-radius: 999px;
-      padding: .2rem .6rem;
-      font-size: .6rem;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.03);
     }
-    .empty-state {
-      text-align: center;
-      padding: 3rem 1rem;
-      color: rgba(255,255,255,.4);
+    .play-btn {
+      background: #fff;
+      color: #151c34;
+      border: none;
+      border-radius: 999px;
+      padding: .45rem .9rem;
+      font-weight: 600;
+      font-size: .75rem;
+      display: inline-flex;
+      gap: .3rem;
+      align-items: center;
+      cursor: pointer;
+      width: fit-content;
     }
-    @media (max-width: 1100px) {
-      body { flex-direction: column; }
-      .right-pane { width: 100%; min-height: 500px; }
-      .grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+    .count {
+      font-size: .7rem;
+      color: rgba(255,255,255,.3);
+      margin-top: .8rem;
+      margin-bottom: .8rem;
+    }
+    @media (max-width: 1024px) {
+      .wrap {
+        flex-direction: column;
+      }
+      .right {
+        position: static;
+        width: 100%;
+        height: 540px;
+        max-width: 420px;
+      }
     }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <header>
-      <div style="font-size:.65rem;letter-spacing:.15em;color:rgba(255,255,255,.25);text-transform:uppercase;">
-        CRAFTSMAN+ • PLAY
+    <div class="left">
+      <header>
+        <h1>Template Catalog <span style="font-size:.65rem; background:rgba(255,255,255,.06); padding:.25rem .5rem; border-radius:999px; margin-left:.4rem;">for partners</span></h1>
+        <p class="subtitle">Browse core interactive ad formats. Click “Play now” to open live preview. External icon opens the created preview URL.</p>
+        <p class="count" id="countText">Loaded 0 templates.</p>
+      </header>
+      <div class="grid" id="cards"></div>
+    </div>
+
+    <div class="right" id="previewPanel">
+      <div class="right-header">
+        <div>
+          <div style="font-size:.6rem; letter-spacing:.15em; text-transform:uppercase; color:rgba(255,255,255,.4);">Preview</div>
+          <div class="right-title" id="previewTitle">Select a template</div>
+        </div>
+        <button class="close-btn" onclick="clearPreview()">×</button>
       </div>
-      <h1>Template Catalog <span style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.04);padding:.15rem .75rem;border-radius:999px;font-size:.6rem;margin-left:.35rem;vertical-align:middle;">for partners</span></h1>
-      <p class="subtitle">Browse core interactive ad templates. Click “Play now” to open live preview. External link opens the created preview URL.</p>
-      <p class="subtitle" id="count"></p>
-    </header>
-    <div id="grid" class="grid">
-      <!-- cards injected here -->
+      <div class="preview-frame-wrap" id="previewFrameWrap">
+        <iframe id="previewFrame" src=""></iframe>
+      </div>
     </div>
   </div>
 
-  <aside class="right-pane">
-    <div class="preview-header">
-      <div>
-        <div style="font-size:.55rem;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.45);">Preview</div>
-        <div class="preview-title" id="previewTitle">Select a template</div>
-      </div>
-      <button id="openExternal" class="external-btn" title="Open in new tab" disabled>
-        ↗
-      </button>
-    </div>
-    <iframe id="previewFrame" src="about:blank" title="Template preview"></iframe>
-    <div class="preview-meta">
-      <span id="previewGenre" class="pill-small">—</span>
-      <span id="previewMode" class="pill-small">Endpoint</span>
-    </div>
-  </aside>
-
   <script>
-    // path to your JSON in the repo root
-    const JSON_URL = 'Playable_Endpoint_URLs.json';
-    const THUMB_BASE = 'thumbnails/'; // where your images are now
+    // path to your JSON in the root
+    const DATA_URL = 'Playable_Endpoint_URLs.json';
+    const THUMB_BASE = 'thumbnails/'; // where you put all the png/jpg
 
-    const grid = document.getElementById('grid');
-    const countEl = document.getElementById('count');
-    const previewFrame = document.getElementById('previewFrame');
-    const previewTitle = document.getElementById('previewTitle');
-    const previewGenre = document.getElementById('previewGenre');
-    const openExternalBtn = document.getElementById('openExternal');
+    // Build cards
+    fetch(DATA_URL)
+      .then(r => r.json())
+      .then(list => {
+        const container = document.getElementById('cards');
+        const countText = document.getElementById('countText');
+        countText.textContent = `Loaded ${list.length} templates.`;
 
-    let allData = [];
+        list.forEach(item => {
+          // expected fields in JSON:
+          // title, category, thumbnail (filename), endpoint_url, preview_url
+          const card = document.createElement('div');
+          card.className = 'card';
 
-    function createCard(item, index) {
-      const card = document.createElement('div');
-      card.className = 'card';
+          const thumb = document.createElement('div');
+          thumb.className = 'thumb';
 
-      const thumb = document.createElement('div');
-      thumb.className = 'thumb';
+          const img = document.createElement('img');
+          if (item.thumbnail) {
+            img.src = THUMB_BASE + item.thumbnail;
+            img.alt = item.title || 'Template thumbnail';
 
-      // build thumbnail URL
-      let thumbFile = item.thumbnail ? item.thumbnail + '.png' : null;
-      if (thumbFile) {
-        const img = document.createElement('img');
-        img.src = THUMB_BASE + thumbFile;
-        img.alt = item.Title || 'Template';
-        img.onerror = () => {
-          thumb.textContent = 'No preview';
-        };
-        thumb.appendChild(img);
-      } else {
-        thumb.textContent = 'No preview';
-      }
+            // fallback if missing
+            img.onerror = () => {
+              img.remove();
+              const np = document.createElement('div');
+              np.className = 'no-preview';
+              np.textContent = 'No preview';
+              thumb.appendChild(np);
+            };
+            thumb.appendChild(img);
+          } else {
+            const np = document.createElement('div');
+            np.className = 'no-preview';
+            np.textContent = 'No preview';
+            thumb.appendChild(np);
+          }
 
-      const body = document.createElement('div');
-      body.className = 'card-body';
+          // external btn -> REGULAR preview_url
+          if (item.preview_url) {
+            const ext = document.createElement('button');
+            ext.className = 'ext-btn';
+            ext.title = 'Open preview URL';
+            ext.innerHTML = '↗';
+            ext.onclick = (e) => {
+              e.stopPropagation();
+              window.open(item.preview_url, '_blank');
+            };
+            thumb.appendChild(ext);
+          }
 
-      const titleRow = document.createElement('div');
-      titleRow.className = 'title-row';
+          card.appendChild(thumb);
 
-      const title = document.createElement('div');
-      title.className = 'card-title';
-      title.textContent = item.Title && item.Title.trim() !== '' ? item.Title : 'Untitled template';
+          const body = document.createElement('div');
+          body.className = 'card-body';
 
-      const external = document.createElement('button');
-      external.className = 'external-btn';
-      external.innerHTML = '↗';
-      external.title = 'Open standard preview link';
-      external.onclick = (e) => {
-        e.stopPropagation();
-        const externalUrl = item.URL || item['Endpoint URL'];
-        if (externalUrl) window.open(externalUrl, '_blank');
-      };
+          const title = document.createElement('div');
+          title.className = 'card-title';
+          title.textContent = item.title || 'Untitled template';
 
-      titleRow.appendChild(title);
-      titleRow.appendChild(external);
+          const meta = document.createElement('div');
+          meta.className = 'card-meta';
+          const cat = document.createElement('span');
+          cat.className = 'badge';
+          cat.textContent = item.category || 'Other';
+          meta.appendChild(cat);
 
-      const genre = document.createElement('div');
-      genre.className = 'genre-pill';
-      genre.textContent = item.Genre ? item.Genre : 'Other';
+          const play = document.createElement('button');
+          play.className = 'play-btn';
+          play.innerHTML = '▶︎ Play now';
+          play.onclick = (e) => {
+            e.stopPropagation();
+            // use ENDPOINT url for iframe only
+            loadPreview(item);
+          };
 
-      const playRow = document.createElement('div');
-      playRow.className = 'play-row';
+          body.appendChild(title);
+          body.appendChild(meta);
+          body.appendChild(play);
 
-      const playBtn = document.createElement('button');
-      playBtn.className = 'play-btn';
-      playBtn.textContent = '▶ Play now';
+          card.appendChild(body);
 
-      const endpointUrl = item['Endpoint URL'];
-      playBtn.disabled = !endpointUrl;
+          // click whole card to preview too
+          card.onclick = () => loadPreview(item);
 
-      playBtn.onclick = (e) => {
-        e.stopPropagation();
-        loadPreview(item);
-      };
-
-      const typeLabel = document.createElement('div');
-      typeLabel.style.fontSize = '.6rem';
-      typeLabel.style.color = 'rgba(255,255,255,.35)';
-      typeLabel.textContent = item.Genre ? item.Genre : 'Other';
-
-      playRow.appendChild(playBtn);
-      playRow.appendChild(typeLabel);
-
-      body.appendChild(titleRow);
-      body.appendChild(genre);
-      body.appendChild(playRow);
-
-      card.appendChild(thumb);
-      card.appendChild(body);
-
-      // clicking the whole card also loads preview
-      card.onclick = () => loadPreview(item);
-
-      return card;
-    }
+          container.appendChild(card);
+        });
+      })
+      .catch(err => {
+        console.error('Error loading JSON', err);
+      });
 
     function loadPreview(item) {
-      const endpoint = item['Endpoint URL'];
-      const externalUrl = item.URL;
+      const frame = document.getElementById('previewFrame');
+      const title = document.getElementById('previewTitle');
 
-      if (endpoint) {
-        previewFrame.src = endpoint;
+      // use endpoint_url for iframe
+      if (item.endpoint_url) {
+        frame.src = item.endpoint_url;
+      } else if (item.preview_url) {
+        // fallback
+        frame.src = item.preview_url;
       } else {
-        previewFrame.src = 'about:blank';
+        frame.src = '';
       }
-
-      previewTitle.textContent = item.Title && item.Title.trim() !== '' ? item.Title : 'Untitled template';
-      previewGenre.textContent = item.Genre ? item.Genre : 'Other';
-
-      if (externalUrl) {
-        openExternalBtn.disabled = false;
-        openExternalBtn.onclick = () => window.open(externalUrl, '_blank');
-      } else if (endpoint) {
-        // fallback to endpoint if no regular URL
-        openExternalBtn.disabled = false;
-        openExternalBtn.onclick = () => window.open(endpoint, '_blank');
-      } else {
-        openExternalBtn.disabled = true;
-        openExternalBtn.onclick = null;
-      }
+      title.textContent = item.title || 'Untitled template';
     }
 
-    async function init() {
-      try {
-        const res = await fetch(JSON_URL + '?cache=' + Date.now());
-        const data = await res.json();
-        allData = Array.isArray(data) ? data : [];
-
-        grid.innerHTML = '';
-        allData.forEach((item, idx) => {
-          const card = createCard(item, idx);
-          grid.appendChild(card);
-        });
-
-        countEl.textContent = `Loaded ${allData.length} templates.`;
-
-        // auto-load first one if exists
-        if (allData.length > 0) {
-          loadPreview(allData[0]);
-        }
-      } catch (err) {
-        console.error(err);
-        grid.innerHTML = '<div class="empty-state">Could not load templates. Make sure <code>Playable_Endpoint_URLs.json</code> is in the repo root.</div>';
-      }
+    function clearPreview() {
+      document.getElementById('previewFrame').src = '';
+      document.getElementById('previewTitle').textContent = 'Select a template';
     }
-
-    init();
   </script>
 </body>
 </html>
