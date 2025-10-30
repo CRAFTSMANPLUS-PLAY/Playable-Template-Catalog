@@ -1,126 +1,325 @@
-<script>
-  // path to your JSON in the root
-  const DATA_URL = 'Playable_Endpoint_URLs.json';
-  const THUMB_BASE = 'thumbnails/'; // where you put all the thumbs
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CRAFTSMAN+ • Playable Template Catalog</title>
+  <style>
+    :root {
+      --bg: #0f0f10;
+      --panel: #151519;
+      --text: #fff;
+      --muted: #aaa;
+      --accent: #4c8fff;
+      --radius: 14px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", Roboto, sans-serif;
+      height: 100vh;
+      display: flex;
+      gap: 1.25rem;
+      padding: 1.25rem;
+    }
+    .left {
+      width: 360px;
+      background: var(--panel);
+      border-radius: var(--radius);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    header {
+      padding: 1rem 1.25rem .25rem;
+    }
+    h1 {
+      font-size: 1rem;
+      margin: 0 0 .35rem;
+      display: flex;
+      gap: .35rem;
+      align-items: center;
+    }
+    .search {
+      padding: 0 1.25rem 1rem;
+    }
+    .search input {
+      width: 100%;
+      background: #0f0f10;
+      border: 1px solid #222;
+      border-radius: 10px;
+      padding: .5rem .7rem;
+      color: var(--text);
+    }
+    .list {
+      overflow-y: auto;
+      flex: 1;
+    }
+    .item {
+      display: flex;
+      gap: .6rem;
+      padding: .6rem 1rem;
+      align-items: center;
+      cursor: pointer;
+      border-bottom: 1px solid rgba(255,255,255,.03);
+    }
+    .item:hover {
+      background: rgba(255,255,255,.03);
+    }
+    .thumb {
+      width: 60px;
+      height: 38px;
+      background: #222;
+      border-radius: 8px;
+      flex: 0 0 60px;
+      object-fit: cover;
+    }
+    .meta {
+      flex: 1;
+      min-width: 0;
+    }
+    .title {
+      font-size: .8rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .genre {
+      font-size: .65rem;
+      color: var(--muted);
+    }
+    .right {
+      flex: 1;
+      background: var(--panel);
+      border-radius: var(--radius);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      min-width: 0;
+    }
+    .preview-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: .75rem 1rem;
+      border-bottom: 1px solid rgba(255,255,255,.05);
+    }
+    .preview-title {
+      font-weight: 600;
+      font-size: .85rem;
+    }
+    .actions {
+      display: flex;
+      gap: .5rem;
+    }
+    .btn {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 999px;
+      color: #fff;
+      font-size: .7rem;
+      padding: .35rem .7rem;
+      cursor: pointer;
+    }
+    .btn.primary {
+      background: var(--accent);
+      border-color: transparent;
+    }
+    iframe {
+      border: none;
+      flex: 1;
+      background: #000;
+      width: 100%;
+    }
+    @media (max-width: 900px) {
+      body {
+        flex-direction: column;
+      }
+      .left {
+        width: 100%;
+        height: 230px;
+      }
+      .right {
+        height: calc(100vh - 230px - 2.5rem);
+      }
+      .list {
+        display: flex;
+        overflow-x: auto;
+        gap: .75rem;
+        padding-bottom: .75rem;
+      }
+      .item {
+        min-width: 210px;
+        border-bottom: none;
+        border-right: 1px solid rgba(255,255,255,.03);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="left">
+    <header>
+      <h1>Playable Template Catalog</h1>
+    </header>
+    <div class="search">
+      <input id="search" type="text" placeholder="Search by title or genre…" />
+    </div>
+    <div id="list" class="list"></div>
+  </div>
 
-  fetch(DATA_URL)
-    .then(r => r.json())
-    .then(list => {
-      const container = document.getElementById('cards');
-      const countText = document.getElementById('countText');
-      countText.textContent = `Loaded ${list.length} templates.`;
+  <div class="right">
+    <div class="preview-head">
+      <div class="preview-title" id="previewTitle">Select a template</div>
+      <div class="actions">
+        <button id="openExternal" class="btn">Open external</button>
+        <button id="copyEndpoint" class="btn primary">Copy endpoint</button>
+      </div>
+    </div>
+    <iframe id="previewFrame" src=""></iframe>
+  </div>
 
-      list.forEach(item => {
-        // map your fields
-        const title = item["Title"] || "Untitled template";
-        const genre = item["Genre"] || "Other";
-        const previewUrl = item["URL"];             // real preview (open in new tab)
-        const endpointUrl = item["Endpoint URL"];   // goes into iframe
-        // your JSON has "item-slicer-png" so we add ".png"
-        let thumbName = item["thumbnail"];
-        if (thumbName) {
-          // avoid double .png
-          if (!thumbName.endsWith(".png") && !thumbName.endsWith(".jpg") && !thumbName.endsWith(".jpeg") && !thumbName.endsWith(".webp")) {
-            thumbName = thumbName + ".png";
-          }
+  <script>
+    const LIST_EL = document.getElementById('list');
+    const SEARCH_EL = document.getElementById('search');
+    const FRAME_EL = document.getElementById('previewFrame');
+    const TITLE_EL = document.getElementById('previewTitle');
+    const BTN_EXT = document.getElementById('openExternal');
+    const BTN_COPY = document.getElementById('copyEndpoint');
+
+    let data = [];
+    let filtered = [];
+    let current = null;
+
+    // helper: build thumbnail src safely
+    function getThumbnailSrc(item) {
+      let thumb = (item.thumbnail || item.Thumbnail || '').trim();
+
+      // if JSON already has ".png" at the end, don't add it
+      if (thumb) {
+        if (!thumb.toLowerCase().endsWith('.png')) {
+          thumb = thumb + '.png';
         }
+        // encode spaces like "3 card monte.png"
+        const encoded = encodeURIComponent(thumb).replace(/%2F/g, '/');
+        return 'thumbnails/' + encoded;
+      }
 
-        const card = document.createElement('div');
-        card.className = 'card';
+      // fallback
+      return 'https://via.placeholder.com/120x80/151519/ffffff?text=No+Img';
+    }
 
-        const thumb = document.createElement('div');
-        thumb.className = 'thumb';
+    // fetch JSON from root
+    fetch('Playable_Endpoint_URLs.json')
+      .then(r => {
+        if (!r.ok) throw new Error('JSON not found');
+        return r.json();
+      })
+      .then(json => {
+        data = json;
+        filtered = json;
+        renderList();
+      })
+      .catch(err => {
+        console.error('Error loading JSON:', err);
+        LIST_EL.innerHTML = '<div style="padding:1rem;color:#f66;">Error loading JSON. Make sure Playable_Endpoint_URLs.json is in the root.</div>';
+      });
 
-        if (thumbName) {
-          const img = document.createElement('img');
-          img.src = THUMB_BASE + thumbName;
-          img.alt = title;
-          img.onerror = () => {
-            img.remove();
-            const np = document.createElement('div');
-            np.className = 'no-preview';
-            np.textContent = 'No preview';
-            thumb.appendChild(np);
-          };
-          thumb.appendChild(img);
-        } else {
-          const np = document.createElement('div');
-          np.className = 'no-preview';
-          np.textContent = 'No preview';
-          thumb.appendChild(np);
-        }
+    function renderList() {
+      LIST_EL.innerHTML = '';
+      filtered.forEach((item, idx) => {
+        const div = document.createElement('div');
+        div.className = 'item';
 
-        // external button → use URL
-        if (previewUrl) {
-          const ext = document.createElement('button');
-          ext.className = 'ext-btn';
-          ext.title = 'Open preview URL';
-          ext.innerHTML = '↗';
-          ext.onclick = (e) => {
-            e.stopPropagation();
-            window.open(previewUrl, '_blank');
-          };
-          thumb.appendChild(ext);
-        }
-
-        card.appendChild(thumb);
-
-        const body = document.createElement('div');
-        body.className = 'card-body';
-
-        const titleEl = document.createElement('div');
-        titleEl.className = 'card-title';
-        titleEl.textContent = title;
-
-        const meta = document.createElement('div');
-        meta.className = 'card-meta';
-
-        const cat = document.createElement('span');
-        cat.className = 'badge';
-        cat.textContent = genre;
-        meta.appendChild(cat);
-
-        const play = document.createElement('button');
-        play.className = 'play-btn';
-        play.innerHTML = '▶︎ Play now';
-        play.onclick = (e) => {
-          e.stopPropagation();
-          loadPreview({ title, endpointUrl, previewUrl });
+        const img = document.createElement('img');
+        img.className = 'thumb';
+        img.src = getThumbnailSrc(item);
+        img.onerror = () => {
+          img.src = 'https://via.placeholder.com/120x80/151519/ffffff?text=No+Img';
         };
 
-        body.appendChild(titleEl);
-        body.appendChild(meta);
-        body.appendChild(play);
+        const meta = document.createElement('div');
+        meta.className = 'meta';
 
-        card.appendChild(body);
+        const title = document.createElement('div');
+        title.className = 'title';
+        title.textContent = item.Title || 'Untitled';
 
-        // clicking the card also loads preview
-        card.onclick = () => loadPreview({ title, endpointUrl, previewUrl });
+        const genre = document.createElement('div');
+        genre.className = 'genre';
+        genre.textContent = item.Genre || 'Uncategorized';
 
-        container.appendChild(card);
+        meta.appendChild(title);
+        meta.appendChild(genre);
+
+        div.appendChild(img);
+        div.appendChild(meta);
+
+        div.addEventListener('click', () => selectItem(item));
+
+        LIST_EL.appendChild(div);
+
+        // auto-select first item
+        if (idx === 0) {
+          selectItem(item);
+        }
       });
-    })
-    .catch(err => {
-      console.error('Error loading JSON', err);
-    });
-
-  function loadPreview(item) {
-    const frame = document.getElementById('previewFrame');
-    const title = document.getElementById('previewTitle');
-
-    // prefer endpoint for iframe
-    if (item.endpointUrl) {
-      frame.src = item.endpointUrl;
-    } else if (item.previewUrl) {
-      frame.src = item.previewUrl;
-    } else {
-      frame.src = '';
     }
-    title.textContent = item.title || 'Untitled template';
-  }
 
-  function clearPreview() {
-    document.getElementById('previewFrame').src = '';
-    document.getElementById('previewTitle').textContent = 'Select a template';
-  }
-</script>
+    function selectItem(item) {
+      current = item;
+      TITLE_EL.textContent = item.Title || 'Untitled';
+
+      const endpoint =
+        item['Endpoint URL'] ||
+        item['Endpoint'] ||
+        item['endpoint'] ||
+        item['endpoint_url'];
+
+      const regular =
+        item['URL'] ||
+        item['Url'] ||
+        item['link'];
+
+      if (endpoint) {
+        FRAME_EL.src = endpoint;
+      } else if (regular) {
+        FRAME_EL.src = regular;
+      } else {
+        FRAME_EL.src = '';
+      }
+
+      BTN_EXT.onclick = () => {
+        if (regular) {
+          window.open(regular, '_blank');
+        } else if (endpoint) {
+          window.open(endpoint, '_blank');
+        }
+      };
+
+      BTN_COPY.onclick = async () => {
+        if (endpoint) {
+          try {
+            await navigator.clipboard.writeText(endpoint);
+            BTN_COPY.textContent = 'Copied!';
+            setTimeout(() => BTN_COPY.textContent = 'Copy endpoint', 1200);
+          } catch (e) {
+            alert('Copied: ' + endpoint);
+          }
+        }
+      };
+    }
+
+    SEARCH_EL.addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase();
+      filtered = data.filter(item => {
+        const t = (item.Title || '').toLowerCase();
+        const g = (item.Genre || '').toLowerCase();
+        return t.includes(q) || g.includes(q);
+      });
+      renderList();
+    });
+  </script>
+</body>
+</html>
