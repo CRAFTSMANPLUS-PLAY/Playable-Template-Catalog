@@ -12,9 +12,8 @@
         --card-border: rgba(255, 255, 255, 0.04);
         --text: #fff;
         --muted: rgba(255, 255, 255, 0.6);
-        --accent: #00bcd4;
+        --accent: #0070f3;
         --radius-lg: 1.25rem;
-        --radius-md: 1rem;
       }
 
       * {
@@ -32,110 +31,105 @@
       .wrap {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 1.5rem 1.5rem 3.5rem;
+        padding: 1.4rem 1.4rem 3rem;
       }
 
       header {
         display: flex;
-        align-items: center;
         gap: 1rem;
-        margin-bottom: 1.8rem;
+        align-items: center;
+        margin-bottom: 1.4rem;
       }
 
-      header .logo {
+      .logo {
         width: 38px;
         height: 38px;
         border-radius: 999px;
         background: #fff;
+        color: #000;
         display: grid;
         place-items: center;
         font-weight: 700;
-        color: #000;
       }
 
-      header .meta h1 {
+      header h1 {
         font-size: 1rem;
         margin: 0;
         display: flex;
-        gap: 0.5rem;
+        gap: 0.4rem;
         align-items: center;
       }
 
-      header .meta small {
+      header small {
         display: block;
         font-size: 0.68rem;
         color: var(--muted);
       }
 
-      .badge-ghost {
-        background: rgba(0, 188, 212, 0.1);
-        color: #e0fdff;
-        border: 1px solid rgba(0, 188, 212, 0.2);
-        padding: 0.15rem 0.5rem;
+      .badge {
+        background: rgba(0, 112, 243, 0.12);
+        border: 1px solid rgba(0, 112, 243, 0.3);
+        padding: 0.12rem 0.55rem;
         border-radius: 999px;
         font-size: 0.6rem;
         text-transform: uppercase;
-        letter-spacing: 0.04em;
+        letter-spacing: 0.03em;
       }
 
       .section-title {
-        margin: 1.8rem 0 0.8rem;
+        margin: 1.6rem 0 0.5rem;
         font-weight: 600;
-        font-size: 0.85rem;
-        color: #fff;
+        font-size: 0.82rem;
       }
 
       .genre-block {
-        margin-bottom: 1.5rem;
+        margin-bottom: 1.3rem;
       }
 
       .genre-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 0.25rem;
+        margin-bottom: 0.45rem;
       }
 
       .genre-name {
+        font-size: 0.72rem;
         font-weight: 500;
-        font-size: 0.78rem;
       }
 
       .genre-count {
-        font-size: 0.6rem;
+        font-size: 0.58rem;
         color: var(--muted);
       }
 
+      /* grid of 315px cards */
       .grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(315px, 1fr));
         gap: 1rem;
       }
 
       .card {
-        background: radial-gradient(
-            circle at top,
-            rgba(255, 255, 255, 0.04),
-            rgba(0, 0, 0, 0)
-          ),
-          var(--card);
+        background: var(--card);
         border: 1px solid var(--card-border);
         border-radius: var(--radius-lg);
         display: flex;
         flex-direction: column;
-        min-height: 240px;
         overflow: hidden;
+        max-width: 315px;
+        min-height: 230px;
       }
 
       .card-top {
         display: flex;
         justify-content: space-between;
         gap: 0.75rem;
-        padding: 0.75rem 0.75rem 0.25rem;
+        padding: 0.7rem 0.7rem 0.3rem;
       }
 
       .card-title {
-        font-size: 0.78rem;
+        font-size: 0.75rem;
         font-weight: 600;
       }
 
@@ -145,20 +139,16 @@
         margin-top: 0.25rem;
       }
 
-      .badge-advanced {
-        margin-top: 0.4rem;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.35rem;
-        background: rgba(0, 188, 212, 0.12);
-        border: 1px solid rgba(0, 188, 212, 0.3);
-        padding: 0.1rem 0.5rem 0.1rem 0.35rem;
-        border-radius: 999px;
+      .badge-adv {
+        margin-top: 0.35rem;
         font-size: 0.55rem;
-      }
-
-      .badge-advanced span:first-child {
-        font-size: 0.6rem;
+        background: rgba(0, 188, 212, 0.1);
+        border: 1px solid rgba(0, 188, 212, 0.4);
+        border-radius: 999px;
+        padding: 0.12rem 0.45rem;
+        display: inline-flex;
+        gap: 0.3rem;
+        align-items: center;
       }
 
       .card-actions {
@@ -172,27 +162,27 @@
         width: 26px;
         height: 26px;
         border-radius: 999px;
+        font-size: 0.65rem;
         color: #fff;
-        font-size: 0.7rem;
         cursor: pointer;
       }
 
       .icon-btn:hover {
-        background: rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.08);
       }
 
-      /* 2:1 preview area */
+      /* 2:1 thumb @ 315px */
       .thumb-wrap {
         position: relative;
-        background: rgba(255, 255, 255, 0.02);
-        border-radius: 0.9rem;
-        margin: 0.5rem 0.75rem 0.5rem;
+        width: calc(100% - 1.4rem);
+        margin: 0.45rem 0.7rem 0.55rem;
+        border-radius: 1rem;
         overflow: hidden;
+        background: rgba(255, 255, 255, 0.03);
+        aspect-ratio: 2 / 1;
         display: flex;
         justify-content: center;
         align-items: center;
-        aspect-ratio: 2 / 1;
-        min-height: 140px;
       }
 
       .thumb-wrap img {
@@ -205,66 +195,67 @@
         position: absolute;
         inset: 0;
         display: flex;
-        align-items: center;
         justify-content: center;
-        background: linear-gradient(
-          140deg,
-          rgba(0, 0, 0, 0.5),
+        align-items: center;
+        background: radial-gradient(
+          circle,
+          rgba(0, 0, 0, 0.45),
           rgba(0, 0, 0, 0)
         );
       }
 
-      .play-now-btn {
-        background: #0070f3;
+      .play-btn {
+        background: var(--accent);
         border: none;
         color: #fff;
         font-weight: 600;
-        padding: 0.55rem 1.3rem;
+        padding: 0.45rem 1.1rem;
         border-radius: 999px;
-        font-size: 0.68rem;
+        font-size: 0.65rem;
         cursor: pointer;
       }
 
-      .play-now-btn:disabled {
+      .play-btn:disabled {
         opacity: 0.6;
         cursor: not-allowed;
       }
 
+      /* iframe = same box as thumb */
       .iframe-holder {
-        width: calc(100% - 1.5rem);
-        margin: 0 0.75rem;
-        height: 180px;
+        width: calc(100% - 1.4rem);
+        margin: 0.45rem 0.7rem 0.55rem;
+        border-radius: 1rem;
         border: none;
-        border-radius: 0.9rem;
+        aspect-ratio: 2 / 1;
+        display: none;
       }
 
+      /* footer: hide by default */
       .card-footer {
-        background: rgba(0, 0, 0, 0.14);
-        border-top: 1px solid rgba(255, 255, 255, 0.03);
-        padding: 0.4rem 0.75rem 0.6rem;
+        display: none;
+        background: rgba(0, 0, 0, 0.1);
         font-size: 0.55rem;
-        color: rgba(255, 255, 255, 0.5);
+        color: rgba(255, 255, 255, 0.4);
+        padding: 0.35rem 0.7rem 0.6rem;
         word-break: break-all;
-        border-bottom-left-radius: var(--radius-lg);
-        border-bottom-right-radius: var(--radius-lg);
       }
 
       .empty-state {
-        background: rgba(255, 255, 255, 0.02);
+        background: rgba(255, 255, 255, 0.03);
         border: 1px dashed rgba(255, 255, 255, 0.08);
-        border-radius: 0.9rem;
-        padding: 2rem 1rem;
-        text-align: center;
+        border-radius: 1rem;
+        padding: 1.5rem 1rem;
         font-size: 0.7rem;
-        color: rgba(255, 255, 255, 0.5);
+        text-align: center;
       }
 
-      @media (max-width: 700px) {
-        .grid {
-          grid-template-columns: 1fr;
+      @media (max-width: 720px) {
+        .card {
+          max-width: 100%;
         }
+        .thumb-wrap,
         .iframe-holder {
-          height: 180px;
+          width: calc(100% - 1.3rem);
         }
       }
     </style>
@@ -273,37 +264,36 @@
     <div class="wrap">
       <header>
         <div class="logo">C+</div>
-        <div class="meta">
+        <div>
           <h1>
             CRAFTSMAN+ PLAY Catalogue
-            <span class="badge-ghost">Read-only snapshot</span>
+            <span class="badge">read-only</span>
           </h1>
-          <small>Interactive ad concepts &amp; variants • powered by PLAY</small>
+          <small>Interactive ad concepts &amp; variants</small>
         </div>
       </header>
       <main id="app">Loading…</main>
     </div>
 
     <script>
-      // IMPORTANT: make sure this filename exists at the root of your repo
       const DATA_URL = "Playable_Endpoint_URLs.json";
-      const FALLBACK_THUMB = "placeholder.png"; // optional
+      const FALLBACK_THUMB = "placeholder.png";
 
-      async function loadCatalogue() {
+      async function loadData() {
         try {
           const res = await fetch(DATA_URL, { cache: "no-store" });
-          const raw = await res.json();
-          const items = (Array.isArray(raw) ? raw : []).map((row) => {
+          const json = await res.json();
+          const items = (Array.isArray(json) ? json : []).map((row) => {
             const title = row["Title"] || "Untitled";
             const genre =
               row["Genre"] && String(row["Genre"]).trim()
                 ? String(row["Genre"]).trim()
                 : "Other";
 
-            // this is what you want to open in a new tab
+            // what user wants to open (↗)
             const previewUrl = row["URL"] || row["Preview URL"] || "";
 
-            // this is what actually runs INSIDE the card
+            // what we actually run in the iframe
             const endpointUrl = row["Endpoint URL"] || previewUrl || "";
 
             const hasAdvanced = !!row["Complex / Advanced Option"];
@@ -326,45 +316,46 @@
               thumbnail: slug + ".png",
             };
           });
-          renderCatalogue(items);
-        } catch (err) {
-          console.error("Failed to load JSON", err);
-          renderCatalogue([]);
+
+          render(items);
+        } catch (e) {
+          console.error(e);
+          render([]);
         }
       }
 
-      function groupBy(list, key = "genre") {
+      function groupBy(arr, key) {
         const out = {};
-        list.forEach((item) => {
+        arr.forEach((item) => {
           const k = item[key] || "Other";
           if (!out[k]) out[k] = [];
+          out[k] = out[k] || [];
           out[k].push(item);
         });
         return out;
       }
 
-      function renderCatalogue(items) {
+      function render(items) {
         const app = document.getElementById("app");
         app.innerHTML = "";
 
-        const playables = items.filter((x) => !x.isBanner);
-        const banners = items.filter((x) => x.isBanner);
+        const playables = items.filter((i) => !i.isBanner);
+        const banners = items.filter((i) => i.isBanner);
 
         // PLAYABLES
-        const playableSection = document.createElement("section");
-        const playableTitle = document.createElement("div");
-        playableTitle.className = "section-title";
-        playableTitle.textContent = "PLAYABLES";
-        playableSection.appendChild(playableTitle);
+        const section = document.createElement("section");
+        const title = document.createElement("div");
+        title.className = "section-title";
+        title.textContent = "PLAYABLES";
+        section.appendChild(title);
 
         if (!playables.length) {
           const empty = document.createElement("div");
           empty.className = "empty-state";
-          empty.textContent =
-            "No playables found. Check that your JSON is valid and at the root.";
-          playableSection.appendChild(empty);
+          empty.textContent = "No playables found.";
+          section.appendChild(empty);
         } else {
-          const byGenre = groupBy(playables);
+          const byGenre = groupBy(playables, "genre");
           Object.entries(byGenre).forEach(([genre, list]) => {
             const block = document.createElement("div");
             block.className = "genre-block";
@@ -383,25 +374,24 @@
 
             const grid = document.createElement("div");
             grid.className = "grid";
-
             list.forEach((item) => grid.appendChild(createCard(item)));
-
             block.appendChild(grid);
-            playableSection.appendChild(block);
+
+            section.appendChild(block);
           });
         }
 
-        app.appendChild(playableSection);
+        app.appendChild(section);
 
         // BANNERS
         if (banners.length) {
-          const bannerSection = document.createElement("section");
-          const bannerTitle = document.createElement("div");
-          bannerTitle.className = "section-title";
-          bannerTitle.textContent = "ANIMATED BANNERS";
-          bannerSection.appendChild(bannerTitle);
+          const sec2 = document.createElement("section");
+          const title2 = document.createElement("div");
+          title2.className = "section-title";
+          title2.textContent = "ANIMATED BANNERS";
+          sec2.appendChild(title2);
 
-          const byGenreB = groupBy(banners);
+          const byGenreB = groupBy(banners, "genre");
           Object.entries(byGenreB).forEach(([genre, list]) => {
             const block = document.createElement("div");
             block.className = "genre-block";
@@ -420,14 +410,13 @@
 
             const grid = document.createElement("div");
             grid.className = "grid";
-
             list.forEach((item) => grid.appendChild(createCard(item)));
-
             block.appendChild(grid);
-            bannerSection.appendChild(block);
+
+            sec2.appendChild(block);
           });
 
-          app.appendChild(bannerSection);
+          app.appendChild(sec2);
         }
       }
 
@@ -450,58 +439,56 @@
 
         if (item.hasAdvanced) {
           const adv = document.createElement("div");
-          adv.className = "badge-advanced";
-          adv.innerHTML = "<span>✔</span><span>Advanced options / variants</span>";
+          adv.className = "badge-adv";
+          adv.innerHTML = "<span>✔</span><span>Advanced options</span>";
           meta.appendChild(adv);
         }
 
         const actions = document.createElement("div");
         actions.className = "card-actions";
 
-        const btnExternal = document.createElement("button");
-        btnExternal.className = "icon-btn";
-        btnExternal.title = "Open in new tab";
-        btnExternal.textContent = "↗";
-        btnExternal.addEventListener("click", (e) => {
+        const externalBtn = document.createElement("button");
+        externalBtn.className = "icon-btn";
+        externalBtn.title = "Open in new tab";
+        externalBtn.textContent = "↗";
+        externalBtn.addEventListener("click", (e) => {
           e.stopPropagation();
           const target = item.previewUrl || item.endpointUrl;
           if (target) window.open(target, "_blank");
         });
 
-        const btnReset = document.createElement("button");
-        btnReset.className = "icon-btn";
-        btnReset.title = "Reset playable";
-        btnReset.textContent = "🔄";
+        const resetBtn = document.createElement("button");
+        resetBtn.className = "icon-btn";
+        resetBtn.title = "Reset";
+        resetBtn.textContent = "🔄";
 
-        actions.appendChild(btnExternal);
-        actions.appendChild(btnReset);
+        actions.appendChild(externalBtn);
+        actions.appendChild(resetBtn);
 
         top.appendChild(meta);
         top.appendChild(actions);
         card.appendChild(top);
 
-        // preview thumb
         const thumbWrap = document.createElement("div");
         thumbWrap.className = "thumb-wrap";
 
-        const thumb = document.createElement("img");
-        thumb.src = item.thumbnail;
-        thumb.alt = item.title;
-        thumb.addEventListener("error", () => {
+        const img = document.createElement("img");
+        img.src = item.thumbnail;
+        img.alt = item.title;
+        img.addEventListener("error", () => {
           if (FALLBACK_THUMB) {
-            thumb.src = FALLBACK_THUMB;
+            img.src = FALLBACK_THUMB;
           } else {
-            thumb.style.display = "none";
+            img.style.display = "none";
           }
         });
-        thumbWrap.appendChild(thumb);
+        thumbWrap.appendChild(img);
 
         const overlay = document.createElement("div");
         overlay.className = "play-overlay";
 
         const playBtn = document.createElement("button");
-        playBtn.type = "button";
-        playBtn.className = "play-now-btn";
+        playBtn.className = "play-btn";
         playBtn.textContent = "PLAY NOW ▶";
 
         overlay.appendChild(playBtn);
@@ -509,46 +496,41 @@
 
         card.appendChild(thumbWrap);
 
-        // iframe (hidden by default)
         const iframe = document.createElement("iframe");
         iframe.className = "iframe-holder";
-        iframe.style.display = "none";
         iframe.allow =
           "accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture;";
         iframe.loading = "lazy";
         iframe.title = item.title;
         card.appendChild(iframe);
 
-        // load function
+        // load
         const loadPlayable = () => {
           if (!item.endpointUrl) return;
           playBtn.textContent = "Loading…";
           playBtn.disabled = true;
-
           iframe.src = item.endpointUrl;
           iframe.style.display = "block";
-          thumbWrap.style.display = "flex";
           thumbWrap.style.display = "none";
         };
 
-        // restore when loaded
-        iframe.addEventListener("load", () => {
-          playBtn.textContent = "PLAY NOW ▶";
-          playBtn.disabled = false;
-        });
-
-        // click areas
-        thumbWrap.addEventListener("click", (e) => {
-          e.stopPropagation();
-          loadPlayable();
-        });
         playBtn.addEventListener("click", (e) => {
           e.stopPropagation();
           loadPlayable();
         });
 
-        // reset button
-        btnReset.addEventListener("click", (e) => {
+        thumbWrap.addEventListener("click", (e) => {
+          e.stopPropagation();
+          loadPlayable();
+        });
+
+        iframe.addEventListener("load", () => {
+          playBtn.textContent = "PLAY NOW ▶";
+          playBtn.disabled = false;
+        });
+
+        // reset
+        resetBtn.addEventListener("click", (e) => {
           e.stopPropagation();
           iframe.src = "";
           iframe.style.display = "none";
@@ -557,17 +539,17 @@
           playBtn.disabled = false;
         });
 
-        // footer
+        // footer (hidden)
         const footer = document.createElement("div");
         footer.className = "card-footer";
         footer.textContent =
-          item.previewUrl || item.endpointUrl || "(no URL provided)";
+          item.previewUrl || item.endpointUrl || "(no url provided)";
         card.appendChild(footer);
 
         return card;
       }
 
-      loadCatalogue();
+      loadData();
     </script>
   </body>
 </html>
