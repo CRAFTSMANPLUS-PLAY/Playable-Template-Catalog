@@ -1,555 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>CRAFTSMAN+ • PLAY Catalogue</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <style>
+<head>
+  <meta charset="UTF-8" />
+  <title>CRAFTSMAN+ PLAY Catalogue</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    :root {
+      --bg: #0f0f10;
+      --card: #1a1b1f;
+      --card-border: rgba(255,255,255,.04);
+      --text: #fff;
+      --muted: rgba(255,255,255,.45);
+      --accent: #0b78ff;
+      --radius-lg: 1.25rem;
+      --thumb-w: 315px;   /* width of each playable */
+      --thumb-h: 560px;   /* portrait-ish */
+    }
+    * { box-sizing: border-box; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 1.5rem 1.5rem 4rem;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+    .title-block h1 {
+      font-size: 1.1rem;
+      letter-spacing: .04em;
+      margin: 0;
+    }
+    .section-title {
+      font-weight: 600;
+      margin: 1.8rem 0 .75rem;
+    }
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+    }
+    .card {
+      background: radial-gradient(circle at top, rgba(255,255,255,.04), rgba(0,0,0,0));
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      width: var(--thumb-w);
+      overflow: hidden;
+      position: relative;
+    }
+    .card-head {
+      padding: .9rem 1rem .25rem;
+      display: flex;
+      align-items: flex-start;
+      gap: .75rem;
+      justify-content: space-between;
+    }
+    .card-title {
+      font-size: .9rem;
+      font-weight: 600;
+    }
+    .card-sub {
+      font-size: .65rem;
+      color: var(--muted);
+      margin-top: .2rem;
+    }
+    .card-actions {
+      display: flex;
+      gap: .45rem;
+    }
+    .icon-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(10,10,10,.3);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: .15s ease;
+    }
+    .icon-btn:hover {
+      background: rgba(255,255,255,.05);
+    }
+    .thumb-wrap {
+      width: 100%;
+      height: var(--thumb-h);
+      background: radial-gradient(circle at 10% 20%, rgba(255,255,255,.02), rgba(0,0,0,0));
+      position: relative;
+      overflow: hidden;
+      border-radius: .75rem;
+      margin: .25rem 1rem 1rem;
+    }
+    .thumb-wrap img,
+    .thumb-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+      object-fit: cover;
+      border-radius: .75rem;
+    }
+    .play-btn-overlay {
+      position: absolute;
+      bottom: 1.4rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0b78ff;
+      color: #fff;
+      font-weight: 600;
+      font-size: .7rem;
+      padding: .45rem .95rem;
+      border-radius: 999px;
+      display: inline-flex;
+      gap: .25rem;
+      align-items: center;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 10px 30px rgba(11,120,255,.35);
+    }
+    .thumb-url {
+      font-size: .55rem;
+      color: rgba(255,255,255,.2);
+      padding: 0 1rem 1rem;
+      word-break: break-all;
+    }
+    @media (max-width: 700px) {
+      .grid { flex-direction: column; }
+      .card { width: 100%; }
       :root {
-        --bg: #0f0f10;
-        --panel: #151517;
-        --card: #1c1d21;
-        --card-border: rgba(255, 255, 255, 0.04);
-        --text: #fff;
-        --muted: rgba(255, 255, 255, 0.6);
-        --accent: #0070f3;
-        --radius-lg: 1.25rem;
+        --thumb-h: 460px;
       }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      body {
-        margin: 0;
-        background: var(--bg);
-        color: var(--text);
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-          sans-serif;
-      }
-
-      .wrap {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 1.4rem 1.4rem 3rem;
-      }
-
-      header {
-        display: flex;
-        gap: 1rem;
-        align-items: center;
-        margin-bottom: 1.4rem;
-      }
-
-      .logo {
-        width: 38px;
-        height: 38px;
-        border-radius: 999px;
-        background: #fff;
-        color: #000;
-        display: grid;
-        place-items: center;
-        font-weight: 700;
-      }
-
-      header h1 {
-        font-size: 1rem;
-        margin: 0;
-        display: flex;
-        gap: 0.4rem;
-        align-items: center;
-      }
-
-      header small {
-        display: block;
-        font-size: 0.68rem;
-        color: var(--muted);
-      }
-
-      .badge {
-        background: rgba(0, 112, 243, 0.12);
-        border: 1px solid rgba(0, 112, 243, 0.3);
-        padding: 0.12rem 0.55rem;
-        border-radius: 999px;
-        font-size: 0.6rem;
-        text-transform: uppercase;
-        letter-spacing: 0.03em;
-      }
-
-      .section-title {
-        margin: 1.6rem 0 0.5rem;
-        font-weight: 600;
-        font-size: 0.82rem;
-      }
-
-      .genre-block {
-        margin-bottom: 1.3rem;
-      }
-
-      .genre-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 0.45rem;
-      }
-
-      .genre-name {
-        font-size: 0.72rem;
-        font-weight: 500;
-      }
-
-      .genre-count {
-        font-size: 0.58rem;
-        color: var(--muted);
-      }
-
-      /* grid of 315px cards */
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(315px, 1fr));
-        gap: 1rem;
-      }
-
-      .card {
-        background: var(--card);
-        border: 1px solid var(--card-border);
-        border-radius: var(--radius-lg);
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        max-width: 315px;
-        min-height: 230px;
-      }
-
-      .card-top {
-        display: flex;
-        justify-content: space-between;
-        gap: 0.75rem;
-        padding: 0.7rem 0.7rem 0.3rem;
-      }
-
-      .card-title {
-        font-size: 0.75rem;
-        font-weight: 600;
-      }
-
-      .card-genre {
-        font-size: 0.58rem;
-        color: var(--muted);
-        margin-top: 0.25rem;
-      }
-
-      .badge-adv {
-        margin-top: 0.35rem;
-        font-size: 0.55rem;
-        background: rgba(0, 188, 212, 0.1);
-        border: 1px solid rgba(0, 188, 212, 0.4);
-        border-radius: 999px;
-        padding: 0.12rem 0.45rem;
-        display: inline-flex;
-        gap: 0.3rem;
-        align-items: center;
-      }
-
-      .card-actions {
-        display: flex;
-        gap: 0.35rem;
-      }
-
-      .icon-btn {
-        background: rgba(255, 255, 255, 0.02);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        width: 26px;
-        height: 26px;
-        border-radius: 999px;
-        font-size: 0.65rem;
-        color: #fff;
-        cursor: pointer;
-      }
-
-      .icon-btn:hover {
-        background: rgba(255, 255, 255, 0.08);
-      }
-
-      /* 2:1 thumb @ 315px */
-      .thumb-wrap {
-        position: relative;
-        width: calc(100% - 1.4rem);
-        margin: 0.45rem 0.7rem 0.55rem;
-        border-radius: 1rem;
-        overflow: hidden;
-        background: rgba(255, 255, 255, 0.03);
-        aspect-ratio: 2 / 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .thumb-wrap img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      .play-overlay {
-        position: absolute;
-        inset: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: radial-gradient(
-          circle,
-          rgba(0, 0, 0, 0.45),
-          rgba(0, 0, 0, 0)
-        );
-      }
-
-      .play-btn {
-        background: var(--accent);
-        border: none;
-        color: #fff;
-        font-weight: 600;
-        padding: 0.45rem 1.1rem;
-        border-radius: 999px;
-        font-size: 0.65rem;
-        cursor: pointer;
-      }
-
-      .play-btn:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-      }
-
-      /* iframe = same box as thumb */
-      .iframe-holder {
-        width: calc(100% - 1.4rem);
-        margin: 0.45rem 0.7rem 0.55rem;
-        border-radius: 1rem;
-        border: none;
-        aspect-ratio: 2 / 1;
-        display: none;
-      }
-
-      /* footer: hide by default */
-      .card-footer {
-        display: none;
-        background: rgba(0, 0, 0, 0.1);
-        font-size: 0.55rem;
-        color: rgba(255, 255, 255, 0.4);
-        padding: 0.35rem 0.7rem 0.6rem;
-        word-break: break-all;
-      }
-
-      .empty-state {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px dashed rgba(255, 255, 255, 0.08);
-        border-radius: 1rem;
-        padding: 1.5rem 1rem;
-        font-size: 0.7rem;
-        text-align: center;
-      }
-
-      @media (max-width: 720px) {
-        .card {
-          max-width: 100%;
-        }
-        .thumb-wrap,
-        .iframe-holder {
-          width: calc(100% - 1.3rem);
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="wrap">
-      <header>
-        <div class="logo">C+</div>
-        <div>
-          <h1>
-            CRAFTSMAN+ PLAY Catalogue
-            <span class="badge">read-only</span>
-          </h1>
-          <small>Interactive ad concepts &amp; variants</small>
-        </div>
-      </header>
-      <main id="app">Loading…</main>
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="title-block">
+      <h1>PLAYABLES</h1>
     </div>
+    <div id="demoCount" style="font-size:.65rem;color:rgba(255,255,255,.4)"></div>
+  </header>
 
-    <script>
-      const DATA_URL = "Playable_Endpoint_URLs.json";
-      const FALLBACK_THUMB = "placeholder.png";
+  <div id="catalog"></div>
 
-      async function loadData() {
-        try {
-          const res = await fetch(DATA_URL, { cache: "no-store" });
-          const json = await res.json();
-          const items = (Array.isArray(json) ? json : []).map((row) => {
-            const title = row["Title"] || "Untitled";
-            const genre =
-              row["Genre"] && String(row["Genre"]).trim()
-                ? String(row["Genre"]).trim()
-                : "Other";
+  <script>
+    // 1) this is the important part for you 👇
+    // if the title in the JSON does NOT match the actual filename,
+    // add it here: "JSON Title": "actual-file-name.png"
+    const IMAGE_OVERRIDES = {
+      "Block Puzzle": "block puzzle.png",
+      "Character Builder": "character builder.png"
+      // add more here as you see 404s
+      // "Spot the Difference": "spot the difference.png",
+      // "Slide Puzzle": "slide puzzle.png"
+    };
 
-            // what user wants to open (↗)
-            const previewUrl = row["URL"] || row["Preview URL"] || "";
+    // fallback image (optional) – if you uploaded placeholder.png
+    const FALLBACK_THUMB = "placeholder.png";
 
-            // what we actually run in the iframe
-            const endpointUrl = row["Endpoint URL"] || previewUrl || "";
+    // your JSON file in the repo
+    const JSON_URL = "endpoint-urls.json";
 
-            const hasAdvanced = !!row["Complex / Advanced Option"];
-            const isBanner = row["Unnamed: 5"]
-              ? String(row["Unnamed: 5"]).toLowerCase().includes("banner")
-              : false;
+    // this is the "open in new tab" URL base – you said you want the
+    // nice preview URL, not the endpoint – change this to whatever
+    const PREVIEW_BASE = "https://play.preview.craftsmanplus.com/preview?playable=";
 
-            const slug = title
-              .toLowerCase()
-              .replace(/[^a-z0-9]+/g, "-")
-              .replace(/^-|-$/g, "");
-
-            return {
-              title,
-              genre,
-              previewUrl,
-              endpointUrl,
-              hasAdvanced,
-              isBanner,
-              thumbnail: slug + ".png",
-            };
-          });
-
-          render(items);
-        } catch (e) {
-          console.error(e);
-          render([]);
-        }
+    async function loadData() {
+      let data = [];
+      try {
+        const res = await fetch(JSON_URL + "?v=" + Date.now());
+        data = await res.json();
+      } catch (e) {
+        console.error("Failed to load JSON, using empty list.", e);
+        data = [];
       }
+      return data;
+    }
 
-      function groupBy(arr, key) {
-        const out = {};
-        arr.forEach((item) => {
-          const k = item[key] || "Other";
-          if (!out[k]) out[k] = [];
-          out[k] = out[k] || [];
-          out[k].push(item);
-        });
-        return out;
-      }
-
-      function render(items) {
-        const app = document.getElementById("app");
-        app.innerHTML = "";
-
-        const playables = items.filter((i) => !i.isBanner);
-        const banners = items.filter((i) => i.isBanner);
-
-        // PLAYABLES
-        const section = document.createElement("section");
-        const title = document.createElement("div");
-        title.className = "section-title";
-        title.textContent = "PLAYABLES";
-        section.appendChild(title);
-
-        if (!playables.length) {
-          const empty = document.createElement("div");
-          empty.className = "empty-state";
-          empty.textContent = "No playables found.";
-          section.appendChild(empty);
-        } else {
-          const byGenre = groupBy(playables, "genre");
-          Object.entries(byGenre).forEach(([genre, list]) => {
-            const block = document.createElement("div");
-            block.className = "genre-block";
-
-            const header = document.createElement("div");
-            header.className = "genre-header";
-            const name = document.createElement("div");
-            name.className = "genre-name";
-            name.textContent = genre;
-            const count = document.createElement("div");
-            count.className = "genre-count";
-            count.textContent = list.length + " demos";
-            header.appendChild(name);
-            header.appendChild(count);
-            block.appendChild(header);
-
-            const grid = document.createElement("div");
-            grid.className = "grid";
-            list.forEach((item) => grid.appendChild(createCard(item)));
-            block.appendChild(grid);
-
-            section.appendChild(block);
-          });
-        }
-
-        app.appendChild(section);
-
-        // BANNERS
-        if (banners.length) {
-          const sec2 = document.createElement("section");
-          const title2 = document.createElement("div");
-          title2.className = "section-title";
-          title2.textContent = "ANIMATED BANNERS";
-          sec2.appendChild(title2);
-
-          const byGenreB = groupBy(banners, "genre");
-          Object.entries(byGenreB).forEach(([genre, list]) => {
-            const block = document.createElement("div");
-            block.className = "genre-block";
-
-            const header = document.createElement("div");
-            header.className = "genre-header";
-            const name = document.createElement("div");
-            name.className = "genre-name";
-            name.textContent = genre;
-            const count = document.createElement("div");
-            count.className = "genre-count";
-            count.textContent = list.length + " banners";
-            header.appendChild(name);
-            header.appendChild(count);
-            block.appendChild(header);
-
-            const grid = document.createElement("div");
-            grid.className = "grid";
-            list.forEach((item) => grid.appendChild(createCard(item)));
-            block.appendChild(grid);
-
-            sec2.appendChild(block);
-          });
-
-          app.appendChild(sec2);
-        }
-      }
-
-      function createCard(item) {
-        const card = document.createElement("article");
-        card.className = "card";
-
-        const top = document.createElement("div");
-        top.className = "card-top";
-
-        const meta = document.createElement("div");
-        const titleEl = document.createElement("div");
-        titleEl.className = "card-title";
-        titleEl.textContent = item.title;
-        const genreEl = document.createElement("div");
-        genreEl.className = "card-genre";
-        genreEl.textContent = item.genre;
-        meta.appendChild(titleEl);
-        meta.appendChild(genreEl);
-
-        if (item.hasAdvanced) {
-          const adv = document.createElement("div");
-          adv.className = "badge-adv";
-          adv.innerHTML = "<span>✔</span><span>Advanced options</span>";
-          meta.appendChild(adv);
-        }
-
-        const actions = document.createElement("div");
-        actions.className = "card-actions";
-
-        const externalBtn = document.createElement("button");
-        externalBtn.className = "icon-btn";
-        externalBtn.title = "Open in new tab";
-        externalBtn.textContent = "↗";
-        externalBtn.addEventListener("click", (e) => {
-          e.stopPropagation();
-          const target = item.previewUrl || item.endpointUrl;
-          if (target) window.open(target, "_blank");
-        });
-
-        const resetBtn = document.createElement("button");
-        resetBtn.className = "icon-btn";
-        resetBtn.title = "Reset";
-        resetBtn.textContent = "🔄";
-
-        actions.appendChild(externalBtn);
-        actions.appendChild(resetBtn);
-
-        top.appendChild(meta);
-        top.appendChild(actions);
-        card.appendChild(top);
-
-        const thumbWrap = document.createElement("div");
-        thumbWrap.className = "thumb-wrap";
-
-        const img = document.createElement("img");
-        img.src = item.thumbnail;
-        img.alt = item.title;
-        img.addEventListener("error", () => {
-          if (FALLBACK_THUMB) {
-            img.src = FALLBACK_THUMB;
-          } else {
-            img.style.display = "none";
-          }
-        });
-        thumbWrap.appendChild(img);
-
-        const overlay = document.createElement("div");
-        overlay.className = "play-overlay";
-
-        const playBtn = document.createElement("button");
-        playBtn.className = "play-btn";
-        playBtn.textContent = "PLAY NOW ▶";
-
-        overlay.appendChild(playBtn);
-        thumbWrap.appendChild(overlay);
-
-        card.appendChild(thumbWrap);
-
-        const iframe = document.createElement("iframe");
-        iframe.className = "iframe-holder";
-        iframe.allow =
-          "accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture;";
-        iframe.loading = "lazy";
-        iframe.title = item.title;
-        card.appendChild(iframe);
-
-        // load
-        const loadPlayable = () => {
-          if (!item.endpointUrl) return;
-          playBtn.textContent = "Loading…";
-          playBtn.disabled = true;
-          iframe.src = item.endpointUrl;
-          iframe.style.display = "block";
-          thumbWrap.style.display = "none";
-        };
-
-        playBtn.addEventListener("click", (e) => {
-          e.stopPropagation();
-          loadPlayable();
-        });
-
-        thumbWrap.addEventListener("click", (e) => {
-          e.stopPropagation();
-          loadPlayable();
-        });
-
-        iframe.addEventListener("load", () => {
-          playBtn.textContent = "PLAY NOW ▶";
-          playBtn.disabled = false;
-        });
-
-        // reset
-        resetBtn.addEventListener("click", (e) => {
-          e.stopPropagation();
-          iframe.src = "";
-          iframe.style.display = "none";
-          thumbWrap.style.display = "flex";
-          playBtn.textContent = "PLAY NOW ▶";
-          playBtn.disabled = false;
-        });
-
-        // footer (hidden)
-        const footer = document.createElement("div");
-        footer.className = "card-footer";
-        footer.textContent =
-          item.previewUrl || item.endpointUrl || "(no url provided)";
-        card.appendChild(footer);
-
-        return card;
-      }
-
-      loadData();
-    </script>
-  </body>
-</html>
+    function slugify(name) {
+      return name
+        .toLowerCase()
+        .replace(/&/g, "and")
