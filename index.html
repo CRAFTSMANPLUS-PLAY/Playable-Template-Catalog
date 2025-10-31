@@ -24,6 +24,7 @@
       gap: 1.25rem;
       padding: 1.25rem;
     }
+    /* LEFT PANEL */
     .left {
       width: 360px;
       background: var(--panel);
@@ -38,11 +39,13 @@
       align-items: center;
       gap: .75rem;
     }
+    /* bigger, cleaner logo */
     .logo {
-      width: 32px;
-      height: 32px;
-      border-radius: 999px;
-      background: #fff;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.05);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -105,15 +108,16 @@
       cursor: pointer;
       border-bottom: 1px solid rgba(255,255,255,.03);
     }
-    .item:hover {
+    .item:hover,
+    .item.active {
       background: rgba(255,255,255,.03);
     }
     .thumb {
-      width: 60px;
-      height: 38px;
+      width: 68px;
+      height: 42px;
       background: #222;
       border-radius: 8px;
-      flex: 0 0 60px;
+      flex: 0 0 68px;
       object-fit: cover;
     }
     .meta {
@@ -130,6 +134,8 @@
       font-size: .65rem;
       color: var(--muted);
     }
+
+    /* RIGHT PANEL */
     .right {
       flex: 1;
       background: var(--panel);
@@ -168,7 +174,7 @@
       border-color: transparent;
     }
 
-    /* === PORTRAIT PREVIEW AREA === */
+    /* PORTRAIT PREVIEW AREA */
     .preview-body {
       flex: 1;
       display: flex;
@@ -176,40 +182,24 @@
       align-items: center;
       background: #000;
     }
-
+    /* slightly bigger phone so it feels balanced */
     .preview-frame-wrap {
-      width: 240px;
-      height: 420px;
+      width: 270px;
+      height: 480px;
       background: #000;
       border: 1px solid rgba(255,255,255,.07);
-      border-radius: 16px;
+      border-radius: 20px;
       overflow: hidden;
       position: relative;
+      box-shadow: 0 16px 40px rgba(0,0,0,.45);
+    }
+    .preview-frame-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
     }
 
-    /* wrapper stays portrait */
-.preview-frame-wrap {
-  width: 240px;
-  height: 420px;
-  background: #000;
-  border: 1px solid rgba(255,255,255,.07);
-  border-radius: 16px;
-  overflow: hidden;
-  position: relative;
-}
-
-/* no scaling – just fill the frame */
-.iframe-scale {
-  width: 100%;
-  height: 100%;
-}
-
-.preview-frame-wrap iframe {
-  width: 100%;
-  height: 100%;
-  border: 0;
-  display: block;
-}
     @media (max-width: 900px) {
       body {
         flex-direction: column;
@@ -258,15 +248,14 @@
     <div class="preview-head">
       <div class="preview-title" id="previewTitle">Select a template</div>
       <div class="actions">
+        <button id="reloadPlayable" class="btn">Reload</button>
         <button id="openExternal" class="btn">Open external</button>
         <button id="copyEndpoint" class="btn primary">Copy endpoint</button>
       </div>
     </div>
     <div class="preview-body">
       <div class="preview-frame-wrap">
-        <div class="iframe-scale">
-          <iframe id="previewFrame" src=""></iframe>
-        </div>
+        <iframe id="previewFrame" src=""></iframe>
       </div>
     </div>
   </div>
@@ -279,11 +268,12 @@
     const BTN_EXT = document.getElementById('openExternal');
     const BTN_COPY = document.getElementById('copyEndpoint');
     const BTN_REFRESH = document.getElementById('refreshBtn');
+    const BTN_RELOAD_PLAYABLE = document.getElementById('reloadPlayable');
 
     let data = [];
     let filtered = [];
+    let currentItem = null;   // <-- track which playable is selected
 
-    // build thumbnail src
     function getThumbnailSrc(item) {
       let thumb = (item.thumbnail || item.Thumbnail || '').trim();
       if (thumb) {
@@ -296,10 +286,9 @@
       return 'https://via.placeholder.com/120x80/151519/ffffff?text=No+Img';
     }
 
-    // fetch & load
     async function loadData() {
       try {
-        const r = await fetch('Playable_Endpoint_URLs.json?_=' + Date.now()); // cache-bust
+        const r = await fetch('Playable_Endpoint_URLs.json?_=' + Date.now());
         if (!r.ok) throw new Error('JSON not found');
         const json = await r.json();
         data = json;
@@ -341,17 +330,25 @@
         div.appendChild(img);
         div.appendChild(meta);
 
-        div.addEventListener('click', () => selectItem(item));
+        div.addEventListener('click', () => {
+          // remove previous active
+          document.querySelectorAll('.item.active').forEach(el => el.classList.remove('active'));
+          div.classList.add('active');
+          selectItem(item);
+        });
 
         LIST_EL.appendChild(div);
 
+        // auto-select first
         if (idx === 0) {
+          div.classList.add('active');
           selectItem(item);
         }
       });
     }
 
     function selectItem(item) {
+      currentItem = item; // remember
       TITLE_EL.textContent = item.Title || 'Untitled';
 
       const endpoint =
@@ -365,53 +362,6 @@
         item['Url'] ||
         item['link'];
 
+      let src = '';
       if (endpoint) {
-        FRAME_EL.src = endpoint;
-      } else if (regular) {
-        FRAME_EL.src = regular;
-      } else {
-        FRAME_EL.src = '';
-      }
-
-      BTN_EXT.onclick = () => {
-        if (regular) {
-          window.open(regular, '_blank');
-        } else if (endpoint) {
-          window.open(endpoint, '_blank');
-        }
-      };
-
-      BTN_COPY.onclick = async () => {
-        if (endpoint) {
-          try {
-            await navigator.clipboard.writeText(endpoint);
-            BTN_COPY.textContent = 'Copied!';
-            setTimeout(() => BTN_COPY.textContent = 'Copy endpoint', 1200);
-          } catch (e) {
-            alert('Copied: ' + endpoint);
-          }
-        }
-      };
-    }
-
-    // search
-    SEARCH_EL.addEventListener('input', (e) => {
-      const q = e.target.value.toLowerCase();
-      filtered = data.filter(item => {
-        const t = (item.Title || '').toLowerCase();
-        const g = (item.Genre || '').toLowerCase();
-        return t.includes(q) || g.includes(q);
-      });
-      renderList();
-    });
-
-    // refresh button
-    BTN_REFRESH.addEventListener('click', () => {
-      loadData();
-    });
-
-    // initial load
-    loadData();
-  </script>
-</body>
-</html>
+        src = endpoi
