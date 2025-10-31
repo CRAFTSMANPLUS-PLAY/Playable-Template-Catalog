@@ -33,25 +33,65 @@
       overflow: hidden;
     }
     header {
-      padding: 1rem 1.25rem .25rem;
+      padding: .85rem 1.25rem .5rem;
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+    }
+    .logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
     }
     h1 {
-      font-size: 1rem;
-      margin: 0 0 .35rem;
+      font-size: .9rem;
+      margin: 0;
       display: flex;
-      gap: .35rem;
-      align-items: center;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+    h1 small {
+      font-size: .6rem;
+      color: var(--muted);
+      font-weight: 400;
     }
     .search {
       padding: 0 1.25rem 1rem;
+      display: flex;
+      gap: .5rem;
+      align-items: center;
     }
     .search input {
-      width: 100%;
+      flex: 1;
       background: #0f0f10;
       border: 1px solid #222;
       border-radius: 10px;
       padding: .5rem .7rem;
       color: var(--text);
+    }
+    .refresh-btn {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.05);
+      border-radius: 10px;
+      padding: .35rem .5rem;
+      font-size: .65rem;
+      color: #fff;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .refresh-btn:hover {
+      background: rgba(255,255,255,.08);
     }
     .list {
       overflow-y: auto;
@@ -137,10 +177,9 @@
       background: #000;
     }
 
-    /* this is the actual portrait frame */
     .preview-frame-wrap {
-      width: 240px;          /* portrait width */
-      height: 420px;         /* portrait height */
+      width: 240px;
+      height: 420px;
       background: #000;
       border: 1px solid rgba(255,255,255,.07);
       border-radius: 16px;
@@ -148,30 +187,19 @@
       position: relative;
     }
 
-    /* we scale the iframe content to sit inside the portrait frame */
     .iframe-scale {
       width: 100%;
       height: 100%;
       transform-origin: top left;
-      /* tweak this to fit better */
-      transform: scale(0.48);
+      transform: scale(0.48); /* tweak this if needed */
     }
 
-    /* we scale the iframe content to sit inside the portrait frame */
-.iframe-scale {
-  width: 100%;
-  height: 100%;
-  transform-origin: top left;
-  transform: scale(0.48);
-}
-
-.preview-frame-wrap iframe {
-  width: 500px;
-  height: 300px;
-  border: 0;
-  display: block;
-}
-
+    .preview-frame-wrap iframe {
+      width: 500px;  /* fake landscape size */
+      height: 300px;
+      border: 0;
+      display: block;
+    }
 
     @media (max-width: 900px) {
       body {
@@ -201,10 +229,18 @@
 <body>
   <div class="left">
     <header>
-      <h1>Playable Template Catalog</h1>
+      <div class="logo">
+        <!-- update this path to your actual logo -->
+        <img src="assets/craftsman-logo.png" alt="CRAFTSMAN+">
+      </div>
+      <h1>
+        Playable Template Catalog
+        <small>CRAFTSMAN+ internal</small>
+      </h1>
     </header>
     <div class="search">
       <input id="search" type="text" placeholder="Search by title or genre…" />
+      <button id="refreshBtn" class="refresh-btn">↻</button>
     </div>
     <div id="list" class="list"></div>
   </div>
@@ -233,11 +269,12 @@
     const TITLE_EL = document.getElementById('previewTitle');
     const BTN_EXT = document.getElementById('openExternal');
     const BTN_COPY = document.getElementById('copyEndpoint');
+    const BTN_REFRESH = document.getElementById('refreshBtn');
 
     let data = [];
     let filtered = [];
-    let current = null;
 
+    // build thumbnail src
     function getThumbnailSrc(item) {
       let thumb = (item.thumbnail || item.Thumbnail || '').trim();
       if (thumb) {
@@ -250,20 +287,20 @@
       return 'https://via.placeholder.com/120x80/151519/ffffff?text=No+Img';
     }
 
-    fetch('Playable_Endpoint_URLs.json')
-      .then(r => {
+    // fetch & load
+    async function loadData() {
+      try {
+        const r = await fetch('Playable_Endpoint_URLs.json?_=' + Date.now()); // cache-bust
         if (!r.ok) throw new Error('JSON not found');
-        return r.json();
-      })
-      .then(json => {
+        const json = await r.json();
         data = json;
         filtered = json;
         renderList();
-      })
-      .catch(err => {
+      } catch (err) {
         console.error('Error loading JSON:', err);
         LIST_EL.innerHTML = '<div style="padding:1rem;color:#f66;">Error loading JSON. Make sure Playable_Endpoint_URLs.json is in the root.</div>';
-      });
+      }
+    }
 
     function renderList() {
       LIST_EL.innerHTML = '';
@@ -306,7 +343,6 @@
     }
 
     function selectItem(item) {
-      current = item;
       TITLE_EL.textContent = item.Title || 'Untitled';
 
       const endpoint =
@@ -349,6 +385,7 @@
       };
     }
 
+    // search
     SEARCH_EL.addEventListener('input', (e) => {
       const q = e.target.value.toLowerCase();
       filtered = data.filter(item => {
@@ -358,6 +395,14 @@
       });
       renderList();
     });
+
+    // refresh button
+    BTN_REFRESH.addEventListener('click', () => {
+      loadData();
+    });
+
+    // initial load
+    loadData();
   </script>
 </body>
 </html>
