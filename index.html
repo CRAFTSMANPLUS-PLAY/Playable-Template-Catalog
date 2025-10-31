@@ -34,29 +34,22 @@
       flex-direction: column;
       overflow: hidden;
     }
-    header {
-      padding: .9rem 1.25rem .35rem;
+
+    /* HEADER with centered logo */
+    .header {
+      padding: 1rem 1.25rem .5rem;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: .85rem;
+      text-align: center;
     }
-    .logo {
-      width: 40px;
-      height: 40px;
-      border-radius: 999px;
-      background: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      flex: 0 0 40px;
+
+    .header-logo {
+      width: 120px;
+      height: auto;
+      margin-bottom: .5rem;
     }
-    .logo img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
-    }
+
     h1 {
       font-size: .95rem;
       margin: 0;
@@ -65,18 +58,21 @@
       line-height: 1.1;
       gap: .15rem;
     }
+
     h1 small {
       font-size: .62rem;
       color: var(--muted);
       font-weight: 400;
       letter-spacing: .01em;
     }
+
     .search {
       padding: 0 1.25rem 1rem;
       display: flex;
       gap: .5rem;
       align-items: center;
     }
+
     .search input {
       flex: 1;
       background: #0f0f10;
@@ -86,6 +82,16 @@
       color: var(--text);
       font-size: .75rem;
     }
+
+    .category-select {
+      background: #0f0f10;
+      border: 1px solid #222;
+      border-radius: 10px;
+      color: #fff;
+      padding: .45rem .6rem;
+      font-size: .7rem;
+    }
+
     .refresh-btn {
       background: rgba(255,255,255,.03);
       border: 1px solid rgba(255,255,255,.05);
@@ -96,6 +102,7 @@
       cursor: pointer;
       white-space: nowrap;
     }
+
     .refresh-btn:hover {
       background: rgba(255,255,255,.1);
     }
@@ -104,6 +111,7 @@
       overflow-y: auto;
       flex: 1;
     }
+
     .item {
       display: flex;
       gap: .7rem;
@@ -112,10 +120,12 @@
       cursor: pointer;
       border-bottom: 1px solid rgba(255,255,255,.018);
     }
+
     .item:hover,
     .item.active {
       background: rgba(255,255,255,.035);
     }
+
     .thumb {
       width: 72px;
       height: 46px;
@@ -124,10 +134,12 @@
       flex: 0 0 72px;
       object-fit: cover;
     }
+
     .meta {
       flex: 1;
       min-width: 0;
     }
+
     .title {
       font-size: .78rem;
       white-space: nowrap;
@@ -135,12 +147,13 @@
       text-overflow: ellipsis;
       margin-bottom: .15rem;
     }
+
     .genre {
       font-size: .63rem;
       color: var(--muted);
     }
 
-    /* RIGHT SIDE */
+    /* RIGHT PANEL */
     .right {
       flex: 1;
       background: var(--panel);
@@ -150,6 +163,7 @@
       overflow: hidden;
       min-width: 0;
     }
+
     .preview-head {
       display: flex;
       justify-content: space-between;
@@ -157,14 +171,17 @@
       padding: .9rem 1.1rem;
       border-bottom: 1px solid rgba(255,255,255,.05);
     }
+
     .preview-title {
       font-weight: 600;
       font-size: .9rem;
     }
+
     .actions {
       display: flex;
       gap: .6rem;
     }
+
     .btn {
       background: rgba(255,255,255,.03);
       border: 1px solid rgba(255,255,255,.08);
@@ -174,39 +191,51 @@
       padding: .4rem .9rem;
       cursor: pointer;
     }
+
     .btn.primary {
       background: var(--accent);
       border-color: transparent;
     }
 
-    /* PREVIEW AREA (PORTRAIT) */
+    /* PREVIEW AREA */
     .preview-body {
       flex: 1;
       display: flex;
       justify-content: center;
       align-items: center;
       background: #000;
+      position: relative;
     }
+
     .preview-frame-wrap {
-      width: 320px;     /* bigger */
-      height: 568px;    /* bigger */
+      width: 320px;
+      height: 568px;
       background: #000;
       border: 1px solid rgba(255,255,255,.07);
       border-radius: 20px;
       overflow: hidden;
-      position: relative;
       box-shadow: 0 0 35px rgba(0,0,0,.4);
+      display: none;
     }
+
     .iframe-scale {
       width: 100%;
       height: 100%;
     }
+
     .preview-frame-wrap iframe {
       width: 100%;
       height: 100%;
       border: 0;
       display: block;
       background: #000;
+    }
+
+    .placeholder {
+      color: var(--muted);
+      font-size: .9rem;
+      text-align: center;
+      position: absolute;
     }
 
     @media (max-width: 900px) {
@@ -236,18 +265,22 @@
 </head>
 <body>
   <div class="left">
-    <header>
-      <div class="logo">
-        <!-- update this path if needed -->
-        <img src="thumbnails/CraftsmanPlay-Light.png" alt="CRAFTSMAN+">
-      </div>
+    <header class="header">
+      <img src="thumbnails/CraftsmanPlay-Light.png" alt="CRAFTSMAN+" class="header-logo" />
       <h1>
         Playable Template Catalog
         <small>CRAFTSMAN+ internal</small>
       </h1>
     </header>
     <div class="search">
-      <input id="search" type="text" placeholder="Search by title or genre…" />
+      <select id="categorySelect" class="category-select">
+        <option value="">All categories</option>
+        <option value="Gaming">Gaming</option>
+        <option value="Puzzle">Puzzle</option>
+        <option value="Arcade">Arcade</option>
+        <option value="Casual">Casual</option>
+      </select>
+      <input id="search" type="text" placeholder="Search by title…" />
       <button id="refreshBtn" class="refresh-btn">↻</button>
     </div>
     <div id="list" class="list"></div>
@@ -262,6 +295,9 @@
       </div>
     </div>
     <div class="preview-body">
+      <div class="placeholder" id="placeholder">
+        <p>Select a template to preview</p>
+      </div>
       <div class="preview-frame-wrap">
         <div class="iframe-scale">
           <iframe id="previewFrame" src=""></iframe>
@@ -273,7 +309,10 @@
   <script>
     const LIST_EL = document.getElementById('list');
     const SEARCH_EL = document.getElementById('search');
+    const SELECT_EL = document.getElementById('categorySelect');
     const FRAME_EL = document.getElementById('previewFrame');
+    const FRAME_WRAP = document.querySelector('.preview-frame-wrap');
+    const PLACEHOLDER = document.getElementById('placeholder');
     const TITLE_EL = document.getElementById('previewTitle');
     const BTN_EXT = document.getElementById('openExternal');
     const BTN_RELOAD = document.getElementById('reloadPreview');
@@ -283,7 +322,7 @@
     let filtered = [];
     let currentItem = null;
 
-    // build thumbnail src
+    // Build thumbnail src
     function getThumbnailSrc(item) {
       let thumb = (item.thumbnail || item.Thumbnail || '').trim();
       if (thumb) {
@@ -312,7 +351,7 @@
 
     function renderList() {
       LIST_EL.innerHTML = '';
-      filtered.forEach((item, idx) => {
+      filtered.forEach((item) => {
         const div = document.createElement('div');
         div.className = 'item';
 
@@ -341,12 +380,7 @@
         div.appendChild(meta);
 
         div.addEventListener('click', () => selectItem(item, div));
-
         LIST_EL.appendChild(div);
-
-        if (idx === 0) {
-          selectItem(item, div);
-        }
       });
     }
 
@@ -354,7 +388,6 @@
       currentItem = item;
       TITLE_EL.textContent = item.Title || 'Untitled';
 
-      // highlight current
       document.querySelectorAll('.item').forEach(el => el.classList.remove('active'));
       if (node) node.classList.add('active');
 
@@ -369,6 +402,9 @@
         item['Url'] ||
         item['link'];
 
+      PLACEHOLDER.style.display = 'none';
+      FRAME_WRAP.style.display = 'block';
+
       if (endpoint) {
         FRAME_EL.src = endpoint;
       } else if (regular) {
@@ -378,40 +414,34 @@
       }
 
       BTN_EXT.onclick = () => {
-        if (regular) {
-          window.open(regular, '_blank');
-        } else if (endpoint) {
-          window.open(endpoint, '_blank');
-        }
+        if (regular) window.open(regular, '_blank');
+        else if (endpoint) window.open(endpoint, '_blank');
       };
 
-      // reload current iframe without changing item
       BTN_RELOAD.onclick = () => {
-        if (endpoint) {
-          FRAME_EL.src = endpoint + (endpoint.includes('?') ? '&' : '?') + '_=' + Date.now();
-        } else if (regular) {
-          FRAME_EL.src = regular + (regular.includes('?') ? '&' : '?') + '_=' + Date.now();
-        }
+        if (endpoint) FRAME_EL.src = endpoint + (endpoint.includes('?') ? '&' : '?') + '_=' + Date.now();
+        else if (regular) FRAME_EL.src = regular + (regular.includes('?') ? '&' : '?') + '_=' + Date.now();
       };
     }
 
-    // search
-    SEARCH_EL.addEventListener('input', (e) => {
-      const q = e.target.value.toLowerCase();
+    function filterList() {
+      const q = SEARCH_EL.value.toLowerCase();
+      const cat = SELECT_EL.value.toLowerCase();
       filtered = data.filter(item => {
         const t = (item.Title || '').toLowerCase();
         const g = (item.Genre || '').toLowerCase();
-        return t.includes(q) || g.includes(q);
+        const matchText = t.includes(q) || g.includes(q);
+        const matchCat = !cat || g.includes(cat);
+        return matchText && matchCat;
       });
       renderList();
-    });
+    }
 
-    // refresh list (re-fetch JSON)
-    BTN_REFRESH.addEventListener('click', () => {
-      loadData();
-    });
+    SEARCH_EL.addEventListener('input', filterList);
+    SELECT_EL.addEventListener('change', filterList);
+    BTN_REFRESH.addEventListener('click', loadData);
 
-    // initial load
+    // Initial load
     loadData();
   </script>
 </body>
