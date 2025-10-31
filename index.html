@@ -157,13 +157,21 @@
       transform: scale(0.48);
     }
 
-    .preview-frame-wrap iframe {
-      /* pretend the playable endpoint is landscape ~500x300 */
-      width: 500px;
-      height: 300px;
-      border: 0;
-      display: block;
-    }
+    /* we scale the iframe content to sit inside the portrait frame */
+.iframe-scale {
+  width: 100%;
+  height: 100%;
+  transform-origin: top left;
+  transform: scale(0.48);
+}
+
+.preview-frame-wrap iframe {
+  width: 500px;
+  height: 300px;
+  border: 0;
+  display: block;
+}
+
 
     @media (max-width: 900px) {
       body {
