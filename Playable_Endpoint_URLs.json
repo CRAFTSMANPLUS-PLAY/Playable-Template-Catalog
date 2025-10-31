@@ -343,11 +343,11 @@
     "thumbnail": "sale-countdown.png"
   },
   {
-    "Title": "Cleanup",
+    "Title": "Clea Up",
     "Genre": "E-Comm",
     "URL": "https://play.preview.craftsmanplus.com/preview/?playable=ATtIV70kACD%2FWq4lJ2EKtZ6%2F1201955757&companyId=ATtIV70kACD&creativeId=Wq4lJ2EKtZ6&name=Cleanup%20-%20Auto-spill&portrait=true&ratio=2:1",
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/Wq4lJ2EKtZ6/1201955757/index.html",
-    "thumbnail": "cleanup.png"
+    "thumbnail": "clean-up.png"
   },
   {
     "Title": "Makeup",
@@ -403,7 +403,7 @@
     "Genre": "Dynamic",
     "URL": "https://play.preview.craftsmanplus.com/preview/?playable=ATtIV70kACD%2FbWDD3H2P5x5%2F357287186&companyId=ATtIV70kACD&creativeId=bWDD3H2P5x5&name=System%20%2B%20Platform%20-%20Advanced&portrait=true&ratio=2:1",
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/bWDD3H2P5x5/357287186/index.html",
-    "thumbnail": "system-platform.png"
+    "thumbnail": "system-and-platform.png"
   },
   {
     "Title": "iFrame - Spotify",
@@ -518,11 +518,11 @@
     "thumbnail": "dating.png"
   },
   {
-    "Title": "Choose you Team",
+    "Title": "Choose Your Team",
     "Genre": "Sports",
     "URL": "https://play.preview.craftsmanplus.com/preview/?playable=ATtIV70kACD%2FsMAo9pRJSGo%2F1504490046&companyId=ATtIV70kACD&creativeId=sMAo9pRJSGo&name=Choose%20Your%20Team&portrait=true&ratio=2:1",
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/sMAo9pRJSGo/1504490046/index.html",
-    "thumbnail": "choose-you-team.png"
+    "thumbnail": "choose-your-team.png"
   },
   {
     "Title": "Pool",
