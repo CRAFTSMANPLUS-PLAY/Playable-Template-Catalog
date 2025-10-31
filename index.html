@@ -35,7 +35,7 @@
       overflow: hidden;
     }
 
-    /* HEADER with centered logo */
+    /* HEADER */
     .header {
       padding: 1rem 1.25rem .5rem;
       display: flex;
@@ -43,13 +43,11 @@
       align-items: center;
       text-align: center;
     }
-
     .header-logo {
       width: 120px;
       height: auto;
       margin-bottom: .5rem;
     }
-
     h1 {
       font-size: .95rem;
       margin: 0;
@@ -58,22 +56,19 @@
       line-height: 1.1;
       gap: .15rem;
     }
-
     h1 small {
       font-size: .62rem;
       color: var(--muted);
       font-weight: 400;
-      letter-spacing: .01em;
     }
 
-    /* SEARCH + CATEGORY + REFRESH */
+    /* SEARCH ROW */
     .search {
       padding: 0 1.25rem 1rem;
       display: flex;
       gap: .5rem;
       align-items: center;
     }
-
     .search input {
       flex: 1;
       background: #0f0f10;
@@ -83,7 +78,6 @@
       color: var(--text);
       font-size: .75rem;
     }
-
     .category-select {
       background: #0f0f10;
       border: 1px solid #222;
@@ -92,7 +86,6 @@
       padding: .45rem .6rem;
       font-size: .7rem;
     }
-
     .refresh-btn {
       background: rgba(255,255,255,.03);
       border: 1px solid rgba(255,255,255,.05);
@@ -101,14 +94,12 @@
       font-size: .7rem;
       color: #fff;
       cursor: pointer;
-      white-space: nowrap;
     }
-
     .refresh-btn:hover {
       background: rgba(255,255,255,.1);
     }
 
-    /* GRID VIEW FOR TEMPLATES */
+    /* GRID OF TEMPLATES */
     .list {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
@@ -117,7 +108,6 @@
       overflow-y: auto;
       align-content: start;
     }
-
     .item {
       display: flex;
       flex-direction: column;
@@ -128,12 +118,10 @@
       cursor: pointer;
       transition: background .2s;
     }
-
     .item:hover,
     .item.active {
       background: rgba(255,255,255,.08);
     }
-
     .thumb {
       width: 100%;
       aspect-ratio: 9 / 16;
@@ -141,12 +129,10 @@
       object-fit: cover;
       background: #222;
     }
-
     .meta {
       text-align: center;
       margin-top: .35rem;
     }
-
     .title {
       font-size: .75rem;
       white-space: nowrap;
@@ -154,7 +140,6 @@
       text-overflow: ellipsis;
       margin-bottom: .15rem;
     }
-
     .genre {
       font-size: .6rem;
       color: var(--muted);
@@ -170,7 +155,6 @@
       overflow: hidden;
       min-width: 0;
     }
-
     .preview-head {
       display: flex;
       justify-content: space-between;
@@ -178,17 +162,14 @@
       padding: .9rem 1.1rem;
       border-bottom: 1px solid rgba(255,255,255,.05);
     }
-
     .preview-title {
       font-weight: 600;
       font-size: .9rem;
     }
-
     .actions {
       display: flex;
       gap: .6rem;
     }
-
     .btn {
       background: rgba(255,255,255,.03);
       border: 1px solid rgba(255,255,255,.08);
@@ -198,7 +179,6 @@
       padding: .4rem .9rem;
       cursor: pointer;
     }
-
     .btn.primary {
       background: var(--accent);
       border-color: transparent;
@@ -214,6 +194,7 @@
       position: relative;
     }
 
+    /* start hidden — shown only when item has a URL */
     .preview-frame-wrap {
       width: 320px;
       height: 568px;
@@ -222,14 +203,12 @@
       border-radius: 20px;
       overflow: hidden;
       box-shadow: 0 0 35px rgba(0,0,0,.4);
-      display: none;
+      display: none; /* <-- IMPORTANT */
     }
-
     .iframe-scale {
       width: 100%;
       height: 100%;
     }
-
     .preview-frame-wrap iframe {
       width: 100%;
       height: 100%;
@@ -238,6 +217,7 @@
       background: #000;
     }
 
+    /* placeholder stays until we have a URL */
     .placeholder {
       color: var(--muted);
       font-size: .9rem;
@@ -274,10 +254,10 @@
     <div class="search">
       <select id="categorySelect" class="category-select">
         <option value="">All categories</option>
-        <option value="Gaming">Gaming</option>
-        <option value="Puzzle">Puzzle</option>
-        <option value="Arcade">Arcade</option>
-        <option value="Casual">Casual</option>
+        <option value="gaming">Gaming</option>
+        <option value="puzzle">Puzzle</option>
+        <option value="arcade">Arcade</option>
+        <option value="casual">Casual</option>
       </select>
       <input id="search" type="text" placeholder="Search by title…" />
       <button id="refreshBtn" class="refresh-btn">↻</button>
@@ -297,7 +277,7 @@
       <div class="placeholder" id="placeholder">
         <p>Select a template to preview</p>
       </div>
-      <div class="preview-frame-wrap">
+      <div class="preview-frame-wrap" id="previewWrap">
         <div class="iframe-scale">
           <iframe id="previewFrame" src=""></iframe>
         </div>
@@ -310,7 +290,7 @@
     const SEARCH_EL = document.getElementById('search');
     const SELECT_EL = document.getElementById('categorySelect');
     const FRAME_EL = document.getElementById('previewFrame');
-    const FRAME_WRAP = document.querySelector('.preview-frame-wrap');
+    const FRAME_WRAP = document.getElementById('previewWrap');
     const PLACEHOLDER = document.getElementById('placeholder');
     const TITLE_EL = document.getElementById('previewTitle');
     const BTN_EXT = document.getElementById('openExternal');
@@ -321,7 +301,6 @@
     let filtered = [];
     let currentItem = null;
 
-    // Build thumbnail src
     function getThumbnailSrc(item) {
       let thumb = (item.thumbnail || item.Thumbnail || '').trim();
       if (thumb) {
@@ -342,6 +321,7 @@
         data = json;
         filtered = json;
         renderList();
+        // keep placeholder, don't auto-select -> avoids black screen
       } catch (err) {
         console.error('Error loading JSON:', err);
         LIST_EL.innerHTML = '<div style="padding:1rem;color:#f66;">Error loading JSON. Make sure Playable_Endpoint_URLs.json is in the root.</div>';
@@ -395,21 +375,22 @@
         item['Endpoint'] ||
         item['endpoint'] ||
         item['endpoint_url'];
-
       const regular =
         item['URL'] ||
         item['Url'] ||
         item['link'];
 
-      PLACEHOLDER.style.display = 'none';
-      FRAME_WRAP.style.display = 'block';
+      if (endpoint || regular) {
+        PLACEHOLDER.style.display = 'none';
+        FRAME_WRAP.style.display = 'block';
 
-      if (endpoint) {
-        FRAME_EL.src = endpoint;
-      } else if (regular) {
-        FRAME_EL.src = regular;
+        const finalUrl = endpoint || regular;
+        FRAME_EL.src = finalUrl;
       } else {
+        // no URL: keep placeholder
         FRAME_EL.src = '';
+        FRAME_WRAP.style.display = 'none';
+        PLACEHOLDER.style.display = 'block';
       }
 
       BTN_EXT.onclick = () => {
@@ -418,8 +399,11 @@
       };
 
       BTN_RELOAD.onclick = () => {
-        if (endpoint) FRAME_EL.src = endpoint + (endpoint.includes('?') ? '&' : '?') + '_=' + Date.now();
-        else if (regular) FRAME_EL.src = regular + (regular.includes('?') ? '&' : '?') + '_=' + Date.now();
+        const baseUrl = endpoint || regular;
+        if (baseUrl) {
+          const bust = (baseUrl.includes('?') ? '&' : '?') + '_=' + Date.now();
+          FRAME_EL.src = baseUrl + bust;
+        }
       };
     }
 
@@ -434,13 +418,17 @@
         return matchText && matchCat;
       });
       renderList();
+      // after filtering, go back to placeholder
+      FRAME_EL.src = '';
+      FRAME_WRAP.style.display = 'none';
+      PLACEHOLDER.style.display = 'block';
+      TITLE_EL.textContent = 'Select a template';
     }
 
     SEARCH_EL.addEventListener('input', filterList);
     SELECT_EL.addEventListener('change', filterList);
     BTN_REFRESH.addEventListener('click', loadData);
 
-    // Initial load
     loadData();
   </script>
 </body>
