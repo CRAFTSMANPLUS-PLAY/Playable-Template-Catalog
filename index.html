@@ -9,7 +9,7 @@
       --bg: #0f0f10;
       --panel: #151519;
       --text: #fff;
-      --muted: #aaa;
+      --muted: #a0a3ad;
       --accent: #4c8fff;
       --radius: 14px;
     }
@@ -24,9 +24,10 @@
       gap: 1.25rem;
       padding: 1.25rem;
     }
+
     /* LEFT PANEL */
     .left {
-      width: 360px;
+      width: 380px;
       background: var(--panel);
       border-radius: var(--radius);
       display: flex;
@@ -34,22 +35,21 @@
       overflow: hidden;
     }
     header {
-      padding: .85rem 1.25rem .5rem;
+      padding: .9rem 1.25rem .35rem;
       display: flex;
       align-items: center;
-      gap: .75rem;
+      gap: .85rem;
     }
-    /* bigger, cleaner logo */
     .logo {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.05);
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      background: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      flex: 0 0 40px;
     }
     .logo img {
       width: 100%;
@@ -58,16 +58,18 @@
       display: block;
     }
     h1 {
-      font-size: .9rem;
+      font-size: .95rem;
       margin: 0;
       display: flex;
       flex-direction: column;
       line-height: 1.1;
+      gap: .15rem;
     }
     h1 small {
-      font-size: .6rem;
+      font-size: .62rem;
       color: var(--muted);
       font-weight: 400;
+      letter-spacing: .01em;
     }
     .search {
       padding: 0 1.25rem 1rem;
@@ -80,44 +82,46 @@
       background: #0f0f10;
       border: 1px solid #222;
       border-radius: 10px;
-      padding: .5rem .7rem;
+      padding: .55rem .7rem;
       color: var(--text);
+      font-size: .75rem;
     }
     .refresh-btn {
       background: rgba(255,255,255,.03);
       border: 1px solid rgba(255,255,255,.05);
       border-radius: 10px;
-      padding: .35rem .5rem;
-      font-size: .65rem;
+      padding: .4rem .55rem;
+      font-size: .7rem;
       color: #fff;
       cursor: pointer;
       white-space: nowrap;
     }
     .refresh-btn:hover {
-      background: rgba(255,255,255,.08);
+      background: rgba(255,255,255,.1);
     }
+
     .list {
       overflow-y: auto;
       flex: 1;
     }
     .item {
       display: flex;
-      gap: .6rem;
-      padding: .6rem 1rem;
+      gap: .7rem;
+      padding: .7rem 1rem;
       align-items: center;
       cursor: pointer;
-      border-bottom: 1px solid rgba(255,255,255,.03);
+      border-bottom: 1px solid rgba(255,255,255,.018);
     }
     .item:hover,
     .item.active {
-      background: rgba(255,255,255,.03);
+      background: rgba(255,255,255,.035);
     }
     .thumb {
-      width: 68px;
-      height: 42px;
+      width: 72px;
+      height: 46px;
       background: #222;
-      border-radius: 8px;
-      flex: 0 0 68px;
+      border-radius: 10px;
+      flex: 0 0 72px;
       object-fit: cover;
     }
     .meta {
@@ -125,17 +129,18 @@
       min-width: 0;
     }
     .title {
-      font-size: .8rem;
+      font-size: .78rem;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      margin-bottom: .15rem;
     }
     .genre {
-      font-size: .65rem;
+      font-size: .63rem;
       color: var(--muted);
     }
 
-    /* RIGHT PANEL */
+    /* RIGHT SIDE */
     .right {
       flex: 1;
       background: var(--panel);
@@ -149,24 +154,24 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: .75rem 1rem;
+      padding: .9rem 1.1rem;
       border-bottom: 1px solid rgba(255,255,255,.05);
     }
     .preview-title {
       font-weight: 600;
-      font-size: .85rem;
+      font-size: .9rem;
     }
     .actions {
       display: flex;
-      gap: .5rem;
+      gap: .6rem;
     }
     .btn {
-      background: rgba(255,255,255,.05);
+      background: rgba(255,255,255,.03);
       border: 1px solid rgba(255,255,255,.08);
       border-radius: 999px;
       color: #fff;
       font-size: .7rem;
-      padding: .35rem .7rem;
+      padding: .4rem .9rem;
       cursor: pointer;
     }
     .btn.primary {
@@ -174,7 +179,7 @@
       border-color: transparent;
     }
 
-    /* PORTRAIT PREVIEW AREA */
+    /* PREVIEW AREA (PORTRAIT) */
     .preview-body {
       flex: 1;
       display: flex;
@@ -182,22 +187,26 @@
       align-items: center;
       background: #000;
     }
-    /* slightly bigger phone so it feels balanced */
     .preview-frame-wrap {
-      width: 270px;
-      height: 480px;
+      width: 320px;     /* bigger */
+      height: 568px;    /* bigger */
       background: #000;
       border: 1px solid rgba(255,255,255,.07);
       border-radius: 20px;
       overflow: hidden;
       position: relative;
-      box-shadow: 0 16px 40px rgba(0,0,0,.45);
+      box-shadow: 0 0 35px rgba(0,0,0,.4);
+    }
+    .iframe-scale {
+      width: 100%;
+      height: 100%;
     }
     .preview-frame-wrap iframe {
       width: 100%;
       height: 100%;
       border: 0;
       display: block;
+      background: #000;
     }
 
     @media (max-width: 900px) {
@@ -223,50 +232,13 @@
         border-right: 1px solid rgba(255,255,255,.03);
       }
     }
-    .search {
-  position: relative; /* so dropdown can be positioned */
-}
-
-.search-suggestions {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 50px; /* leave space for refresh btn */
-  background: rgba(15,15,16, .98);
-  border: 1px solid rgba(255,255,255,.03);
-  border-radius: 10px;
-  margin-top: .4rem;
-  max-height: 210px;
-  overflow-y: auto;
-  display: none; /* hidden by default */
-  z-index: 20;
-  backdrop-filter: blur(10px);
-}
-
-.search-suggestion {
-  padding: .4rem .65rem;
-  font-size: .7rem;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  gap: .5rem;
-}
-
-.search-suggestion small {
-  color: rgba(255,255,255,.35);
-}
-
-.search-suggestion:hover {
-  background: rgba(255,255,255,.05);
-}
-
   </style>
 </head>
 <body>
   <div class="left">
     <header>
       <div class="logo">
-        <!-- update this path to your actual logo -->
+        <!-- update this path if needed -->
         <img src="thumbnails/CraftsmanPlay-Light.png" alt="CRAFTSMAN+">
       </div>
       <h1>
@@ -285,21 +257,15 @@
     <div class="preview-head">
       <div class="preview-title" id="previewTitle">Select a template</div>
       <div class="actions">
-        <button id="reloadPlayable" class="btn">Reload</button>
         <button id="openExternal" class="btn">Open external</button>
-        <button id="copyEndpoint" class="btn primary">Copy endpoint</button>
+        <button id="reloadPreview" class="btn primary">Reload preview</button>
       </div>
     </div>
     <div class="preview-body">
       <div class="preview-frame-wrap">
-        <iframe id="previewFrame" src=""></iframe>
-        <div class="search">
-  <input id="search" type="text" placeholder="Search by title or genre…" 
-         autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
-  <button id="refreshBtn" class="refresh-btn">↻</button>
-  <!-- suggestions -->
-  <div id="searchSuggestions" class="search-suggestions"></div>
-</div>
+        <div class="iframe-scale">
+          <iframe id="previewFrame" src=""></iframe>
+        </div>
       </div>
     </div>
   </div>
@@ -310,18 +276,14 @@
     const FRAME_EL = document.getElementById('previewFrame');
     const TITLE_EL = document.getElementById('previewTitle');
     const BTN_EXT = document.getElementById('openExternal');
-    const BTN_COPY = document.getElementById('copyEndpoint');
+    const BTN_RELOAD = document.getElementById('reloadPreview');
     const BTN_REFRESH = document.getElementById('refreshBtn');
-    const BTN_RELOAD_PLAYABLE = document.getElementById('reloadPlayable');
-    const SUGGESTIONS_EL = document.getElementById('searchSuggestions');
-    
-    let genresSet = new Set();
-    let titlesSet = new Set();
 
     let data = [];
     let filtered = [];
-    let currentItem = null;   // <-- track which playable is selected
+    let currentItem = null;
 
+    // build thumbnail src
     function getThumbnailSrc(item) {
       let thumb = (item.thumbnail || item.Thumbnail || '').trim();
       if (thumb) {
@@ -345,32 +307,6 @@
       } catch (err) {
         console.error('Error loading JSON:', err);
         LIST_EL.innerHTML = '<div style="padding:1rem;color:#f66;">Error loading JSON. Make sure Playable_Endpoint_URLs.json is in the root.</div>';
-
-        async function loadData() {
-  try {
-    const r = await fetch('Playable_Endpoint_URLs.json?_=' + Date.now());
-    if (!r.ok) throw new Error('JSON not found');
-    const json = await r.json();
-    data = json;
-    filtered = json;
-
-    // build genre/title lists
-    genresSet = new Set();
-    titlesSet = new Set();
-    json.forEach(item => {
-      const g = (item.Genre || '').trim();
-      const t = (item.Title || '').trim();
-      if (g) genresSet.add(g);
-      if (t) titlesSet.add(t);
-    });
-
-    renderList();
-  } catch (err) {
-    console.error('Error loading JSON:', err);
-    LIST_EL.innerHTML = '<div style="padding:1rem;color:#f66;">Error loading JSON. Make sure Playable_Endpoint_URLs.json is in the root.</div>';
-  }
-}
-
       }
     }
 
@@ -404,26 +340,23 @@
         div.appendChild(img);
         div.appendChild(meta);
 
-        div.addEventListener('click', () => {
-          // remove previous active
-          document.querySelectorAll('.item.active').forEach(el => el.classList.remove('active'));
-          div.classList.add('active');
-          selectItem(item);
-        });
+        div.addEventListener('click', () => selectItem(item, div));
 
         LIST_EL.appendChild(div);
 
-        // auto-select first
         if (idx === 0) {
-          div.classList.add('active');
-          selectItem(item);
+          selectItem(item, div);
         }
       });
     }
 
-    function selectItem(item) {
-      currentItem = item; // remember
+    function selectItem(item, node) {
+      currentItem = item;
       TITLE_EL.textContent = item.Title || 'Untitled';
+
+      // highlight current
+      document.querySelectorAll('.item').forEach(el => el.classList.remove('active'));
+      if (node) node.classList.add('active');
 
       const endpoint =
         item['Endpoint URL'] ||
@@ -436,6 +369,50 @@
         item['Url'] ||
         item['link'];
 
-      let src = '';
       if (endpoint) {
-        src = endpoi
+        FRAME_EL.src = endpoint;
+      } else if (regular) {
+        FRAME_EL.src = regular;
+      } else {
+        FRAME_EL.src = '';
+      }
+
+      BTN_EXT.onclick = () => {
+        if (regular) {
+          window.open(regular, '_blank');
+        } else if (endpoint) {
+          window.open(endpoint, '_blank');
+        }
+      };
+
+      // reload current iframe without changing item
+      BTN_RELOAD.onclick = () => {
+        if (endpoint) {
+          FRAME_EL.src = endpoint + (endpoint.includes('?') ? '&' : '?') + '_=' + Date.now();
+        } else if (regular) {
+          FRAME_EL.src = regular + (regular.includes('?') ? '&' : '?') + '_=' + Date.now();
+        }
+      };
+    }
+
+    // search
+    SEARCH_EL.addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase();
+      filtered = data.filter(item => {
+        const t = (item.Title || '').toLowerCase();
+        const g = (item.Genre || '').toLowerCase();
+        return t.includes(q) || g.includes(q);
+      });
+      renderList();
+    });
+
+    // refresh list (re-fetch JSON)
+    BTN_REFRESH.addEventListener('click', () => {
+      loadData();
+    });
+
+    // initial load
+    loadData();
+  </script>
+</body>
+</html>
