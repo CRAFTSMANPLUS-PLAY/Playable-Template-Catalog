@@ -423,7 +423,7 @@
     "Title": "iFrame - Movie Trailer",
     "Genre": "iFrame",
     "URL": "https://play.preview.craftsmanplus.com/preview/?playable=ATtIV70kACD%2FL12LUFWcpaQ%2F1664086474&companyId=ATtIV70kACD&creativeId=L12LUFWcpaQ&name=iFrame%20-%20Movie%20Trailer&portrait=true&ratio=2:1",
-    "Endpoint URL": "https://play.preview.craftsmanplus.com/preview/?playable=ATtIV70kACD%2FL12LUFWcpaQ%2F1664086474&companyId=ATtIV70kACD&creativeId=L12LUFWcpaQ&name=iFrame%20-%20Movie%20Trailer&portrait=true&ratio=2:1",
+    "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/L12LUFWcpaQ/1664086474/index.html",
     "thumbnail": "iframe-movie-trailer.png"
   },
   {
