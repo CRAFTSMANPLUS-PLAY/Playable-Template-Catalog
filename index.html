@@ -1,7 +1,447 @@
-<!DOCTYPE html> 
-<html lang="en"> 
-  <head> 
-    <meta charset="UTF-8" /> 
-    <meta name="viewport" content="width=device-width,initial-scale=1" /> 
-    <title>CRAFTSMAN+ • Playable Template Catalog</title> 
-    <style> :root { --bg: #0f0f10; --panel: #151519; --text: #fff; --muted: #a0a3ad; --accent: #4c8fff; --radius: 14px; } * { box-sizing: border-box; } body { margin: 0; background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Inter", Roboto, sans-serif; height: 100vh; display: flex; gap: 1.25rem; padding: 1.25rem; } /* LEFT PANEL */ .left { width: 420px; background: var(--panel); border-radius: var(--radius); display: flex; flex-direction: column; overflow: hidden; } /* HEADER with centered logo */ .header { padding: 1rem 1.25rem .5rem; display: flex; flex-direction: column; align-items: center; text-align: center; } .header-logo { width: 120px; height: auto; margin-bottom: .5rem; } h1 { font-size: .95rem; margin: 0; display: flex; flex-direction: column; line-height: 1.1; gap: .15rem; } h1 small { font-size: .62rem; color: var(--muted); font-weight: 400; letter-spacing: .01em; } /* SEARCH + CATEGORY + REFRESH */ .search { padding: 0 1.25rem 1rem; display: flex; gap: .5rem; align-items: center; } .search input { flex: 1; background: #0f0f10; border: 1px solid #222; border-radius: 10px; padding: .55rem .7rem; color: var(--text); font-size: .75rem; } .category-select { background: #0f0f10; border: 1px solid #222; border-radius: 10px; color: #fff; padding: .45rem .6rem; font-size: .7rem; } .refresh-btn { background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.05); border-radius: 10px; padding: .4rem .55rem; font-size: .7rem; color: #fff; cursor: pointer; white-space: nowrap; } .refresh-btn:hover { background: rgba(255,255,255,.1); } /* GRID VIEW FOR TEMPLATES */ .list { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0.9rem; padding: 1rem; overflow-y: auto; align-content: start; } .item { display: flex; flex-direction: column; align-items: center; background: rgba(255,255,255,0.02); border-radius: 10px; padding: .5rem; cursor: pointer; transition: background .2s; } .item:hover, .item.active { background: rgba(255,255,255,.08); } .thumb { width: 100%; aspect-ratio: 9 / 16; border-radius: 10px; object-fit: cover; background: #222; } .meta { text-align: center; margin-top: .35rem; } .title { font-size: .75rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: .15rem; } .genre { font-size: .6rem; color: var(--muted); } /* RIGHT PANEL */ .right { flex: 1; background: var(--panel); border-radius: var(--radius); display: flex; flex-direction: column; overflow: hidden; min-width: 0; } .preview-head { display: flex; justify-content: space-between; align-items: center; padding: .9rem 1.1rem; border-bottom: 1px solid rgba(255,255,255,.05); } .preview-title { font-weight: 600; font-size: .9rem; } .actions { display: flex; gap: .6rem; } .btn { background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.08); border-radius: 999px; color: #fff; font-size: .7rem; padding: .4rem .9rem; cursor: pointer; } .btn.primary { background: var(--accent); border-color: transparent; }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CRAFTSMAN+ • Playable Template Catalog</title>
+  <style>
+    :root {
+      --bg: #0f0f10;
+      --panel: #151519;
+      --text: #fff;
+      --muted: #a0a3ad;
+      --accent: #4c8fff;
+      --radius: 14px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", Roboto, sans-serif;
+      height: 100vh;
+      display: flex;
+      gap: 1.25rem;
+      padding: 1.25rem;
+    }
+
+    /* LEFT PANEL */
+    .left {
+      width: 420px;
+      background: var(--panel);
+      border-radius: var(--radius);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* HEADER with centered logo */
+    .header {
+      padding: 1rem 1.25rem .5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .header-logo {
+      width: 120px;
+      height: auto;
+      margin-bottom: .5rem;
+    }
+
+    h1 {
+      font-size: .95rem;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+      gap: .15rem;
+    }
+
+    h1 small {
+      font-size: .62rem;
+      color: var(--muted);
+      font-weight: 400;
+      letter-spacing: .01em;
+    }
+
+    /* SEARCH + CATEGORY + REFRESH */
+    .search {
+      padding: 0 1.25rem 1rem;
+      display: flex;
+      gap: .5rem;
+      align-items: center;
+    }
+
+    .search input {
+      flex: 1;
+      background: #0f0f10;
+      border: 1px solid #222;
+      border-radius: 10px;
+      padding: .55rem .7rem;
+      color: var(--text);
+      font-size: .75rem;
+    }
+
+    .category-select {
+      background: #0f0f10;
+      border: 1px solid #222;
+      border-radius: 10px;
+      color: #fff;
+      padding: .45rem .6rem;
+      font-size: .7rem;
+    }
+
+    .refresh-btn {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.05);
+      border-radius: 10px;
+      padding: .4rem .55rem;
+      font-size: .7rem;
+      color: #fff;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .refresh-btn:hover {
+      background: rgba(255,255,255,.1);
+    }
+
+    /* GRID VIEW FOR TEMPLATES */
+    .list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: 0.9rem;
+      padding: 1rem;
+      overflow-y: auto;
+      align-content: start;
+    }
+
+    .item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: rgba(255,255,255,0.02);
+      border-radius: 10px;
+      padding: .5rem;
+      cursor: pointer;
+      transition: background .2s;
+    }
+
+    .item:hover,
+    .item.active {
+      background: rgba(255,255,255,.08);
+    }
+
+    .thumb {
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      border-radius: 10px;
+      object-fit: cover;
+      background: #222;
+    }
+
+    .meta {
+      text-align: center;
+      margin-top: .35rem;
+    }
+
+    .title {
+      font-size: .75rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: .15rem;
+    }
+
+    .genre {
+      font-size: .6rem;
+      color: var(--muted);
+    }
+
+    /* RIGHT PANEL */
+    .right {
+      flex: 1;
+      background: var(--panel);
+      border-radius: var(--radius);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    .preview-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: .9rem 1.1rem;
+      border-bottom: 1px solid rgba(255,255,255,.05);
+    }
+
+    .preview-title {
+      font-weight: 600;
+      font-size: .9rem;
+    }
+
+    .actions {
+      display: flex;
+      gap: .6rem;
+    }
+
+    .btn {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 999px;
+      color: #fff;
+      font-size: .7rem;
+      padding: .4rem .9rem;
+      cursor: pointer;
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      border-color: transparent;
+    }
+
+    /* PREVIEW AREA */
+    .preview-body {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+      position: relative;
+    }
+
+    .preview-frame-wrap {
+      width: 320px;
+      height: 568px;
+      background: #000;
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 0 35px rgba(0,0,0,.4);
+      display: none;
+    }
+
+    .iframe-scale {
+      width: 100%;
+      height: 100%;
+    }
+
+    .preview-frame-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+      background: #000;
+    }
+
+    .placeholder {
+      color: var(--muted);
+      font-size: .9rem;
+      text-align: center;
+      position: absolute;
+    }
+
+    @media (max-width: 900px) {
+      body {
+        flex-direction: column;
+      }
+      .left {
+        width: 100%;
+        height: 240px;
+      }
+      .right {
+        height: calc(100vh - 240px - 2.5rem);
+      }
+      .list {
+        grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="left">
+    <header class="header">
+      <img src="thumbnails/CraftsmanPlay-Light.png" alt="CRAFTSMAN+" class="header-logo" />
+      <h1>
+        Playable Template Catalog
+        <small>CRAFTSMAN+ internal</small>
+      </h1>
+    </header>
+    <div class="search">
+      <select id="categorySelect" class="category-select">
+        <option value="">All categories</option>
+        <option value="Gaming">Gaming</option>
+        <option value="Puzzle">Puzzle</option>
+        <option value="Arcade">Arcade</option>
+        <option value="Casual">Casual</option>
+      </select>
+      <input id="search" type="text" placeholder="Search by title…" />
+      <button id="refreshBtn" class="refresh-btn">↻</button>
+    </div>
+    <div id="list" class="list"></div>
+  </div>
+
+  <div class="right">
+    <div class="preview-head">
+      <div class="preview-title" id="previewTitle">Select a template</div>
+      <div class="actions">
+        <button id="openExternal" class="btn">Open external</button>
+        <button id="reloadPreview" class="btn primary">Reload preview</button>
+      </div>
+    </div>
+    <div class="preview-body">
+      <div class="placeholder" id="placeholder">
+        <p>Select a template to preview</p>
+      </div>
+      <div class="preview-frame-wrap">
+        <div class="iframe-scale">
+          <iframe id="previewFrame" src=""></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const LIST_EL = document.getElementById('list');
+    const SEARCH_EL = document.getElementById('search');
+    const SELECT_EL = document.getElementById('categorySelect');
+    const FRAME_EL = document.getElementById('previewFrame');
+    const FRAME_WRAP = document.querySelector('.preview-frame-wrap');
+    const PLACEHOLDER = document.getElementById('placeholder');
+    const TITLE_EL = document.getElementById('previewTitle');
+    const BTN_EXT = document.getElementById('openExternal');
+    const BTN_RELOAD = document.getElementById('reloadPreview');
+    const BTN_REFRESH = document.getElementById('refreshBtn');
+
+    let data = [];
+    let filtered = [];
+    let currentItem = null;
+
+    // Build thumbnail src
+    function getThumbnailSrc(item) {
+      let thumb = (item.thumbnail || item.Thumbnail || '').trim();
+      if (thumb) {
+        if (!thumb.toLowerCase().endsWith('.png')) {
+          thumb = thumb + '.png';
+        }
+        const encoded = encodeURIComponent(thumb).replace(/%2F/g, '/');
+        return 'thumbnails/' + encoded;
+      }
+      return 'https://via.placeholder.com/120x200/151519/ffffff?text=No+Img';
+    }
+
+    async function loadData() {
+      try {
+        const r = await fetch('Playable_Endpoint_URLs.json?_=' + Date.now());
+        if (!r.ok) throw new Error('JSON not found');
+        const json = await r.json();
+        data = json;
+        filtered = json;
+        renderList();
+      } catch (err) {
+        console.error('Error loading JSON:', err);
+        LIST_EL.innerHTML = '<div style="padding:1rem;color:#f66;">Error loading JSON. Make sure Playable_Endpoint_URLs.json is in the root.</div>';
+      }
+    }
+
+    function renderList() {
+      LIST_EL.innerHTML = '';
+      filtered.forEach((item) => {
+        const div = document.createElement('div');
+        div.className = 'item';
+
+        const img = document.createElement('img');
+        img.className = 'thumb';
+        img.src = getThumbnailSrc(item);
+        img.onerror = () => {
+          img.src = 'https://via.placeholder.com/120x200/151519/ffffff?text=No+Img';
+        };
+
+        const meta = document.createElement('div');
+        meta.className = 'meta';
+
+        const title = document.createElement('div');
+        title.className = 'title';
+        title.textContent = item.Title || 'Untitled';
+
+        const genre = document.createElement('div');
+        genre.className = 'genre';
+        genre.textContent = item.Genre || 'Uncategorized';
+
+        meta.appendChild(title);
+        meta.appendChild(genre);
+
+        div.appendChild(img);
+        div.appendChild(meta);
+
+        div.addEventListener('click', () => selectItem(item, div));
+        LIST_EL.appendChild(div);
+      });
+    }
+
+    function selectItem(item, node) {
+      currentItem = item;
+      TITLE_EL.textContent = item.Title || 'Untitled';
+
+      document.querySelectorAll('.item').forEach(el => el.classList.remove('active'));
+      if (node) node.classList.add('active');
+
+      const endpoint =
+        item['Endpoint URL'] ||
+        item['Endpoint'] ||
+        item['endpoint'] ||
+        item['endpoint_url'];
+
+      const regular =
+        item['URL'] ||
+        item['Url'] ||
+        item['link'];
+
+      PLACEHOLDER.style.display = 'none';
+      FRAME_WRAP.style.display = 'block';
+
+      if (endpoint) {
+        FRAME_EL.src = endpoint;
+      } else if (regular) {
+        FRAME_EL.src = regular;
+      } else {
+        FRAME_EL.src = '';
+      }
+
+      BTN_EXT.onclick = () => {
+        if (regular) window.open(regular, '_blank');
+        else if (endpoint) window.open(endpoint, '_blank');
+      };
+
+      BTN_RELOAD.onclick = () => {
+        if (endpoint) FRAME_EL.src = endpoint + (endpoint.includes('?') ? '&' : '?') + '_=' + Date.now();
+        else if (regular) FRAME_EL.src = regular + (regular.includes('?') ? '&' : '?') + '_=' + Date.now();
+      };
+    }
+
+    function filterList() {
+      const q = SEARCH_EL.value.toLowerCase();
+      const cat = SELECT_EL.value.toLowerCase();
+      filtered = data.filter(item => {
+        const t = (item.Title || '').toLowerCase();
+        const g = (item.Genre || '').toLowerCase();
+        const matchText = t.includes(q) || g.includes(q);
+        const matchCat = !cat || g.includes(cat);
+        return matchText && matchCat;
+      });
+      renderList();
+    }
+
+    SEARCH_EL.addEventListener('input', filterList);
+    SELECT_EL.addEventListener('change', filterList);
+    BTN_REFRESH.addEventListener('click', loadData);
+
+    // Initial load
+    loadData();
+  </script>
+</body>
+</html>
