@@ -313,6 +313,10 @@
     const BTN_COPY = document.getElementById('copyEndpoint');
     const BTN_REFRESH = document.getElementById('refreshBtn');
     const BTN_RELOAD_PLAYABLE = document.getElementById('reloadPlayable');
+    const SUGGESTIONS_EL = document.getElementById('searchSuggestions');
+    
+    let genresSet = new Set();
+    let titlesSet = new Set();
 
     let data = [];
     let filtered = [];
@@ -341,6 +345,32 @@
       } catch (err) {
         console.error('Error loading JSON:', err);
         LIST_EL.innerHTML = '<div style="padding:1rem;color:#f66;">Error loading JSON. Make sure Playable_Endpoint_URLs.json is in the root.</div>';
+
+        async function loadData() {
+  try {
+    const r = await fetch('Playable_Endpoint_URLs.json?_=' + Date.now());
+    if (!r.ok) throw new Error('JSON not found');
+    const json = await r.json();
+    data = json;
+    filtered = json;
+
+    // build genre/title lists
+    genresSet = new Set();
+    titlesSet = new Set();
+    json.forEach(item => {
+      const g = (item.Genre || '').trim();
+      const t = (item.Title || '').trim();
+      if (g) genresSet.add(g);
+      if (t) titlesSet.add(t);
+    });
+
+    renderList();
+  } catch (err) {
+    console.error('Error loading JSON:', err);
+    LIST_EL.innerHTML = '<div style="padding:1rem;color:#f66;">Error loading JSON. Make sure Playable_Endpoint_URLs.json is in the root.</div>';
+  }
+}
+
       }
     }
 
