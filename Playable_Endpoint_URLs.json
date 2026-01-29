@@ -7,10 +7,11 @@
     "thumbnail": "item-slicer.png"
   },
   {
-  "Title": "Platform Runner",
-  "Genre": "Gaming",
-  "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/n21dwLve26m/1953857009/index.html",
-  "thumbnail": "platform-runner.png"
+   "Title": "Platform Runner",
+    "Genre": "Gaming",
+    "URL": "https://play.preview.craftsmanplus.com/preview/?playable=ATtIV70kACD%2FNeRCpLeVKNh%2F1991726563&companyId=ATtIV70kACD&creativeId=NeRCpLeVKNh&name=Item%20Slicer%20-%20Simple&portrait=true&ratio=2:1",
+    "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/n21dwLve26m/1953857009/index.html",
+    "thumbnail": "platform-runner.png"
   },
   {
     "Title": "Memory",
