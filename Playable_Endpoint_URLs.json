@@ -684,5 +684,11 @@
     "URL": "https://play.preview.craftsmanplus.com/preview/?playable=ATtIV70kACD%2FVUOOy3wq7rL%2F524435921&companyId=ATtIV70kACD&creativeId=VUOOy3wq7rL&name=Hidden%20Video&portrait=true&ratio=2:1",
     "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/VUOOy3wq7rL/524435921/index.html",
     "thumbnail": "hidden-video.png"
-  }
+  },
+  {
+  "Title": "Platform Runner",
+  "Genre": "Gaming",
+  "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/n21dwLve26m/1953857009/index.html",
+  "thumbnail": "platfor-runner"
+}
 ]
