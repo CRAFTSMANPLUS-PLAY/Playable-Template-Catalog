@@ -7,6 +7,12 @@
     "thumbnail": "item-slicer.png"
   },
   {
+  "Title": "Platform Runner",
+  "Genre": "Gaming",
+  "Endpoint URL": "https://endpoints.prod.craftsmanplus.com/previews/ATtIV70kACD/n21dwLve26m/1953857009/index.html",
+  "thumbnail": "platform-runner.png"
+},
+  {
     "Title": "Memory",
     "Genre": "Gaming",
     "URL": "https://play.preview.craftsmanplus.com/?playable=ATtIV70kACD%2F9UZQ9NQXhLv%2F996774169&companyId=ATtIV70kACD&creativeId=9UZQ9NQXhLv&name=Memory%20-%20Advanced&portrait=true&ratio=2:1",
